@@ -8,6 +8,8 @@
 #include"hitshere.h"
 #include"player.h"
 #include"particle.h"
+#include "bed.h"
+#include "input.h"
 
 //グローバル変数宣言
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffHitShere = NULL;//バッファのポインタ
@@ -188,6 +190,8 @@ void UpdateHitShere(void)
 			}
 		}
 	}
+	BedShere();
+
 }
 
 //-------------------
@@ -318,5 +322,28 @@ void TriggerShere(int Indx)
 			SetParticle(g_aHitShere[Indx].pos + Hitvec * g_aHitShere[Indx].scale.x, g_aHitShere[Indx].scale * 0.02f);
 		}
 		break;
+	}
+}
+
+//--------------------------
+// ベッドの当たり判定
+//--------------------------
+void BedShere(void)
+{
+	Player* pPlayer = GetPlayer();
+	Bed* pBed = GetBed();
+	D3DXVECTOR3 scale = D3DXVECTOR3(50.0f, 0.0f, 0.0f);
+
+	float Space = sqrtf((pPlayer->pos.x - pBed->pos.x) * (pPlayer->pos.x - pBed->pos.x) + (pPlayer->pos.y - pBed->pos.y) * (pPlayer->pos.y - pBed->pos.y) + (pPlayer->pos.z - pBed->pos.z) * (pPlayer->pos.z - pBed->pos.z));
+	if (Space < PLAYER_SIZE * 0.5f + scale.x)
+	{
+
+
+		//Space = (PLAYER_SIZE * 0.5f + scale.x) - Space;
+		//D3DXVECTOR3 Hitvec = pPlayer->pos - pBed->pos;
+		//D3DXVec3Normalize(&Hitvec, &Hitvec);
+		//pPlayer->move += Hitvec * Space;
+		//pPlayer->nLife -= DAMEGE;
+		//SetParticle(pBed->pos + Hitvec * scale.x, scale * 0.02f);
 	}
 }

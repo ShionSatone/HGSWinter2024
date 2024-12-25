@@ -46,5 +46,6 @@ void UpdateHitShere(void);//更新処理
 void DrawHitShere(void);//描画処理
 void SetHitShere(D3DXVECTOR3 pos, D3DXVECTOR3 scale, int Life, MASTER Master);//設定処理
 void TriggerShere(int Indx);
+void BedShere(void);		// ベッドの当たり判定
 
 #endif _HITSHERE_H_
