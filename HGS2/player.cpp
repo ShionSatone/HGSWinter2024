@@ -455,6 +455,7 @@ void UpdatePlayer(void)
 	else if (CollisionSword(pBlackSnata->pos) == true && pBlackSnata->bUse == true)
 	{
 		pBlackSnata->bUse = false;//ブラックサンタの使用状態をfalseにする
+		AddScore(1);
 	}
 
 	if (g_Player.pStage != NULL)
