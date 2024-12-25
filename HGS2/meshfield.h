@@ -11,7 +11,7 @@
 #include"main.h"
 #include"game.h"
 
-#define MESHFIELD_TEX "data\\TEXTURE\\field000.jpg"
+#define MESHFIELD_TEX "data\\TEXTURE\\yuki000.jpg"
 #define MESHFIELD_TEX2 "data\\TEXTURE\\yuki002.png"
 #define MESHFIELD_MAX (64)
 #define MESHFIELD_TEX_MAX (2)
