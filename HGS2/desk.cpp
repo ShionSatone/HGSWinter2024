@@ -33,7 +33,7 @@ void InitDesk(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 
-	g_Desk.pos = D3DXVECTOR3(-40.0f, 0.0f, 30.0f);
+	g_Desk.pos = D3DXVECTOR3(-70.0f, 0.0f, 10.0f);
 	g_Desk.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Desk.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
