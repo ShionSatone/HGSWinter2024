@@ -18,8 +18,6 @@ void InitCamera(void)
 	g_camera.posV = D3DXVECTOR3(0.0f, 200.0f, -150.0f);
 	g_camera.posR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_camera.posU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-
-	g_camera.rot = D3DXVECTOR3(-atan2f(120.0f, 300.0f), 0.0f, 0.0f);
 }
 
 //-------------------
