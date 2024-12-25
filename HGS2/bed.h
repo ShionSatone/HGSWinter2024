@@ -1,12 +1,12 @@
 //---------------------------------------
 //
-//プレゼント処理[present.h]
+//ベッド処理[present.h]
 //Author fuma sato
 //
 //---------------------------------------
 
-#ifndef _PRESENT_H_
-#define _PRESENT_H_
+#ifndef _BED_H_
+#define _BED_H_
 
 #include"main.h"
 
@@ -28,15 +28,15 @@ typedef struct
 	int nNumVtx;
 	DWORD sizeFVF;
 	BYTE* pVtxBuff;
-	int nIdxPresentParent;
-}Present;
+	int nIdxBedParent;
+}Bed;
 
-void InitPresent(void);//ポリゴンの初期化処理
-void UninitPresent(void);//ポリゴンの終了処理
-void UpdatePresent(void);//ポリゴンの更新処理
-void DrawPresent(void);//ポリゴンの描画処理
+void InitBed(void);//ポリゴンの初期化処理
+void UninitBed(void);//ポリゴンの終了処理
+void UpdateBed(void);//ポリゴンの更新処理
+void DrawBed(void);//ポリゴンの描画処理
 
-Present* GetPresent(void);
-void SetPresentPos(D3DXVECTOR3 pos);
+Bed* GetBed(void);
+void SetBedPos(D3DXVECTOR3 pos);
 
-#endif _MODEL_H_
+#endif _BED_H_

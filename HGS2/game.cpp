@@ -22,7 +22,9 @@
 #include"hitshere.h"
 #include"snow.h"
 #include"ui.h"
+#include "present.h"
 #include"santa.h"
+#include "bed.h"
 
 #include"shadow.h"
 #include"billboard.h"
@@ -65,6 +67,8 @@ void InitGame(void)
 	InitTime();
 	InitUi();
 	InitHitShere();
+	InitPresent();		// プレゼント
+	InitBed();			// ベッド
 
 	//空間
 	SetMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
@@ -115,6 +119,8 @@ void UninitGame(void)
 	UninitLife();
 	UninitShadow();
 	UninitModel();
+	UninitPresent();		// プレゼント
+	UninitBed();			// ベッド
 }
 
 //--------------
@@ -238,6 +244,8 @@ void UpdateGame(void)
 		UpdateScore();
 		UpdateSnow();
 		UpdateUi();
+		UpdatePresent();
+		UpdateBed();			// ベッド
 	}
 }
 
@@ -265,6 +273,8 @@ void DrawGame(void)
 	DrawScore();
 	DrawTime();
 	DrawUi();
+	DrawPresent();
+	DrawBed();			// ベッド
 }
 
 //----------------------
