@@ -141,6 +141,12 @@
     <ClCompile Include="present.cpp">
       <Filter>ソース ファイル\Ob</Filter>
     </ClCompile>
+    <ClCompile Include="bed.cpp">
+      <Filter>ソース ファイル\Ob</Filter>
+    </ClCompile>
+    <ClCompile Include="blacksanta.cpp">
+      <Filter>ソース ファイル\Ob</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -246,6 +252,12 @@
       <Filter>ヘッダー ファイル\Ob</Filter>
     </ClInclude>
     <ClInclude Include="present.h">
+      <Filter>ヘッダー ファイル\Ob</Filter>
+    </ClInclude>
+    <ClInclude Include="bed.h">
+      <Filter>ヘッダー ファイル\Ob</Filter>
+    </ClInclude>
+    <ClInclude Include="blacksanta.h">
       <Filter>ヘッダー ファイル\Ob</Filter>
     </ClInclude>
   </ItemGroup>

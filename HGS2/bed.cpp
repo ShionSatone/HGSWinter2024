@@ -5,19 +5,19 @@
 //
 //----------------------------------------
 
-#include"present.h"
+#include"bed.h"
 #include"camera.h"
 #include"input.h"
 
 // マクロ定義
-#define X_NAME "data\\MODEL\\prezent.x"
+#define X_NAME "data\\MODEL\\bed.x"
 
 //グローバル変数宣言
-Present g_Present;
+Bed g_Bed;
 //----------------------
 //ポリゴンの初期化処理
 //----------------------
-void InitPresent(void)
+void InitBed(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;//デバイスへポインタ
 	D3DXMATERIAL* pMat;//マテリアルデータへのポインタ
@@ -25,9 +25,9 @@ void InitPresent(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 
-	g_Present.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Present.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Present.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Bed.pos = D3DXVECTOR3(300.0f, 0.0f, 0.0f);
+	g_Bed.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Bed.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
 	//Xファイル読み込み
 	D3DXLoadMeshFromX
@@ -36,16 +36,16 @@ void InitPresent(void)
 		D3DXMESH_SYSTEMMEM,
 		pDevice,
 		NULL,
-		&g_Present.pBuffMat,
+		&g_Bed.pBuffMat,
 		NULL,
-		&g_Present.dwNumMat,
-		&g_Present.pMesh
+		&g_Bed.dwNumMat,
+		&g_Bed.pMesh
 	);
 
 	//マテリアルデータへのポインタを取得
-	pMat = (D3DXMATERIAL*)g_Present.pBuffMat->GetBufferPointer();
+	pMat = (D3DXMATERIAL*)g_Bed.pBuffMat->GetBufferPointer();
 
-	for (int nCntMat = 0; nCntMat < (int)g_Present.dwNumMat; nCntMat++)
+	for (int nCntMat = 0; nCntMat < (int)g_Bed.dwNumMat; nCntMat++)
 	{
 		if (pMat[nCntMat].pTextureFilename != NULL)
 		{//テクスチャがある
@@ -54,7 +54,7 @@ void InitPresent(void)
 			(
 				pDevice,
 				pMat[nCntMat].pTextureFilename,
-				&g_Present.apTexture[nCntMat]
+				&g_Bed.apTexture[nCntMat]
 			);
 		}
 	}
@@ -63,34 +63,34 @@ void InitPresent(void)
 //-------------------
 //ポリゴン終了処理
 //-------------------
-void UninitPresent(void)
+void UninitBed(void)
 {
 	for (int i = 0; i < 64; i++)
 	{
-		if (g_Present.apTexture[i]!=NULL)
+		if (g_Bed.apTexture[i]!=NULL)
 		{
-			g_Present.apTexture[i]->Release();
-			g_Present.apTexture[i] = NULL;
+			g_Bed.apTexture[i]->Release();
+			g_Bed.apTexture[i] = NULL;
 		}
 	}
 	//メッシュの破棄
-	if (g_Present.pMesh != NULL)
+	if (g_Bed.pMesh != NULL)
 	{
-		g_Present.pMesh->Release();
-		g_Present.pMesh = NULL;
+		g_Bed.pMesh->Release();
+		g_Bed.pMesh = NULL;
 	}
 	//マテリアルの破棄
-	if (g_Present.pBuffMat != NULL)
+	if (g_Bed.pBuffMat != NULL)
 	{
-		g_Present.pBuffMat->Release();
-		g_Present.pBuffMat = NULL;
+		g_Bed.pBuffMat->Release();
+		g_Bed.pBuffMat = NULL;
 	}
 }
 
 //-------------------
 //ポリゴン更新処理
 //-------------------
-void UpdatePresent(void)
+void UpdateBed(void)
 {
 
 }
@@ -98,7 +98,7 @@ void UpdatePresent(void)
 //-------------------
 //ポリゴン描画処理
 //-------------------
-void DrawPresent(void)
+void DrawBed(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;//デバイスへポインタ
 	D3DXMATRIX mtxRot, mtxTrans, mtxScale;//計算マトリックス
@@ -108,38 +108,38 @@ void DrawPresent(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 	//マトリックス初期化
-	D3DXMatrixIdentity(&g_Present.mtxWorld);
+	D3DXMatrixIdentity(&g_Bed.mtxWorld);
 
 	//大きさの反映
-	D3DXMatrixScaling(&mtxScale, g_Present.scale.x, g_Present.scale.y, g_Present.scale.z);
-	D3DXMatrixMultiply(&g_Present.mtxWorld, &g_Present.mtxWorld, &mtxScale);
+	D3DXMatrixScaling(&mtxScale, g_Bed.scale.x, g_Bed.scale.y, g_Bed.scale.z);
+	D3DXMatrixMultiply(&g_Bed.mtxWorld, &g_Bed.mtxWorld, &mtxScale);
 
 	//向きの反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, g_Present.rot.y, g_Present.rot.x, g_Present.rot.z);
-	D3DXMatrixMultiply(&g_Present.mtxWorld, &g_Present.mtxWorld, &mtxRot);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, g_Bed.rot.y, g_Bed.rot.x, g_Bed.rot.z);
+	D3DXMatrixMultiply(&g_Bed.mtxWorld, &g_Bed.mtxWorld, &mtxRot);
 
 	//位置の反映
-	D3DXMatrixTranslation(&mtxTrans, g_Present.pos.x, g_Present.pos.y, g_Present.pos.z);
-	D3DXMatrixMultiply(&g_Present.mtxWorld, &g_Present.mtxWorld, &mtxTrans);
+	D3DXMatrixTranslation(&mtxTrans, g_Bed.pos.x, g_Bed.pos.y, g_Bed.pos.z);
+	D3DXMatrixMultiply(&g_Bed.mtxWorld, &g_Bed.mtxWorld, &mtxTrans);
 
 	//ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &g_Present.mtxWorld);
+	pDevice->SetTransform(D3DTS_WORLD, &g_Bed.mtxWorld);
 
 	//現在のマテリアル取得
 	pDevice->GetMaterial(&matDef);
 
 	//マテリアルデータへのポインタを取得
-	pMat = (D3DXMATERIAL*)g_Present.pBuffMat->GetBufferPointer();
+	pMat = (D3DXMATERIAL*)g_Bed.pBuffMat->GetBufferPointer();
 
-	for (int nCntMat = 0; nCntMat < (int)g_Present.dwNumMat; nCntMat++)
+	for (int nCntMat = 0; nCntMat < (int)g_Bed.dwNumMat; nCntMat++)
 	{
 		//マテリアルの設定
 		pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
 		//テクスチャ
-		pDevice->SetTexture(0, g_Present.apTexture[nCntMat]);
+		pDevice->SetTexture(0, g_Bed.apTexture[nCntMat]);
 
 		//モデル描画
-		g_Present.pMesh->DrawSubset(nCntMat);
+		g_Bed.pMesh->DrawSubset(nCntMat);
 	}
 
 	pDevice->SetMaterial(&matDef);
@@ -148,15 +148,15 @@ void DrawPresent(void)
 //------------------------------
 // 情報取得
 //------------------------------
-Present* GetPresent(void)
+Bed* GetBed(void)
 {
-	return &g_Present;
+	return &g_Bed;
 }
 
 //------------------------------
 // 情報設定
 //------------------------------
-void SetPresentPos(D3DXVECTOR3 pos)
+void SetBedPos(D3DXVECTOR3 pos)
 {
-	g_Present.pos = pos;		// 位置設定
+	g_Bed.pos = pos;		// 位置設定
 }

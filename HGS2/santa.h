@@ -7,9 +7,8 @@
 
 #ifndef _SANTA_H_
 #define _SANTA_H_
-#if 0
 #include"main.h"
-#include"stage.h"
+#include"player.h"
 #include"model.h"
 
 #define SANTA_BODY_NAME "data\\MODEL\\AKRmodel\\00_body.x"
@@ -21,8 +20,6 @@
 #define NUM_MOTION_SANTA (1)
 #define SANTA_SPEED (1.0f)
 #define SANTA_SPEED_DEF (0.0f)
-#define SANTA_JUMP (20.0f)
-#define SANTA_JUMP_INA (0.9f)
 #define SANTA_INA (0.1f)
 #define SANTA_ROT_SPEED (0.1f)
 #define SANTA_SCALE_SPEED (0.2f)
@@ -31,6 +28,7 @@
 #define SANTA_LIFE (1000)
 #define SANTA_BLEND_FRAME (10.0f)
 #define SANTA_SIZE (50.0f)
+#define PRESENT_SPACE (1.0f)
 
 //プレイヤー状態の列挙型定義
 typedef enum
@@ -42,54 +40,18 @@ typedef enum
 	SANTASTATE_MAX//数
 }SANTASTATE;
 
-//モーションの種類
-typedef enum
-{
-	MOTIONTYPE_NEUTRAL = 0,
-	MOTIONTYPE_MOVE,
-	MOTIONTYPE_ACTION,
-	MOTIONTYPE_JUMP,
-	MOTIONTYPE_LANDING,
-	MOTIONTYPE_MAX
-}MOTIONTYPE;
-
-//キーの構造体
-typedef struct
-{
-	float fPosX;
-	float fPosY;
-	float fPosZ;
-	float fRotX;
-	float fRotY;
-	float fRotZ;
-}KEY;
-
-//キー情報の構造体
-typedef struct
-{
-	int nFrame;
-	KEY aKey[MAX_MODEL_SANTA];
-}KEY_INFO;
-
-typedef struct
-{
-	bool bLoop;
-	int nNumKey;
-	KEY_INFO aKeyInfo[MAX_KEY_SANTA];
-}MOTION_INFO;
-
 //プレイヤー構造体
 typedef struct
 {
 	D3DXVECTOR3 pos;
 	D3DXVECTOR3 posOld;
+	D3DXVECTOR3 Startpos;
 	D3DXVECTOR3 move;
 	D3DXVECTOR3 rot;
 	D3DXVECTOR3 Destrot;
 	D3DXVECTOR3 scale;
-	bool bJump;
 	int nLife;
-	PLAYERSTATE state;
+	SANTASTATE state;
 	D3DXMATRIX mtxWorld;
 	int nIdxShadow;
 	int nIdxLife;
@@ -103,6 +65,7 @@ typedef struct
 	int nKey;
 	int nCounterMotion;
 	Stage* pStage;
+	bool bPresent;
 	bool bUse;
 }Santa;
 
@@ -112,7 +75,9 @@ void UpdateSanta(void);//ポリゴンの更新処理
 void DrawSanta(void);//ポリゴンの描画処理
 Santa* GetSanta(void);
 
+void SetSanta(D3DXVECTOR3 pos);
+void EndSanta(void);
+
 void UpdateSantaMotion(void);
 void CollisionSanta(D3DXVECTOR3 pos, float Length);
 #endif
-#endif _SANTA_H_

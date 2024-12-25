@@ -8,6 +8,8 @@
 #include"hitshere.h"
 #include"player.h"
 #include"particle.h"
+#include "bed.h"
+#include "input.h"
 
 //グローバル変数宣言
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffHitShere = NULL;//バッファのポインタ
@@ -188,6 +190,8 @@ void UpdateHitShere(void)
 			}
 		}
 	}
+	BedShere();
+
 }
 
 //-------------------
@@ -318,5 +322,27 @@ void TriggerShere(int Indx)
 			SetParticle(g_aHitShere[Indx].pos + Hitvec * g_aHitShere[Indx].scale.x, g_aHitShere[Indx].scale * 0.02f);
 		}
 		break;
+	}
+}
+
+//--------------------------
+// ベッドの当たり判定
+//--------------------------
+void BedShere(void)
+{
+	Player* pPlayer = GetPlayer();
+	Bed* pBed = GetBed();
+	D3DXVECTOR3 scale = D3DXVECTOR3(100.0f, 0.0f, 0.0f);
+
+	float Space = sqrtf((pPlayer->pos.x - pBed->pos.x) * (pPlayer->pos.x - pBed->pos.x) + (pPlayer->pos.y - pBed->pos.y) * (pPlayer->pos.y - pBed->pos.y) + (pPlayer->pos.z - pBed->pos.z) * (pPlayer->pos.z - pBed->pos.z));
+	if (Space < PLAYER_SIZE * 0.5f + scale.x)
+	{
+		if (GetKeyboradTrigger(DIK_K) == true)
+		{
+			pPlayer->pos.x = pBed->pos.x;
+			pPlayer->pos.y = pBed->pos.y + 50.0f;
+			pPlayer->pos.z = pBed->pos.z;
+
+		}
 	}
 }
