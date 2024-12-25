@@ -11,9 +11,18 @@
 #include"player.h"
 #include"model.h"
 
-#define SANTA_BODY_NAME "data\\MODEL\\AKRmodel\\00_body.x"
+#define SANTA_BODY_NAME "data\\MODEL\\Santamodel\\00_santabody.x"
+#define SANTA_HEAD_NAME "data\\MODEL\\Santamodel\\01_santahead.x"
+#define SANTA_RIGHTARM_NAME "data\\MODEL\\Santamodel\\02_santaarmR.x"
+#define SANTA_RIGHTHAND_NAME "data\\MODEL\\Santamodel\\03_santahandR.x"
+#define SANTA_LEFTARM_NAME "data\\MODEL\\Santamodel\\04_santaarmL.x"
+#define SANTA_LEFTHAND_NAME "data\\MODEL\\Santamodel\\05_santahandL.x"
+#define SANTA_RIGHTLEG_NAME "data\\MODEL\\Santamodel\\06_santalegR.x"
+#define SANTA_RIGHTFOOT_NAME "data\\MODEL\\Santamodel\\07_santafootR.x"
+#define SANTA_LEFTLEG_NAME "data\\MODEL\\Santamodel\\08_santalegL.x"
+#define SANTA_LEFTFOOT_NAME "data\\MODEL\\Santamodel\\09_santafootL.x"
 #define MAX_MODEL_SANTA (16)
-#define NUM_MODEL_SANTA (1)
+#define NUM_MODEL_SANTA (10)
 #define MAX_KEY_SANTA (16)
 #define NUM_KEY_SANTA (2)
 #define MAX_MOTION_SANTA (16)
@@ -28,7 +37,7 @@
 #define SANTA_LIFE (1000)
 #define SANTA_BLEND_FRAME (10.0f)
 #define SANTA_SIZE (50.0f)
-#define PRESENT_SPACE (1.0f)
+#define PRESENT_SPACE (30.0f)
 
 //プレイヤー状態の列挙型定義
 typedef enum

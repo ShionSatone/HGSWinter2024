@@ -14,6 +14,7 @@
 #include"life.h"
 #include"bed.h"
 #include"present.h"
+#include"score.h"
 
 //グローバル変数宣言
 Santa g_Santa;
@@ -150,6 +151,123 @@ void InitSanta(void)
 		&g_Santa.aModel[0].pMesh
 	);
 
+	//Xファイル読み込み
+	D3DXLoadMeshFromX
+	(
+		SANTA_HEAD_NAME,
+		D3DXMESH_SYSTEMMEM,
+		pDevice,
+		NULL,
+		&g_Santa.aModel[1].pBuffMat,
+		NULL,
+		&g_Santa.aModel[1].dwNumMat,
+		&g_Santa.aModel[1].pMesh
+	);
+
+	//Xファイル読み込み
+	D3DXLoadMeshFromX
+	(
+		SANTA_RIGHTARM_NAME,
+		D3DXMESH_SYSTEMMEM,
+		pDevice,
+		NULL,
+		&g_Santa.aModel[2].pBuffMat,
+		NULL,
+		&g_Santa.aModel[2].dwNumMat,
+		&g_Santa.aModel[2].pMesh
+	);
+
+	//Xファイル読み込み
+	D3DXLoadMeshFromX
+	(
+		SANTA_RIGHTHAND_NAME,
+		D3DXMESH_SYSTEMMEM,
+		pDevice,
+		NULL,
+		&g_Santa.aModel[3].pBuffMat,
+		NULL,
+		&g_Santa.aModel[3].dwNumMat,
+		&g_Santa.aModel[3].pMesh
+	);
+
+	//Xファイル読み込み
+	D3DXLoadMeshFromX
+	(
+		SANTA_LEFTARM_NAME,
+		D3DXMESH_SYSTEMMEM,
+		pDevice,
+		NULL,
+		&g_Santa.aModel[4].pBuffMat,
+		NULL,
+		&g_Santa.aModel[4].dwNumMat,
+		&g_Santa.aModel[4].pMesh
+	);
+
+	//Xファイル読み込み
+	D3DXLoadMeshFromX
+	(
+		SANTA_LEFTHAND_NAME,
+		D3DXMESH_SYSTEMMEM,
+		pDevice,
+		NULL,
+		&g_Santa.aModel[5].pBuffMat,
+		NULL,
+		&g_Santa.aModel[5].dwNumMat,
+		&g_Santa.aModel[5].pMesh
+	);
+
+	//Xファイル読み込み
+	D3DXLoadMeshFromX
+	(
+		SANTA_RIGHTLEG_NAME,
+		D3DXMESH_SYSTEMMEM,
+		pDevice,
+		NULL,
+		&g_Santa.aModel[6].pBuffMat,
+		NULL,
+		&g_Santa.aModel[6].dwNumMat,
+		&g_Santa.aModel[6].pMesh
+	);
+
+	//Xファイル読み込み
+	D3DXLoadMeshFromX
+	(
+		SANTA_RIGHTFOOT_NAME,
+		D3DXMESH_SYSTEMMEM,
+		pDevice,
+		NULL,
+		&g_Santa.aModel[7].pBuffMat,
+		NULL,
+		&g_Santa.aModel[7].dwNumMat,
+		&g_Santa.aModel[7].pMesh
+	);
+
+	//Xファイル読み込み
+	D3DXLoadMeshFromX
+	(
+		SANTA_LEFTLEG_NAME,
+		D3DXMESH_SYSTEMMEM,
+		pDevice,
+		NULL,
+		&g_Santa.aModel[8].pBuffMat,
+		NULL,
+		&g_Santa.aModel[8].dwNumMat,
+		&g_Santa.aModel[8].pMesh
+	);
+
+	//Xファイル読み込み
+	D3DXLoadMeshFromX
+	(
+		SANTA_LEFTFOOT_NAME,
+		D3DXMESH_SYSTEMMEM,
+		pDevice,
+		NULL,
+		&g_Santa.aModel[9].pBuffMat,
+		NULL,
+		&g_Santa.aModel[9].dwNumMat,
+		&g_Santa.aModel[9].pMesh
+	);
+
 	g_Santa.nNumModel = NUM_MODEL_SANTA;
 
 	int nCntModel;
@@ -217,9 +335,45 @@ void InitSanta(void)
 	}
 
 	g_Santa.aModel[0].nIdxModelParent = -1;
-	g_Santa.aModel[0].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Santa.aModel[0].pos = D3DXVECTOR3(0.0f, 25.5f, 0.0f);
 	g_Santa.aModel[0].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Santa.aModel[0].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Santa.aModel[1].nIdxModelParent = 0;
+	g_Santa.aModel[1].pos = D3DXVECTOR3(0.0f, 20.0f, -3.0f);
+	g_Santa.aModel[1].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Santa.aModel[1].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Santa.aModel[2].nIdxModelParent = 0;
+	g_Santa.aModel[2].pos = D3DXVECTOR3(-10.0f, 15.0f, 0.0f);
+	g_Santa.aModel[2].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Santa.aModel[2].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Santa.aModel[3].nIdxModelParent = 2;
+	g_Santa.aModel[3].pos = D3DXVECTOR3(-20.0f, -1.0f, -3.0f);
+	g_Santa.aModel[3].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Santa.aModel[3].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Santa.aModel[4].nIdxModelParent = 0;
+	g_Santa.aModel[4].pos = D3DXVECTOR3(10.0f, 15.0f, 0.0f);
+	g_Santa.aModel[4].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Santa.aModel[4].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Santa.aModel[5].nIdxModelParent = 4;
+	g_Santa.aModel[5].pos = D3DXVECTOR3(20.5f, -2.0f, -1.0f);
+	g_Santa.aModel[5].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Santa.aModel[5].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Santa.aModel[6].nIdxModelParent = 0;
+	g_Santa.aModel[6].pos = D3DXVECTOR3(-4.0f, 1.0f, 0.0f);
+	g_Santa.aModel[6].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Santa.aModel[6].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Santa.aModel[7].nIdxModelParent = 6;
+	g_Santa.aModel[7].pos = D3DXVECTOR3(0.0f, -20.0f, 0.0f);
+	g_Santa.aModel[7].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Santa.aModel[7].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Santa.aModel[8].nIdxModelParent = 0;
+	g_Santa.aModel[8].pos = D3DXVECTOR3(4.0f, 1.0f, 0.0f);
+	g_Santa.aModel[8].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Santa.aModel[8].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Santa.aModel[9].nIdxModelParent = 8;
+	g_Santa.aModel[9].pos = D3DXVECTOR3(0.0f, -20.0f, 0.0f);
+	g_Santa.aModel[9].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Santa.aModel[9].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
 	for (int nCnt = 0; nCnt < MAX_MODEL_SANTA; nCnt++)
 	{
@@ -292,14 +446,15 @@ void UpdateSanta(void)
 			pBed = GetBed();
 			Oldrot = atan2f(g_Santa.move.x, g_Santa.move.z);//今の方向
 			Xlong = pBed->pos.x - g_Santa.pos.x;
-			Zlong = pBed->pos.z + pBed->vtxMax.z - g_Santa.pos.z;
+			Zlong = pBed->pos.z + 100.0f - g_Santa.pos.z;
 			Destrot = atan2f(Xlong, Zlong);//ベットの方向
 
+			SetPresentPos(g_Santa.pos + D3DXVECTOR3(sinf(g_Santa.rot.y - D3DX_PI) * PRESENT_SPACE, 0.0f, cosf(g_Santa.rot.y - D3DX_PI) * PRESENT_SPACE) + D3DXVECTOR3(0.0f, 50.0f, 0.0f));
 			if (sqrtf(Xlong * Xlong + Zlong * Zlong) < PRESENT_SPACE)
 			{
+				AddScore(1);
 				g_Santa.bPresent = true;
 			}
-			SetPresentPos(g_Santa.pos);
 		}
 
 		float Diffrot = Destrot - Oldrot;//差の角度
