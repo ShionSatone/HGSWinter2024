@@ -44,6 +44,8 @@
 GAMESTATE g_gameState = GAMESTATE_NONE;
 int g_nCounterGameState = 0;
 int g_GameTime = 0;
+int g_SantaCount = 0;
+int g_SantaTime = 0;
 bool g_bSnow = false;
 bool g_bClear = false;
 //--------------------
@@ -138,9 +140,6 @@ void UninitGame(void)
 //--------------
 void UpdateGame(void)
 {
-	SetSanta(D3DXVECTOR3(-100.0f, 0.0f, 0.0f));
-	SetBlackSanta(D3DXVECTOR3(-100.0f, 0.0f, 0.0f));
-
 	if (GetKeyboradTrigger(DIK_P) == true || GetJoykeyTrigger(JOYKEY_START, CONTROLLER_MAX) == true || GetMouseTrigger(MOUSE_SENTER) == true)
 	{
 		FADE fade;
@@ -219,6 +218,65 @@ void UpdateGame(void)
 				g_gameState = GAMESTATE_END;
 				g_bClear = false;
 #endif
+			}
+
+			Santa* pSanta;
+			pSanta = GetSanta();
+			BlackSanta* pBlackSanta;
+			pBlackSanta = GetBlackSanta();
+			if (!pSanta->bUse && !pSanta->bUse)
+			{
+				if (g_SantaCount == 0)
+				{
+					switch (rand() % PATA_MAX)
+					{
+					case PATA1:
+						g_SantaTime = 5;
+						break;
+					case PATA2:
+						g_SantaTime = 10;
+						break;
+					case PATA3:
+						g_SantaTime = 20;
+						break;
+					}
+				}
+				g_SantaCount++;
+
+				if (g_SantaCount >= g_SantaTime)
+				{
+					D3DXVECTOR3 pos;
+					switch (rand() % PATA_MAX)
+					{
+					case PATA1:
+						Door* pDoor;
+						pDoor = GetDoor();
+						pos = pDoor->pos;
+						break;
+					case PATA2:
+						Chimney* pChimney;
+						pChimney = GetChimney();
+						pos = pChimney->pos;
+						break;
+					case PATA3:
+						pos = D3DXVECTOR3(0.0f,50.0f,-20.0f);
+						break;
+					}
+
+					switch (rand() % PATA_MAX)
+					{
+					case 0:
+						SetSanta(pos);
+						break;
+					case 1:
+						SetBlackSanta(pos);
+						break;
+					}
+				}
+			}
+			else
+			{
+				g_SantaCount = 0;
 			}
 			break;
 		case GAMESTATE_END:
