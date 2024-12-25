@@ -12,6 +12,7 @@
 #include"file.h"
 #include"particle.h"
 #include"socks.h"
+#include"score.h"
 
 //ƒOƒ[ƒoƒ‹•Ï”éŒ¾
 BlackSanta g_BlackSanta;
@@ -127,6 +128,8 @@ void InitBlackSanta(void)
 	g_BlackSanta.nKey = -1;
 	g_BlackSanta.nNumKey = 0;
 	g_BlackSanta.nNumMotion = NUM_MOTION_BLACKSANTA;
+	g_BlackSanta.nStealCnt = 0;
+	g_BlackSanta.nStealTime = 0;
 	g_BlackSanta.bUse = false;
 
 	LoadModel();
@@ -584,6 +587,28 @@ void UpdateBlackSanta(void)
 			g_BlackSanta.bUse = false;
 			break;
 		case BLACKSANTASTATE_NORMAL:
+			if (g_BlackSanta.nStealCnt == 0)
+			{
+				switch (rand() % PATA_MAX)
+				{
+				case PATA1:
+					g_BlackSanta.nStealTime = STEAL1_TIME;
+					break;
+				case PATA2:
+					g_BlackSanta.nStealTime = STEAL2_TIME;
+					break;
+				case PATA3:
+					g_BlackSanta.nStealTime = STEAL3_TIME;
+					break;
+				}
+			}
+			g_BlackSanta.nStealCnt++;
+
+			if (g_BlackSanta.nStealCnt / FRAME >= g_BlackSanta.nStealTime)
+			{
+				AddScore(-1);
+				EndBlackSanta();
+			}
 			SetPositionShadow(g_BlackSanta.nIdxShadow, g_BlackSanta.pos, g_BlackSanta.scale, 200.0f);
 			break;
 		case BLACKSANTASTATE_DIE:
@@ -718,6 +743,8 @@ void SetBlackSanta(D3DXVECTOR3 pos)
 		g_BlackSanta.nNumKey = 0;
 		g_BlackSanta.nNumMotion = NUM_MOTION_BLACKSANTA;
 
+		g_BlackSanta.nStealCnt = 0;
+		g_BlackSanta.nStealTime = 0;
 		g_BlackSanta.bUse = true;
 	}
 }
@@ -748,6 +775,8 @@ void EndBlackSanta(void)
 		g_BlackSanta.nNumKey = 0;
 		g_BlackSanta.nNumMotion = NUM_MOTION_BLACKSANTA;
 
+		g_BlackSanta.nStealCnt = 0;
+		g_BlackSanta.nStealTime = 0;
 		g_BlackSanta.bUse = false;
 	}
 }

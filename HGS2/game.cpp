@@ -28,6 +28,7 @@
 #include "bed.h"
 #include "socks.h"
 #include "window.h"
+#include "wall.h"
 
 #include"shadow.h"
 #include"billboard.h"
@@ -41,6 +42,8 @@
 #include "chimney.h"
 #include "door.h"
 #include "meshorbit.h"
+#include "desk.h"
+#include "chair.h"
 
 //グローバル変数
 GAMESTATE g_gameState = GAMESTATE_NONE;
@@ -83,6 +86,9 @@ void InitGame(void)
 	InitSocks();		// 靴下
 	InitWindow();		// 窓
 	InitMeshSword();    //剣の軌道の初期化処理
+	InitWall();			// 壁
+	InitDesk();    //机の初期化処理
+	InitChair();    //椅子の初期化処理
 
 	//空間
 	SetMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
@@ -139,6 +145,9 @@ void UninitGame(void)
 	UninitSocks();		// 靴下
 	UninitWindow();		// 窓
 	UninitMeshSword();    //剣の軌道の終了処理
+	UninitWall();		// 壁
+	UninitDesk();    //机の終了処理
+	UninitChair();    //椅子の終了処理
 }
 
 //--------------
@@ -237,13 +246,13 @@ void UpdateGame(void)
 					switch (rand() % PATA_MAX)
 					{
 					case PATA1:
-						g_SantaTime = 5;
+						g_SantaTime = PATA1_TIME;
 						break;
 					case PATA2:
-						g_SantaTime = 10;
+						g_SantaTime = PATA2_TIME;
 						break;
 					case PATA3:
-						g_SantaTime = 20;
+						g_SantaTime = PATA3_TIME;
 						break;
 					}
 				}
@@ -269,14 +278,21 @@ void UpdateGame(void)
 						break;
 					}
 
-					switch (rand() % 2)
+					if (pPlayer->state == PLAYERSTATE_SLEEP)
 					{
-					case 0:
-						SetSanta(pos);
-						break;
-					case 1:
+						switch (rand() % 2)
+						{
+						case 0:
+							SetSanta(pos);
+							break;
+						case 1:
+							SetBlackSanta(pos);
+							break;
+						}
+					}
+					else
+					{
 						SetBlackSanta(pos);
-						break;
 					}
 				}
 			}
@@ -329,6 +345,9 @@ void UpdateGame(void)
 		UpdateSocks();		// 靴下
 		UpdateWindow();		// 窓
 		UpdateMeshSword();    //剣の軌道の更新処理
+		UpdateWall();		// 壁
+		UpdateDesk();    //机の更新処理
+		UpdateChair();    //椅子の更新処理
 	}
 }
 
@@ -364,6 +383,9 @@ void DrawGame(void)
 	DrawSocks();		// 靴下
 	DrawWindow();		// 窓
 	DrawMeshSword();    //剣の軌道の描画処理
+	DrawWall();			// 壁
+	DrawDesk();    //机の描画処理
+	DrawChair();    //椅子の描画処理
 }
 
 //----------------------

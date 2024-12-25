@@ -165,6 +165,12 @@
     <ClCompile Include="wall.cpp">
       <Filter>ソース ファイル\Ob</Filter>
     </ClCompile>
+    <ClCompile Include="desk.cpp">
+      <Filter>ソース ファイル\Ob</Filter>
+    </ClCompile>
+    <ClCompile Include="chair.cpp">
+      <Filter>ソース ファイル\Ob</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -294,6 +300,12 @@
       <Filter>ヘッダー ファイル\Ob</Filter>
     </ClInclude>
     <ClInclude Include="wall.h">
+      <Filter>ヘッダー ファイル\Ob</Filter>
+    </ClInclude>
+    <ClInclude Include="desk.h">
+      <Filter>ヘッダー ファイル\Ob</Filter>
+    </ClInclude>
+    <ClInclude Include="chair.h">
       <Filter>ヘッダー ファイル\Ob</Filter>
     </ClInclude>
   </ItemGroup>

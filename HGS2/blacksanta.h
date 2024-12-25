@@ -36,6 +36,9 @@
 #define BLACKSANTA_SCALE_MAX (10.0f)
 #define BLACKSANTA_BLEND_FRAME (10.0f)
 #define BLACKSANTA_SIZE (50.0f)
+#define STEAL1_TIME (3)
+#define STEAL2_TIME (5)
+#define STEAL3_TIME (10)
 
 //プレイヤー状態の列挙型定義
 typedef enum
@@ -69,6 +72,8 @@ typedef struct
 	int nKey;
 	int nCounterMotion;
 	Stage* pStage;
+	int nStealCnt;
+	int nStealTime;
 	bool bUse;
 }BlackSanta;
 

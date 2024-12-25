@@ -151,7 +151,7 @@ void InitPlayer(void)
 	g_Player.motionstate = MOTIONSTATE_NEUTRAL; // モーションの状態
 	g_Player.PlayerMove = 0.0f; // プレイヤーの移動量
 	g_Player.nCounterstate = 0; // プレイヤーの状態カウンター
-	g_Player.SwordOffpos = D3DXVECTOR3(0.0f, 85.0f, 0.0f);//剣の先の基準の位置
+	g_Player.SwordOffpos = D3DXVECTOR3(0.0f, 75.0f, 0.0f);//剣の先の基準の位置
 
 	LoadModel();
 	LoadPlayer();// プレイヤーのロード処理
@@ -441,7 +441,6 @@ void UpdatePlayer(void)
 	CollisionSnowBall(g_Player.pos, PLAYER_SIZE);
 
 	g_Player.bJump = !CollisionStage(&g_Player.pStage);
-
 
 	//サンタと剣の当たり判定
 	if (CollisionSword(pSanta->pos) == true && pSanta->bUse==true)

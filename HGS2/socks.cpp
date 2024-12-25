@@ -11,7 +11,7 @@
 #include "particle.h"
 
 // マクロ定義
-#define X_NAME "data\\MODEL\\saku.x"
+#define X_NAME "data\\MODEL\\socks.x"
 
 //グローバル変数宣言
 Socks g_Socks;
@@ -108,6 +108,8 @@ void DrawSocks(void)
 
 	//デバイスの取得
 	pDevice = GetDevice();
+	pDevice->SetRenderState(D3DRS_CULLMODE, TRUE);
+
 	//マトリックス初期化
 	D3DXMatrixIdentity(&g_Socks.mtxWorld);
 
@@ -142,6 +144,7 @@ void DrawSocks(void)
 		//モデル描画
 		g_Socks.pMesh->DrawSubset(nCntMat);
 	}
+	pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	pDevice->SetMaterial(&matDef);
 }
