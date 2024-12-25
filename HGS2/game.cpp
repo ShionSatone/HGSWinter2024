@@ -285,7 +285,7 @@ void DrawGame(void)
 	DrawUi();
 	DrawPresent();
 	DrawBed();			// ƒxƒbƒh
-	//DrawChimney();      //‰Œ“Ë‚Ì•`‰æˆ—
+	DrawChimney();      //‰Œ“Ë‚Ì•`‰æˆ—
 }
 
 //----------------------
