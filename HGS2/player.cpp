@@ -818,13 +818,13 @@ void CollisionObj(D3DXVECTOR3 pos, D3DXVECTOR3 Size)
 				if (g_Player.posOld.x + g_Player.Size.x * 0.5f < pos.x - Size.x * 0.5f
 					&& g_Player.pos.x + g_Player.Size.x * 0.5f > pos.x - Size.x * 0.5f)
 				{
-					g_Player.pos.x = g_Player.posOld.x;
+					g_Player.pos.x = pos.x - Size.x * 0.5f - g_Player.Size.x * 0.5f - 0.1f;
 				}
 				//x‚ª‰E‚©‚ç¶‚É‚ß‚èž‚ñ‚¾	
 				else if (g_Player.posOld.x - g_Player.Size.x * 0.5f > pos.x + Size.x * 0.5f
 					&& g_Player.pos.x - g_Player.Size.x * 0.5f < pos.x + Size.x * 0.5f)
 				{
-					g_Player.pos.x = g_Player.pos.x = g_Player.posOld.x;;
+					g_Player.pos.x = pos.x + Size.x * 0.5f + g_Player.Size.x * 0.5f + 0.1f;
 				}
 			}
 
@@ -836,13 +836,13 @@ void CollisionObj(D3DXVECTOR3 pos, D3DXVECTOR3 Size)
 				if (g_Player.posOld.z + g_Player.Size.z * 0.5f < pos.z - Size.z * 0.5f
 					&& g_Player.pos.z + g_Player.Size.z * 0.5f > pos.z - Size.z * 0.5f)
 				{
-					g_Player.pos.z = g_Player.posOld.z;
+					g_Player.pos.z = pos.z - Size.z * 0.5f - g_Player.Size.z * 0.5f  - 0.1f;
 				}
 				//z‚ªŒã•û‚©‚ç‚ß‚èž‚ñ‚¾
 				else if (g_Player.posOld.z - g_Player.Size.z * 0.5f > pos.z + Size.z * 0.5f
 					&& g_Player.pos.z - g_Player.Size.z * 0.5f < pos.z + Size.z * 0.5f)
 				{
-					g_Player.pos.z = g_Player.posOld.z;
+					g_Player.pos.z = pos.z + Size.z * 0.5f + g_Player.Size.z * 0.5f + 0.1f;
 				}
 			}
 		}
