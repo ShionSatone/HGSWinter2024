@@ -29,6 +29,7 @@ typedef struct
 	D3DXVECTOR3 pos;//位置
 	D3DXVECTOR3 rot;//向き
 	D3DXVECTOR3 scale;//大きさ
+	D3DXVECTOR3 vtxMax,vtxMin,Size;//大きさ
 	D3DXMATRIX mtxWorld;//ワールドマトリックス
 	DWORD dwNumMat;//マテリアル数
 	int nNumVtx;

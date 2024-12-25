@@ -4,12 +4,11 @@
 //Author fuma sato
 //
 //----------------------------------------
-
+#if 0
 #include"bed.h"
 #include"camera.h"
 #include"input.h"
 #include "particle.h"
-#include "player.h"
 
 // マクロ定義
 #define X_NAME "data\\MODEL\\bed.x"
@@ -43,48 +42,6 @@ void InitBed(void)
 		&g_Bed.dwNumMat,
 		&g_Bed.pMesh
 	);
-
-	//頂点数
-	g_Bed.nNumVtx = g_Bed.pMesh->GetNumVertices();
-	//頂点サイズ
-	g_Bed.sizeFVF = D3DXGetFVFVertexSize(g_Bed.pMesh->GetFVF());
-	//頂点バッファの取得
-	g_Bed.pMesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&g_Bed.pVtxBuff);
-
-	for (int nCntVtx = 0; nCntVtx < g_Bed.nNumVtx; nCntVtx++)
-	{
-		D3DXVECTOR3 vtx = *(D3DXVECTOR3*)g_Bed.pVtxBuff;
-
-		if (vtx.x > g_Bed.vtxMax.x)
-		{
-			g_Bed.vtxMax.x = vtx.x;
-		}
-		if (vtx.x < g_Bed.vtxMin.x)
-		{
-			g_Bed.vtxMin.x = vtx.x;
-		}
-		if (vtx.y > g_Bed.vtxMax.y)
-		{
-			g_Bed.vtxMax.y = vtx.y;
-		}
-		if (vtx.y < g_Bed.vtxMin.y)
-		{
-			g_Bed.vtxMin.y = vtx.y;
-		}
-		if (vtx.z > g_Bed.vtxMax.z)
-		{
-			g_Bed.vtxMax.z = vtx.z;
-		}
-		if (vtx.z < g_Bed.vtxMin.z)
-		{
-			g_Bed.vtxMin.z = vtx.z;
-		}
-
-		g_Bed.pVtxBuff += g_Bed.sizeFVF;
-	}
-	g_Bed.Size.x = g_Bed.vtxMax.x - g_Bed.vtxMin.x;
-	g_Bed.Size.y = g_Bed.vtxMax.y - g_Bed.vtxMin.y;
-	g_Bed.Size.z = g_Bed.vtxMax.z - g_Bed.vtxMin.z;
 
 	//マテリアルデータへのポインタを取得
 	pMat = (D3DXMATERIAL*)g_Bed.pBuffMat->GetBufferPointer();
@@ -140,8 +97,6 @@ void UpdateBed(void)
 	{
 		SetParticle(D3DXVECTOR3(g_Bed.pos.x, g_Bed.pos.y + 50.0f, g_Bed.pos.z), D3DXVECTOR3(1.0f, 1.0f, 1.0f), PARTICLE_TYPE_COLLECT);
 	}
-
-	CollisionObj(g_Bed.pos,g_Bed.Size);//当たり判定
 }
 
 //-------------------
@@ -209,7 +164,4 @@ void SetBedPos(D3DXVECTOR3 pos)
 {
 	g_Bed.pos = pos;		// 位置設定
 }
-
-void CollisionBed(void)
-{
-}
+#endif

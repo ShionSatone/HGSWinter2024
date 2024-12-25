@@ -29,6 +29,7 @@ typedef struct
 	DWORD sizeFVF;
 	BYTE* pVtxBuff;
 	int nIdxBedParent;
+	D3DXVECTOR3 Size;//ベッドのサイズ
 }Bed;
 
 void InitBed(void);//ポリゴンの初期化処理
@@ -38,5 +39,4 @@ void DrawBed(void);//ポリゴンの描画処理
 
 Bed* GetBed(void);
 void SetBedPos(D3DXVECTOR3 pos);
-
 #endif _BED_H_
