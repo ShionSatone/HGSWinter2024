@@ -201,30 +201,30 @@ void UpdateCursor(void)
 //------------------
 void DrawCursor(void)
 {
-	LPDIRECT3DDEVICE9 pDevice;//デバイスへポインタ
+	//LPDIRECT3DDEVICE9 pDevice;//デバイスへポインタ
 
-    //デバイスの取得
-	pDevice = GetDevice();
+ //   //デバイスの取得
+	//pDevice = GetDevice();
 
-	if (g_Cursor.bUse)
-	{
-		//頂点バッファ
-		pDevice->SetStreamSource(0, g_pVtxBuffCursor, 0, sizeof(VERTEX_2D));
+	//if (g_Cursor.bUse)
+	//{
+	//	//頂点バッファ
+	//	pDevice->SetStreamSource(0, g_pVtxBuffCursor, 0, sizeof(VERTEX_2D));
 
-		//頂点フォーマットの設定
-		pDevice->SetFVF(FVF_VERTEX_2D);
+	//	//頂点フォーマットの設定
+	//	pDevice->SetFVF(FVF_VERTEX_2D);
 
-		//テクスチャの設定
-		pDevice->SetTexture(0, g_pTextureCursor);
+	//	//テクスチャの設定
+	//	pDevice->SetTexture(0, g_pTextureCursor);
 
-		//プレイヤーの描画
-		pDevice->DrawPrimitive
-		(
-			D3DPT_TRIANGLESTRIP,//タイプ
-			0,//始まりの番号
-			2//ポリゴンの個数
-		);
-	}
+	//	//プレイヤーの描画
+	//	pDevice->DrawPrimitive
+	//	(
+	//		D3DPT_TRIANGLESTRIP,//タイプ
+	//		0,//始まりの番号
+	//		2//ポリゴンの個数
+	//	);
+	//}
 }
 
 //-------------------
