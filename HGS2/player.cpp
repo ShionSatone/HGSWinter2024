@@ -785,6 +785,7 @@ bool CollisionSword(D3DXVECTOR3 pos)
 			10,
 			EFFECT_TYPE_NORMAL);
 #endif
+
 		if (fDistanse <= fRadius && g_Player.motionType == MOTIONTYPE_ACTION)
 		{
 			bHit = true;//Œ•‚ªƒTƒ“ƒ^‚É“–‚½‚Á‚½
