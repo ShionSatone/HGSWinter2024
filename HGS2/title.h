@@ -10,9 +10,8 @@
 
 #include"main.h"
 
-#define TEXTURE_ROGO "data\\TEXTURE\\Title Rogo.png"
-#define TEXTURE_ROGOTXT "data\\TEXTURE\\Title txt.png"
-#define TEXTURE_START "data\\TEXTURE\\Enter or Start.png"
+#define TEXTURE_ROGOTXT "data\\TEXTURE\\title (2).png"
+#define TEXTURE_START "data\\TEXTURE\\clicktostart.png"
 #define TEXTURE_SELECT "data\\TEXTURE\\Select.png"
 
 void InitTitle(void);//ƒ^ƒCƒgƒ‹‰Šú‰»ˆ—
