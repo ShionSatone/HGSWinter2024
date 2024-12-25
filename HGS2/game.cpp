@@ -227,7 +227,7 @@ void UpdateGame(void)
 			pSanta = GetSanta();
 			BlackSanta* pBlackSanta;
 			pBlackSanta = GetBlackSanta();
-			if (!pSanta->bUse && !pSanta->bUse)
+			if (!pSanta->bUse && !pBlackSanta->bUse)
 			{
 				if (g_SantaCount == 0)
 				{
@@ -246,7 +246,7 @@ void UpdateGame(void)
 				}
 				g_SantaCount++;
 
-				if (g_SantaCount >= g_SantaTime)
+				if (g_SantaCount / FRAME >= g_SantaTime)
 				{
 					D3DXVECTOR3 pos;
 					switch (rand() % PATA_MAX)
@@ -266,7 +266,7 @@ void UpdateGame(void)
 						break;
 					}
 
-					switch (rand() % PATA_MAX)
+					switch (rand() % 2)
 					{
 					case 0:
 						SetSanta(pos);
