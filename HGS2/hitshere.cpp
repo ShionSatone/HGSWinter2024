@@ -339,10 +339,19 @@ void BedShere(void)
 	{
 		if (GetKeyboradTrigger(DIK_K) == true)
 		{
-			pPlayer->pos.x = pBed->pos.x;
-			pPlayer->pos.y = pBed->pos.y + 50.0f;
-			pPlayer->pos.z = pBed->pos.z;
+			// プレイヤーの位置更新
+			pPlayer->pos = D3DXVECTOR3(pBed->pos.x, pBed->pos.y + 50.0f, pBed->pos.z);
 
+			// 向き更新
+			pPlayer->rot = D3DXVECTOR3(D3DX_PI * 0.5f, 0.0f, 0.0f);
+			pPlayer->state = PLAYERSTATE_SLEEP;		// 寝る状態にする
 		}
+	}
+	else
+	{
+		/*if (pPlayer->state == PLAYERSTATE_SLEEP)
+		{
+			pPlayer->state = PLAYERSTATE_NORMAL;
+		}*/
 	}
 }
