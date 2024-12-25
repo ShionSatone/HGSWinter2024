@@ -1,12 +1,12 @@
 //---------------------------------------
 //
-//ベッド処理[present.h]
+//壁処理[wall.h]
 //Author fuma sato
 //
 //---------------------------------------
-#if 0
-#ifndef _BED_H_
-#define _BED_H_
+
+#ifndef _WALL_H_
+#define _WALL_H_
 
 #include"main.h"
 
@@ -28,15 +28,15 @@ typedef struct
 	int nNumVtx;
 	DWORD sizeFVF;
 	BYTE* pVtxBuff;
-	int nIdxBedParent;
-}Bed;
+	int nIdxWallParent;
+}Wall;
 
-void InitBed(void);//ポリゴンの初期化処理
-void UninitBed(void);//ポリゴンの終了処理
-void UpdateBed(void);//ポリゴンの更新処理
-void DrawBed(void);//ポリゴンの描画処理
+void InitWall(void);//ポリゴンの初期化処理
+void UninitWall(void);//ポリゴンの終了処理
+void UpdateWall(void);//ポリゴンの更新処理
+void DrawWall(void);//ポリゴンの描画処理
 
-Bed* GetBed(void);
-void SetBedPos(D3DXVECTOR3 pos);
-#endif
+Wall* GetWall(void);
+void SetWallPos(D3DXVECTOR3 pos);
+
 #endif _BED_H_
