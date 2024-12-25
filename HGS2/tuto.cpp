@@ -44,11 +44,11 @@ void InitTuto(void)
 
 	g_pVtxBuffTuto->Lock(0, 0, (void**)&pVtx, 0);//プレイヤーバッファのロック
 
-		//座標設定
-	pVtx[0].pos = D3DXVECTOR3(-SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f);
-	pVtx[1].pos = D3DXVECTOR3(-SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f);
-	pVtx[2].pos = D3DXVECTOR3(-SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f);
-	pVtx[3].pos = D3DXVECTOR3(-SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f);
+	//座標設定
+	pVtx[0].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	pVtx[1].pos = D3DXVECTOR3(SCREEN_WIDTH, 0.0f, 0.0f);
+	pVtx[2].pos = D3DXVECTOR3(0.0f, SCREEN_HEIGHT, 0.0f);
+	pVtx[3].pos = D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f);
 
 	//rhw
 	pVtx[0].rhw = 1.0f;
@@ -106,7 +106,7 @@ void UpdateTuto(void)
 			StopSound(SOUND_LABEL_BGM5);
 			StopSound(SOUND_LABEL_BGM4);
 			//切替
-			SetFade(MODE_RANK);
+			SetFade(MODE_GAME);
 		}
 	}
 
@@ -124,7 +124,7 @@ void UpdateTuto(void)
 					StopSound(SOUND_LABEL_BGM5);
 					StopSound(SOUND_LABEL_BGM4);
 					//切替
-					SetFade(MODE_RANK);
+					SetFade(MODE_GAME);
 				}
 			}
 		}
@@ -140,7 +140,7 @@ void UpdateTuto(void)
 					StopSound(SOUND_LABEL_BGM5);
 					StopSound(SOUND_LABEL_BGM4);
 					//切替
-					SetFade(MODE_RANK);
+					SetFade(MODE_GAME);
 				}
 			}
 		}
@@ -156,7 +156,7 @@ void UpdateTuto(void)
 					StopSound(SOUND_LABEL_BGM5);
 					StopSound(SOUND_LABEL_BGM4);
 					//切替
-					SetFade(MODE_RANK);
+					SetFade(MODE_GAME);
 				}
 			}
 		}
@@ -172,7 +172,7 @@ void UpdateTuto(void)
 					StopSound(SOUND_LABEL_BGM5);
 					StopSound(SOUND_LABEL_BGM4);
 					//切替
-					SetFade(MODE_RANK);
+					SetFade(MODE_GAME);
 				}
 			}
 		}
