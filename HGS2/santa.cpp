@@ -16,6 +16,7 @@
 #include"present.h"
 #include"score.h"
 #include"player.h"
+#include"socks.h"
 
 //グローバル変数宣言
 Santa g_Santa;
@@ -422,7 +423,7 @@ void UpdateSanta(void)
 	{
 		//移動処理
 		Player* pPlayer = GetPlayer();
-		Bed* pBed;
+		Socks* pSocks;
 		float Oldrot;//今の方向
 		float Xlong;
 		float Zlong;
@@ -445,10 +446,10 @@ void UpdateSanta(void)
 			else
 			{
 				//移動処理
-				pBed = GetBed();
+				pSocks = GetSocks();
 				Oldrot = atan2f(g_Santa.move.x, g_Santa.move.z);//今の方向
-				Xlong = pBed->pos.x - g_Santa.pos.x;
-				Zlong = pBed->pos.z + 100.0f - g_Santa.pos.z;
+				Xlong = pSocks->pos.x - g_Santa.pos.x;
+				Zlong = pSocks->pos.z - g_Santa.pos.z;
 				Destrot = atan2f(Xlong, Zlong);//ベットの方向
 
 				SetPresentPos(g_Santa.pos + D3DXVECTOR3(sinf(g_Santa.rot.y - D3DX_PI) * PRESENT_SPACE, 0.0f, cosf(g_Santa.rot.y - D3DX_PI) * PRESENT_SPACE) + D3DXVECTOR3(0.0f, 50.0f, 0.0f));
