@@ -592,13 +592,13 @@ void UpdateBlackSanta(void)
 				switch (rand() % PATA_MAX)
 				{
 				case PATA1:
-					g_BlackSanta.nStealTime = PATA1_TIME;
+					g_BlackSanta.nStealTime = STEAL1_TIME;
 					break;
 				case PATA2:
-					g_BlackSanta.nStealTime = PATA2_TIME;
+					g_BlackSanta.nStealTime = STEAL2_TIME;
 					break;
 				case PATA3:
-					g_BlackSanta.nStealTime = PATA3_TIME;
+					g_BlackSanta.nStealTime = STEAL3_TIME;
 					break;
 				}
 			}
