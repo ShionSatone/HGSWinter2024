@@ -11,10 +11,13 @@
 #include "bed.h"
 #include "input.h"
 
+#define MAX_CONTROL		(10)		// コントロールできる間隔
+
 //グローバル変数宣言
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffHitShere = NULL;//バッファのポインタ
 LPDIRECT3DINDEXBUFFER9 g_pIdxBuffHitShere = NULL;//インデックスバッファのポインタ
 HitShere g_aHitShere[HITSHERE_MAX];
+int g_nControlCounter = 0;		// 睡眠時のパッド操作カウンター
 
 //----------------------
 //ポリゴンの初期化処理
@@ -23,6 +26,8 @@ void InitHitShere(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;//デバイスへポインタ
 	VERTEX_3D* pVtx;//頂点情報ポインタ
+
+	g_nControlCounter = 0;
 
 	//デバイスの取得
 	pDevice = GetDevice();
@@ -333,11 +338,16 @@ void BedShere(void)
 	Player* pPlayer = GetPlayer();
 	Bed* pBed = GetBed();
 	D3DXVECTOR3 scale = D3DXVECTOR3(100.0f, 0.0f, 0.0f);
+	float* pStick;
+
+	//左スティック処理
+	pStick = GetJoyStick(STICK_LEFT, CONTROLLER_1);
 
 	float Space = sqrtf((pPlayer->pos.x - pBed->pos.x) * (pPlayer->pos.x - pBed->pos.x) + (pPlayer->pos.y - pBed->pos.y) * (pPlayer->pos.y - pBed->pos.y) + (pPlayer->pos.z - pBed->pos.z) * (pPlayer->pos.z - pBed->pos.z));
 	
-	if (GetKeyboradTrigger(DIK_K) == true)
-	{
+	if (GetKeyboradTrigger(DIK_SPACE) == true || GetJoykeyTrigger(JOYKEY_A, CONTROLLER_1) == true)
+	{ // 寝るキー押した場合
+
 		if (Space < PLAYER_SIZE * 0.5f + scale.x)
 		{
 			if (pPlayer->state == PLAYERSTATE_SLEEP)
@@ -352,5 +362,24 @@ void BedShere(void)
 				pPlayer->state = PLAYERSTATE_SLEEP;		// 寝る状態にする
 			}
 		}
+	}
+	else if (GetKeyboradTrigger(DIK_A) == true || GetKeyboradTrigger(DIK_D) == true ||
+		GetKeyboradTrigger(DIK_W) == true || GetKeyboradTrigger(DIK_S) == true ||
+		((sqrtf(*pStick * *pStick + *(pStick + 1) * *(pStick + 1)) >= STICK_DED) && g_nControlCounter >= MAX_CONTROL))
+	{ // 移動したら
+
+		// 起きるよ～
+		if (pPlayer->state == PLAYERSTATE_SLEEP)
+		{ // 寝てる場合
+
+			pPlayer->pos.y = 0.1f;
+			pPlayer->state = PLAYERSTATE_NORMAL;
+			g_nControlCounter = 0;
+		}
+	}
+
+	if (pPlayer->state == PLAYERSTATE_SLEEP)
+	{
+		g_nControlCounter++;
 	}
 }

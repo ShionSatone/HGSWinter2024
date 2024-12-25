@@ -150,6 +150,9 @@
     <ClCompile Include="chimney.cpp">
       <Filter>ソース ファイル\Ob</Filter>
     </ClCompile>
+    <ClCompile Include="door.cpp">
+      <Filter>ソース ファイル\Ob</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -264,6 +267,9 @@
       <Filter>ヘッダー ファイル\Ob</Filter>
     </ClInclude>
     <ClInclude Include="chimney.h">
+      <Filter>ヘッダー ファイル\Ob</Filter>
+    </ClInclude>
+    <ClInclude Include="door.h">
       <Filter>ヘッダー ファイル\Ob</Filter>
     </ClInclude>
   </ItemGroup>

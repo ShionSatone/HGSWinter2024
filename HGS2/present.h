@@ -29,6 +29,8 @@ typedef struct
 	DWORD sizeFVF;
 	BYTE* pVtxBuff;
 	int nIdxPresentParent;
+	int nIdxShadow;
+	bool bUse;
 }Present;
 
 void InitPresent(void);//ƒ|ƒŠƒSƒ“‚Ì‰Šú‰»ˆ—
@@ -38,5 +40,6 @@ void DrawPresent(void);//ƒ|ƒŠƒSƒ“‚Ì•`‰æˆ—
 
 Present* GetPresent(void);
 void SetPresentPos(D3DXVECTOR3 pos);
+void DeletePresent(void);
 
 #endif _MODEL_H_

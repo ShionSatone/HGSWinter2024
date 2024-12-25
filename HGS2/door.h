@@ -1,12 +1,12 @@
 //=======================================
 //
-//　煙突 [chimney.h]
+//　ドア [door.h]
 //　Author YOSHIDA YUTO
 //
 //=======================================
 
-#ifndef _CHIMNEY_H_
-#define _CHIMNEY_H_
+#ifndef _DOOR_H_
+#define _DOOR_H_
 
 //***************************************
 // インクルードファイル
@@ -19,7 +19,7 @@
 #define MAX_TEXTURE (64) // テクスチャの最大数
 
 //***************************************
-// 煙突の構造体
+// ドアの構造体
 //***************************************
 typedef struct
 {
@@ -35,15 +35,15 @@ typedef struct
 	DWORD sizeFVF;
 	BYTE* pVtxBuff;
 	int nIdxBedParent;
-}Chimney;
+}Door;
 
 //***************************************
 // プロトタイプ宣言
 //***************************************
-void InitChimney(void);//煙突の初期化処理
-void UninitChimney(void);//煙突のの終了処理
-void UpdateChimney(void);//煙突のの更新処理
-void DrawChimney(void);//煙突のの描画処理
-Chimney* GetChimney(void);//煙突の取得処理
-void SetChimneyPos(D3DXVECTOR3 pos);//煙突の設定処理
-#endif _CHIMNEY_H_
+void InitDoor(void);//ドアの初期化処理
+void UninitDoor(void);//ドアのの終了処理
+void UpdateDoor(void);//ドアのの更新処理
+void DrawDoor(void);//ドアのの描画処理
+Door* GetDoor(void);//ドアの取得処理
+void SetDoorPos(D3DXVECTOR3 pos);//ドアの設定処理
+#endif _BED_H_
