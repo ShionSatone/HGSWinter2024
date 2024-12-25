@@ -28,6 +28,7 @@
 #include "bed.h"
 #include "socks.h"
 #include "window.h"
+#include "wall.h"
 
 #include"shadow.h"
 #include"billboard.h"
@@ -81,6 +82,7 @@ void InitGame(void)
 	InitDoor();      //ドアの初期化処理
 	InitSocks();		// 靴下
 	InitWindow();		// 窓
+	InitWall();			// 壁
 
 	//空間
 	SetMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
@@ -136,6 +138,7 @@ void UninitGame(void)
 	UninitDoor();      //ドアの終了処理
 	UninitSocks();		// 靴下
 	UninitWindow();		// 窓
+	UninitWall();		// 壁
 }
 
 //--------------
@@ -325,6 +328,7 @@ void UpdateGame(void)
 		UpdateDoor();      //ドアの更新処理
 		UpdateSocks();		// 靴下
 		UpdateWindow();		// 窓
+		UpdateWall();		// 壁
 	}
 }
 
@@ -359,6 +363,7 @@ void DrawGame(void)
 	DrawDoor();      //ドアの描画処理
 	DrawSocks();		// 靴下
 	DrawWindow();		// 窓
+	DrawWall();			// 壁
 }
 
 //----------------------

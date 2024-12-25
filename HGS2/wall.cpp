@@ -1,24 +1,32 @@
 //----------------------------------------
 //
-//プレゼント処理[model.cpp]
+//壁処理[wall.cpp]
 //Author fuma sato
 //
 //----------------------------------------
-#if 0
-#include"bed.h"
+
+#include"wall.h"
 #include"camera.h"
 #include"input.h"
 #include "particle.h"
 
 // マクロ定義
-#define X_NAME "data\\MODEL\\bed.x"
+#define X_NAME "data\\MODEL\\madowindow.x"
+#define NUM_FILE	(4)
 
 //グローバル変数宣言
-Bed g_Bed;
+Wall g_Wall[NUM_FILE];
+
+const char* file[NUM_FILE] =
+{
+	"data\\MODEL\\madowindow.x",
+	"data\\MODEL\\wall1.x"
+};
+
 //----------------------
 //ポリゴンの初期化処理
 //----------------------
-void InitBed(void)
+void InitWall(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;//デバイスへポインタ
 	D3DXMATERIAL* pMat;//マテリアルデータへのポインタ
@@ -26,37 +34,93 @@ void InitBed(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 
-	g_Bed.pos = D3DXVECTOR3(250.0f, 0.0f, 0.0f);
-	g_Bed.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Bed.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Wall[0].pos = D3DXVECTOR3(0.0f, 0.0f, -130.0f);
+	g_Wall[1].pos = D3DXVECTOR3(0.0f, 0.0f, 200.0f);
+	g_Wall[2].pos = D3DXVECTOR3(300.0f, 0.0f, 0.0f);
+	g_Wall[2].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Wall[3].pos = D3DXVECTOR3(-300.0f, 0.0f, 0.0f);
+	g_Wall[3].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		X_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Bed.pBuffMat,
-		NULL,
-		&g_Bed.dwNumMat,
-		&g_Bed.pMesh
-	);
-
-	//マテリアルデータへのポインタを取得
-	pMat = (D3DXMATERIAL*)g_Bed.pBuffMat->GetBufferPointer();
-
-	for (int nCntMat = 0; nCntMat < (int)g_Bed.dwNumMat; nCntMat++)
+	for (int i = 0; i < NUM_FILE; i++)
 	{
-		if (pMat[nCntMat].pTextureFilename != NULL)
-		{//テクスチャがある
-			//テクスチャの読み込み
-			D3DXCreateTextureFromFile
+		g_Wall[i].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+
+		if (i == 0)
+		{
+			//Xファイル読み込み
+			D3DXLoadMeshFromX
 			(
+				"data\\MODEL\\madowindow.x",
+				D3DXMESH_SYSTEMMEM,
 				pDevice,
-				pMat[nCntMat].pTextureFilename,
-				&g_Bed.apTexture[nCntMat]
+				NULL,
+				&g_Wall[i].pBuffMat,
+				NULL,
+				&g_Wall[i].dwNumMat,
+				&g_Wall[i].pMesh
 			);
+		}
+		else if (i == 1)
+		{
+			//Xファイル読み込み
+			D3DXLoadMeshFromX
+			(
+				"data\\MODEL\\wall1.x",
+				D3DXMESH_SYSTEMMEM,
+				pDevice,
+				NULL,
+				&g_Wall[i].pBuffMat,
+				NULL,
+				&g_Wall[i].dwNumMat,
+				&g_Wall[i].pMesh
+			);
+		}
+		else if (i == 2)
+		{
+			//Xファイル読み込み
+			D3DXLoadMeshFromX
+			(
+				"data\\MODEL\\wall1.x",
+				D3DXMESH_SYSTEMMEM,
+				pDevice,
+				NULL,
+				&g_Wall[i].pBuffMat,
+				NULL,
+				&g_Wall[i].dwNumMat,
+				&g_Wall[i].pMesh
+			);
+		}
+		else if (i == 3)
+		{
+			//Xファイル読み込み
+			D3DXLoadMeshFromX
+			(
+				"data\\MODEL\\wall1.x",
+				D3DXMESH_SYSTEMMEM,
+				pDevice,
+				NULL,
+				&g_Wall[i].pBuffMat,
+				NULL,
+				&g_Wall[i].dwNumMat,
+				&g_Wall[i].pMesh
+			);
+		}
+
+		//マテリアルデータへのポインタを取得
+		pMat = (D3DXMATERIAL*)g_Wall[i].pBuffMat->GetBufferPointer();
+
+		for (int nCntMat = 0; nCntMat < (int)g_Wall[i].dwNumMat; nCntMat++)
+		{
+			if (pMat[nCntMat].pTextureFilename != NULL)
+			{//テクスチャがある
+				//テクスチャの読み込み
+				D3DXCreateTextureFromFile
+				(
+					pDevice,
+					pMat[nCntMat].pTextureFilename,
+					&g_Wall[i].apTexture[nCntMat]
+				);
+			}
 		}
 	}
 }
@@ -64,45 +128,54 @@ void InitBed(void)
 //-------------------
 //ポリゴン終了処理
 //-------------------
-void UninitBed(void)
+void UninitWall(void)
 {
-	for (int i = 0; i < 64; i++)
+	for (int nCnt = 0; nCnt < NUM_FILE; nCnt++)
 	{
-		if (g_Bed.apTexture[i]!=NULL)
+		for (int i = 0; i < 64; i++)
 		{
-			g_Bed.apTexture[i]->Release();
-			g_Bed.apTexture[i] = NULL;
+			if (g_Wall[nCnt].apTexture[i] != NULL)
+			{
+				g_Wall[nCnt].apTexture[i]->Release();
+				g_Wall[nCnt].apTexture[i] = NULL;
+			}
 		}
-	}
-	//メッシュの破棄
-	if (g_Bed.pMesh != NULL)
-	{
-		g_Bed.pMesh->Release();
-		g_Bed.pMesh = NULL;
-	}
-	//マテリアルの破棄
-	if (g_Bed.pBuffMat != NULL)
-	{
-		g_Bed.pBuffMat->Release();
-		g_Bed.pBuffMat = NULL;
+
+		//メッシュの破棄
+		if (g_Wall[nCnt].pMesh != NULL)
+		{
+			g_Wall[nCnt].pMesh->Release();
+			g_Wall[nCnt].pMesh = NULL;
+		}
+		//マテリアルの破棄
+		if (g_Wall[nCnt].pBuffMat != NULL)
+		{
+			g_Wall[nCnt].pBuffMat->Release();
+			g_Wall[nCnt].pBuffMat = NULL;
+		}
+
+		for (int i = 0; i < NUM_FILE; i++)
+		{
+			if (file[i] != NULL)
+			{
+				file[i] = NULL;
+			}
+		}
 	}
 }
 
 //-------------------
 //ポリゴン更新処理
 //-------------------
-void UpdateBed(void)
+void UpdateWall(void)
 {
-	if (GetKeyboradTrigger(DIK_K) == true)
-	{
-		SetParticle(D3DXVECTOR3(g_Bed.pos.x, g_Bed.pos.y + 50.0f, g_Bed.pos.z), D3DXVECTOR3(1.0f, 1.0f, 1.0f), PARTICLE_TYPE_COLLECT);
-	}
+	
 }
 
 //-------------------
 //ポリゴン描画処理
 //-------------------
-void DrawBed(void)
+void DrawWall(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;//デバイスへポインタ
 	D3DXMATRIX mtxRot, mtxTrans, mtxScale;//計算マトリックス
@@ -111,57 +184,44 @@ void DrawBed(void)
 
 	//デバイスの取得
 	pDevice = GetDevice();
-	//マトリックス初期化
-	D3DXMatrixIdentity(&g_Bed.mtxWorld);
 
-	//大きさの反映
-	D3DXMatrixScaling(&mtxScale, g_Bed.scale.x, g_Bed.scale.y, g_Bed.scale.z);
-	D3DXMatrixMultiply(&g_Bed.mtxWorld, &g_Bed.mtxWorld, &mtxScale);
-
-	//向きの反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, g_Bed.rot.y, g_Bed.rot.x, g_Bed.rot.z);
-	D3DXMatrixMultiply(&g_Bed.mtxWorld, &g_Bed.mtxWorld, &mtxRot);
-
-	//位置の反映
-	D3DXMatrixTranslation(&mtxTrans, g_Bed.pos.x, g_Bed.pos.y, g_Bed.pos.z);
-	D3DXMatrixMultiply(&g_Bed.mtxWorld, &g_Bed.mtxWorld, &mtxTrans);
-
-	//ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &g_Bed.mtxWorld);
-
-	//現在のマテリアル取得
-	pDevice->GetMaterial(&matDef);
-
-	//マテリアルデータへのポインタを取得
-	pMat = (D3DXMATERIAL*)g_Bed.pBuffMat->GetBufferPointer();
-
-	for (int nCntMat = 0; nCntMat < (int)g_Bed.dwNumMat; nCntMat++)
+	for (int i = 0; i < NUM_FILE; i++)
 	{
-		//マテリアルの設定
-		pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
-		//テクスチャ
-		pDevice->SetTexture(0, g_Bed.apTexture[nCntMat]);
+		//マトリックス初期化
+		D3DXMatrixIdentity(&g_Wall[i].mtxWorld);
 
-		//モデル描画
-		g_Bed.pMesh->DrawSubset(nCntMat);
+		//大きさの反映
+		D3DXMatrixScaling(&mtxScale, g_Wall[i].scale.x, g_Wall[i].scale.y, g_Wall[i].scale.z);
+		D3DXMatrixMultiply(&g_Wall[i].mtxWorld, &g_Wall[i].mtxWorld, &mtxScale);
+
+		//向きの反映
+		D3DXMatrixRotationYawPitchRoll(&mtxRot, g_Wall[i].rot.y, g_Wall[i].rot.x, g_Wall[i].rot.z);
+		D3DXMatrixMultiply(&g_Wall[i].mtxWorld, &g_Wall[i].mtxWorld, &mtxRot);
+
+		//位置の反映
+		D3DXMatrixTranslation(&mtxTrans, g_Wall[i].pos.x, g_Wall[i].pos.y, g_Wall[i].pos.z);
+		D3DXMatrixMultiply(&g_Wall[i].mtxWorld, &g_Wall[i].mtxWorld, &mtxTrans);
+
+		//ワールドマトリックスの設定
+		pDevice->SetTransform(D3DTS_WORLD, &g_Wall[i].mtxWorld);
+
+		//現在のマテリアル取得
+		pDevice->GetMaterial(&matDef);
+
+		//マテリアルデータへのポインタを取得
+		pMat = (D3DXMATERIAL*)g_Wall[i].pBuffMat->GetBufferPointer();
+
+		for (int nCntMat = 0; nCntMat < (int)g_Wall[i].dwNumMat; nCntMat++)
+		{
+			//マテリアルの設定
+			pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
+			//テクスチャ
+			pDevice->SetTexture(0, g_Wall[i].apTexture[nCntMat]);
+
+			//モデル描画
+			g_Wall[i].pMesh->DrawSubset(nCntMat);
+		}
+
+		pDevice->SetMaterial(&matDef);
 	}
-
-	pDevice->SetMaterial(&matDef);
 }
-
-//------------------------------
-// 情報取得
-//------------------------------
-Bed* GetBed(void)
-{
-	return &g_Bed;
-}
-
-//------------------------------
-// 情報設定
-//------------------------------
-void SetBedPos(D3DXVECTOR3 pos)
-{
-	g_Bed.pos = pos;		// 位置設定
-}
-#endif
