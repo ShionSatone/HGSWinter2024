@@ -1,24 +1,23 @@
 //----------------------------------------
 //
-//プレゼント処理[model.cpp]
+//靴下処理[socks.cpp]
 //Author fuma sato
 //
 //----------------------------------------
 
-#include"bed.h"
+#include"socks.h"
 #include"camera.h"
 #include"input.h"
 
-#if 0
 // マクロ定義
-#define X_NAME "data\\MODEL\\bed.x"
+#define X_NAME "data\\MODEL\\saku.x"
 
 //グローバル変数宣言
-Bed g_Bed;
+Socks g_Socks;
 //----------------------
 //ポリゴンの初期化処理
 //----------------------
-void InitBed(void)
+void InitSocks(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;//デバイスへポインタ
 	D3DXMATERIAL* pMat;//マテリアルデータへのポインタ
@@ -26,9 +25,9 @@ void InitBed(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 
-	g_Bed.pos = D3DXVECTOR3(300.0f, 0.0f, 0.0f);
-	g_Bed.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Bed.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Socks.pos = D3DXVECTOR3(300.0f, 0.0f, 50.0f);
+	g_Socks.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Socks.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
 	//Xファイル読み込み
 	D3DXLoadMeshFromX
@@ -37,16 +36,16 @@ void InitBed(void)
 		D3DXMESH_SYSTEMMEM,
 		pDevice,
 		NULL,
-		&g_Bed.pBuffMat,
+		&g_Socks.pBuffMat,
 		NULL,
-		&g_Bed.dwNumMat,
-		&g_Bed.pMesh
+		&g_Socks.dwNumMat,
+		&g_Socks.pMesh
 	);
 
 	//マテリアルデータへのポインタを取得
-	pMat = (D3DXMATERIAL*)g_Bed.pBuffMat->GetBufferPointer();
+	pMat = (D3DXMATERIAL*)g_Socks.pBuffMat->GetBufferPointer();
 
-	for (int nCntMat = 0; nCntMat < (int)g_Bed.dwNumMat; nCntMat++)
+	for (int nCntMat = 0; nCntMat < (int)g_Socks.dwNumMat; nCntMat++)
 	{
 		if (pMat[nCntMat].pTextureFilename != NULL)
 		{//テクスチャがある
@@ -55,7 +54,7 @@ void InitBed(void)
 			(
 				pDevice,
 				pMat[nCntMat].pTextureFilename,
-				&g_Bed.apTexture[nCntMat]
+				&g_Socks.apTexture[nCntMat]
 			);
 		}
 	}
@@ -64,34 +63,34 @@ void InitBed(void)
 //-------------------
 //ポリゴン終了処理
 //-------------------
-void UninitBed(void)
+void UninitSocks(void)
 {
 	for (int i = 0; i < 64; i++)
 	{
-		if (g_Bed.apTexture[i]!=NULL)
+		if (g_Socks.apTexture[i]!=NULL)
 		{
-			g_Bed.apTexture[i]->Release();
-			g_Bed.apTexture[i] = NULL;
+			g_Socks.apTexture[i]->Release();
+			g_Socks.apTexture[i] = NULL;
 		}
 	}
 	//メッシュの破棄
-	if (g_Bed.pMesh != NULL)
+	if (g_Socks.pMesh != NULL)
 	{
-		g_Bed.pMesh->Release();
-		g_Bed.pMesh = NULL;
+		g_Socks.pMesh->Release();
+		g_Socks.pMesh = NULL;
 	}
 	//マテリアルの破棄
-	if (g_Bed.pBuffMat != NULL)
+	if (g_Socks.pBuffMat != NULL)
 	{
-		g_Bed.pBuffMat->Release();
-		g_Bed.pBuffMat = NULL;
+		g_Socks.pBuffMat->Release();
+		g_Socks.pBuffMat = NULL;
 	}
 }
 
 //-------------------
 //ポリゴン更新処理
 //-------------------
-void UpdateBed(void)
+void UpdateSocks(void)
 {
 
 }
@@ -99,7 +98,7 @@ void UpdateBed(void)
 //-------------------
 //ポリゴン描画処理
 //-------------------
-void DrawBed(void)
+void DrawSocks(void)
 {
 	LPDIRECT3DDEVICE9 pDevice;//デバイスへポインタ
 	D3DXMATRIX mtxRot, mtxTrans, mtxScale;//計算マトリックス
@@ -109,38 +108,38 @@ void DrawBed(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 	//マトリックス初期化
-	D3DXMatrixIdentity(&g_Bed.mtxWorld);
+	D3DXMatrixIdentity(&g_Socks.mtxWorld);
 
 	//大きさの反映
-	D3DXMatrixScaling(&mtxScale, g_Bed.scale.x, g_Bed.scale.y, g_Bed.scale.z);
-	D3DXMatrixMultiply(&g_Bed.mtxWorld, &g_Bed.mtxWorld, &mtxScale);
+	D3DXMatrixScaling(&mtxScale, g_Socks.scale.x, g_Socks.scale.y, g_Socks.scale.z);
+	D3DXMatrixMultiply(&g_Socks.mtxWorld, &g_Socks.mtxWorld, &mtxScale);
 
 	//向きの反映
-	D3DXMatrixRotationYawPitchRoll(&mtxRot, g_Bed.rot.y, g_Bed.rot.x, g_Bed.rot.z);
-	D3DXMatrixMultiply(&g_Bed.mtxWorld, &g_Bed.mtxWorld, &mtxRot);
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, g_Socks.rot.y, g_Socks.rot.x, g_Socks.rot.z);
+	D3DXMatrixMultiply(&g_Socks.mtxWorld, &g_Socks.mtxWorld, &mtxRot);
 
 	//位置の反映
-	D3DXMatrixTranslation(&mtxTrans, g_Bed.pos.x, g_Bed.pos.y, g_Bed.pos.z);
-	D3DXMatrixMultiply(&g_Bed.mtxWorld, &g_Bed.mtxWorld, &mtxTrans);
+	D3DXMatrixTranslation(&mtxTrans, g_Socks.pos.x, g_Socks.pos.y, g_Socks.pos.z);
+	D3DXMatrixMultiply(&g_Socks.mtxWorld, &g_Socks.mtxWorld, &mtxTrans);
 
 	//ワールドマトリックスの設定
-	pDevice->SetTransform(D3DTS_WORLD, &g_Bed.mtxWorld);
+	pDevice->SetTransform(D3DTS_WORLD, &g_Socks.mtxWorld);
 
 	//現在のマテリアル取得
 	pDevice->GetMaterial(&matDef);
 
 	//マテリアルデータへのポインタを取得
-	pMat = (D3DXMATERIAL*)g_Bed.pBuffMat->GetBufferPointer();
+	pMat = (D3DXMATERIAL*)g_Socks.pBuffMat->GetBufferPointer();
 
-	for (int nCntMat = 0; nCntMat < (int)g_Bed.dwNumMat; nCntMat++)
+	for (int nCntMat = 0; nCntMat < (int)g_Socks.dwNumMat; nCntMat++)
 	{
 		//マテリアルの設定
 		pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
 		//テクスチャ
-		pDevice->SetTexture(0, g_Bed.apTexture[nCntMat]);
+		pDevice->SetTexture(0, g_Socks.apTexture[nCntMat]);
 
 		//モデル描画
-		g_Bed.pMesh->DrawSubset(nCntMat);
+		g_Socks.pMesh->DrawSubset(nCntMat);
 	}
 
 	pDevice->SetMaterial(&matDef);
@@ -149,16 +148,15 @@ void DrawBed(void)
 //------------------------------
 // 情報取得
 //------------------------------
-Bed* GetBed(void)
+Socks* GetSocks(void)
 {
-	return &g_Bed;
+	return &g_Socks;
 }
 
 //------------------------------
 // 情報設定
 //------------------------------
-void SetBedPos(D3DXVECTOR3 pos)
+void SetSocksPos(D3DXVECTOR3 pos)
 {
-	g_Bed.pos = pos;		// 位置設定
+	g_Socks.pos = pos;		// 位置設定
 }
-#endif

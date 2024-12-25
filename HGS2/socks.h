@@ -1,13 +1,11 @@
 //---------------------------------------
 //
-//ベッド処理[present.h]
+//靴下処理[socks.h]
 //Author fuma sato
 //
 //---------------------------------------
-
-#if 0
-#ifndef _BED_H_
-#define _BED_H_
+#ifndef _SOCKS_H_
+#define _SOCKS_H_
 
 #include"main.h"
 
@@ -29,15 +27,14 @@ typedef struct
 	int nNumVtx;
 	DWORD sizeFVF;
 	BYTE* pVtxBuff;
-	int nIdxBedParent;
-}Bed;
+	int nIdxSocksParent;
+}Socks;
 
-void InitBed(void);//ポリゴンの初期化処理
-void UninitBed(void);//ポリゴンの終了処理
-void UpdateBed(void);//ポリゴンの更新処理
-void DrawBed(void);//ポリゴンの描画処理
+void InitSocks(void);//ポリゴンの初期化処理
+void UninitSocks(void);//ポリゴンの終了処理
+void UpdateSocks(void);//ポリゴンの更新処理
+void DrawSocks(void);//ポリゴンの描画処理
 
-Bed* GetBed(void);
-void SetBedPos(D3DXVECTOR3 pos);
-#endif
+Socks* GetSocks(void);
+void SetSocksPos(D3DXVECTOR3 pos);
 #endif _BED_H_
