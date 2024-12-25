@@ -163,6 +163,7 @@
     <ClCompile Include="light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="meshfield.cpp" />
+    <ClCompile Include="meshorbit.cpp" />
     <ClCompile Include="meshwall.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="particle.cpp" />
@@ -183,6 +184,7 @@
     <ClCompile Include="time.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="ui.cpp" />
+    <ClCompile Include="wall.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +207,7 @@
     <ClInclude Include="light.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="meshfield.h" />
+    <ClInclude Include="meshorbit.h" />
     <ClInclude Include="meshwall.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="particle.h" />
@@ -226,6 +229,7 @@
     <ClInclude Include="time.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="ui.h" />
+    <ClInclude Include="wall.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>

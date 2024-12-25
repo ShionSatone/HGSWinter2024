@@ -28,7 +28,6 @@
 // マクロ定義
 //****************************************
 #define MAX_WORD (128) // 最大の文字数
-#define MODEL_SWORD (15) // 剣のモデルのインデックス
 #define NUM_SWORDPOS (4) // 剣の位置の数
 
 //****************************************
@@ -777,14 +776,15 @@ bool CollisionSword(D3DXVECTOR3 pos)
 		fRadius = fSwordRadius + fSantaRadius;//半径を求める
 		fRadius = fRadius * fRadius;
 
-#ifdef _DEBUG
-		SetEffect(D3DXVECTOR3(fSwordPosX, fSwordPosY, fSwordPosZ),
-			D3DXVECTOR3(0.0f, 0.0f, 0.0f),
-			D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f),
-			D3DXVECTOR3(1.0f, 1.0f, 1.0f),
-			10,
-			EFFECT_TYPE_NORMAL);
-#endif
+//#ifdef _DEBUG
+//		SetEffect(D3DXVECTOR3(fSwordPosX, fSwordPosY, fSwordPosZ),
+//			D3DXVECTOR3(0.0f, 0.0f, 0.0f),
+//			D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f),
+//			D3DXVECTOR3(1.0f, 1.0f, 1.0f),
+//			10,
+//			EFFECT_TYPE_NORMAL);
+//#endif
+
 		if (fDistanse <= fRadius && g_Player.motionType == MOTIONTYPE_ACTION)
 		{
 			bHit = true;//剣がサンタに当たった
