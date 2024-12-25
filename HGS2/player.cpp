@@ -146,141 +146,143 @@ void InitPlayer(void)
 	g_Player.bUse = true;
 
 	LoadModel();
+	LoadPlayer();
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_BODY_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[0].pBuffMat,
-		NULL,
-		&g_Player.aModel[0].dwNumMat,
-		&g_Player.aModel[0].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_BODY_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[0].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[0].dwNumMat,
+	//	&g_Player.aModel[0].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_HEAD_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[1].pBuffMat,
-		NULL,
-		&g_Player.aModel[1].dwNumMat,
-		&g_Player.aModel[1].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_HEAD_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[1].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[1].dwNumMat,
+	//	&g_Player.aModel[1].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_RIGHTARM_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[2].pBuffMat,
-		NULL,
-		&g_Player.aModel[2].dwNumMat,
-		&g_Player.aModel[2].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_RIGHTARM_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[2].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[2].dwNumMat,
+	//	&g_Player.aModel[2].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_RIGHTHAND_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[3].pBuffMat,
-		NULL,
-		&g_Player.aModel[3].dwNumMat,
-		&g_Player.aModel[3].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_RIGHTHAND_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[3].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[3].dwNumMat,
+	//	&g_Player.aModel[3].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_LEFTARM_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[4].pBuffMat,
-		NULL,
-		&g_Player.aModel[4].dwNumMat,
-		&g_Player.aModel[4].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_LEFTARM_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[4].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[4].dwNumMat,
+	//	&g_Player.aModel[4].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_LEFTHAND_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[5].pBuffMat,
-		NULL,
-		&g_Player.aModel[5].dwNumMat,
-		&g_Player.aModel[5].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_LEFTHAND_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[5].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[5].dwNumMat,
+	//	&g_Player.aModel[5].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_RIGHTLEG_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[6].pBuffMat,
-		NULL,
-		&g_Player.aModel[6].dwNumMat,
-		&g_Player.aModel[6].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_RIGHTLEG_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[6].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[6].dwNumMat,
+	//	&g_Player.aModel[6].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_RIGHTFOOT_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[7].pBuffMat,
-		NULL,
-		&g_Player.aModel[7].dwNumMat,
-		&g_Player.aModel[7].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_RIGHTFOOT_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[7].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[7].dwNumMat,
+	//	&g_Player.aModel[7].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_LEFTLEG_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[8].pBuffMat,
-		NULL,
-		&g_Player.aModel[8].dwNumMat,
-		&g_Player.aModel[8].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_LEFTLEG_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[8].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[8].dwNumMat,
+	//	&g_Player.aModel[8].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_LEFTFOOT_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[9].pBuffMat,
-		NULL,
-		&g_Player.aModel[9].dwNumMat,
-		&g_Player.aModel[9].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_LEFTFOOT_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[9].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[9].dwNumMat,
+	//	&g_Player.aModel[9].pMesh
+	//);
 
-	g_Player.nNumModel = NUM_MODEL;
+	//g_Player.nNumModel = NUM_MODEL;
 
 	int nCntModel;
-	for (nCntModel = 0;  nCntModel < g_Player.nNumModel; nCntModel++)
+
+	for (nCntModel = 0; nCntModel < g_Player.nNumModel; nCntModel++)
 	{
 		//マテリアルデータへのポインタを取得
 		pMat = (D3DXMATERIAL*)g_Player.aModel[nCntModel].pBuffMat->GetBufferPointer();
@@ -342,46 +344,11 @@ void InitPlayer(void)
 		g_Player.aModel[nCntModel].vtxMaxDef = g_Player.aModel[nCntModel].vtxMax;
 	}
 
-	g_Player.aModel[0].nIdxModelParent = -1;
-	g_Player.aModel[0].pos = D3DXVECTOR3(0.0f, 15.0f, 0.0f);
-	g_Player.aModel[0].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[0].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[1].nIdxModelParent = 0;
-	g_Player.aModel[1].pos = D3DXVECTOR3(0.0f, 15.0f, 0.0f);
-	g_Player.aModel[1].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[1].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[2].nIdxModelParent = 0;
-	g_Player.aModel[2].pos = D3DXVECTOR3(-7.5f, 12.0f, 0.0f);
-	g_Player.aModel[2].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[2].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[3].nIdxModelParent = 2;
-	g_Player.aModel[3].pos = D3DXVECTOR3(-10.0f, 0.0f, 0.0f);
-	g_Player.aModel[3].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[3].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[4].nIdxModelParent = 0;
-	g_Player.aModel[4].pos = D3DXVECTOR3(7.5f, 12.0f, 0.0f);
-	g_Player.aModel[4].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[4].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[5].nIdxModelParent = 4;
-	g_Player.aModel[5].pos = D3DXVECTOR3(10.0f, 0.0f, 0.0f);
-	g_Player.aModel[5].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[5].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[6].nIdxModelParent = 0;
-	g_Player.aModel[6].pos = D3DXVECTOR3(-4.0f, 0.0f, 0.0f);
-	g_Player.aModel[6].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[6].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[7].nIdxModelParent = 6;
-	g_Player.aModel[7].pos = D3DXVECTOR3(0.0f, -10.0f, 0.0f);
-	g_Player.aModel[7].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[7].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[8].nIdxModelParent = 0;
-	g_Player.aModel[8].pos = D3DXVECTOR3(4.0f, 0.0f, 0.0f);
-	g_Player.aModel[8].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[8].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[9].nIdxModelParent = 8;
-	g_Player.aModel[9].pos = D3DXVECTOR3(0.0f, -10.0f, 0.0f);
-	g_Player.aModel[9].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[9].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	//全モデルの大きさを設定する
+	for (int nCntModel = 0; nCntModel < g_Player.nNumModel; nCntModel++)
+	{
+		g_Player.aModel[nCntModel].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);//大きさを設定
+	}
 
 	for (int nCnt = 0; nCnt < MAX_MODEL; nCnt++)
 	{
@@ -1137,7 +1104,7 @@ void UpdateMotion(void)
 			}
 		}
 	}
-	
+
 	for (int nCntModel = 0; nCntModel < g_Player.nNumModel; nCntModel++)
 	{
 		D3DXVECTOR3 Oldpos = D3DXVECTOR3(g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosX, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosY, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosZ);
@@ -1239,15 +1206,13 @@ void LoadPlayer(void)
 	int nNumModel = 0;
 	int nCnt = 0;
 	char skip[3];
-	int nNumParts = 0;
 	int nIdx = 0;
-	int Parent = 0;
-	D3DXVECTOR3 pos;
-	D3DXVECTOR3 rot;
-	int nNumKey = 0;
 	int nCntPartsPos = 0;
 	int nCntPartsRot = 0;
 	int nCntMotion = 0;
+	int nKey = 0;
+
+	pFile = fopen(LOADPLAYER, "r");
 
 	if (pFile != NULL)
 	{
@@ -1363,9 +1328,9 @@ void LoadPlayer(void)
 							}
 							else if (strcmp(aStr, "LOOP") == 0)
 							{
-								fscanf(pFile, "%s", &gomi[0]);
+								fscanf(pFile, "%s", &skip[0]);
 
-								fscanf(pFile, "%d", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].bLoop);
+								fscanf(pFile, "%d", &g_Player.aMotionInfo[nCntMotion].bLoop);
 							}
 
 							if (strcmp(aStr, "KEYSET") == 0)
@@ -1376,9 +1341,9 @@ void LoadPlayer(void)
 
 									if (strcmp(aStr, "FRAME") == 0)
 									{
-										fscanf(pFile, "%s", &gomi[0]);
+										fscanf(pFile, "%s", &skip[0]);
 
-										fscanf(pFile, "%d", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].aKeyInfo[nKey].nFrame);
+										fscanf(pFile, "%d", &g_Player.aMotionInfo[nCntMotion].aKeyInfo[nKey].nFrame);
 									}
 									else if (strcmp(aStr, "KEY") == 0)
 									{
@@ -1388,21 +1353,21 @@ void LoadPlayer(void)
 
 											if (strcmp(aStr, "POS") == 0)
 											{
-												fscanf(pFile, "%s", &gomi[0]);
+												fscanf(pFile, "%s", &skip[0]);
 
-												fscanf(pFile, "%f", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsPos].fPosX);
-												fscanf(pFile, "%f", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsPos].fPosY);
-												fscanf(pFile, "%f", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsPos].fPosZ);
+												fscanf(pFile, "%f", &g_Player.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsPos].fPosX);
+												fscanf(pFile, "%f", &g_Player.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsPos].fPosY);
+												fscanf(pFile, "%f", &g_Player.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsPos].fPosZ);
 
 												nCntPartsPos++;
 											}
 											else if (strcmp(aStr, "ROT") == 0)
 											{
-												fscanf(pFile, "%s", &gomi[0]);
+												fscanf(pFile, "%s", &skip[0]);
 
-												fscanf(pFile, "%f", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsRot].fRotX);
-												fscanf(pFile, "%f", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsRot].fRotY);
-												fscanf(pFile, "%f", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsRot].fRotZ);
+												fscanf(pFile, "%f", &g_Player.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsRot].fRotX);
+												fscanf(pFile, "%f", &g_Player.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsRot].fRotY);
+												fscanf(pFile, "%f", &g_Player.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsRot].fRotZ);
 
 												nCntPartsRot++;
 

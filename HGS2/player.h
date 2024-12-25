@@ -124,5 +124,5 @@ Player* GetPlayer(void);
 
 void UpdateMotion(void);
 void CollisionPlayer(D3DXVECTOR3 pos, float Length);
-
+void LoadPlayer(void);//ƒvƒŒƒCƒ„[‚Ì“Ç‚İ‚İˆ—
 #endif _PLAYER_H_
