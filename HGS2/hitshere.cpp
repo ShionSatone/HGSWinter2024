@@ -344,7 +344,7 @@ void BedShere(void)
 
 			// Œü‚«XV
 			pPlayer->rot = D3DXVECTOR3(D3DX_PI * 0.5f, 0.0f, 0.0f);
-			pPlayer->state = PLAYERSTATE_SLEEP;		// Q‚éó‘Ô‚É‚·‚é
+			//pPlayer->state = PLAYERSTATE_SLEEP;		// Q‚éó‘Ô‚É‚·‚é
 		}
 	}
 	else
