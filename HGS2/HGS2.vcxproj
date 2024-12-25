@@ -152,6 +152,7 @@
     <ClCompile Include="chimney.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="cylinder.cpp" />
+    <ClCompile Include="door.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="file.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="chimney.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="cylinder.h" />
+    <ClInclude Include="door.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="file.h" />

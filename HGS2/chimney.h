@@ -25,7 +25,7 @@ typedef struct
 {
 	LPD3DXMESH pMesh;//頂点情報ポインタ
 	LPD3DXBUFFER pBuffMat;//マテリアルポインタ
-	LPDIRECT3DTEXTURE9 apTexture[64];//テクスチャへのポインタ
+	LPDIRECT3DTEXTURE9 apTexture[MAX_TEXTURE];//テクスチャへのポインタ
 	D3DXVECTOR3 pos;//位置
 	D3DXVECTOR3 rot;//向き
 	D3DXVECTOR3 scale;//大きさ
@@ -46,4 +46,4 @@ void UpdateChimney(void);//煙突のの更新処理
 void DrawChimney(void);//煙突のの描画処理
 Chimney* GetChimney(void);//煙突の取得処理
 void SetChimneyPos(D3DXVECTOR3 pos);//煙突の設定処理
-#endif _BED_H_
+#endif _CHIMNEY_H_
