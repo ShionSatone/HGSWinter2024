@@ -237,13 +237,13 @@ void UpdateGame(void)
 					switch (rand() % PATA_MAX)
 					{
 					case PATA1:
-						g_SantaTime = 5;
+						g_SantaTime = PATA1_TIME;
 						break;
 					case PATA2:
-						g_SantaTime = 10;
+						g_SantaTime = PATA2_TIME;
 						break;
 					case PATA3:
-						g_SantaTime = 20;
+						g_SantaTime = PATA3_TIME;
 						break;
 					}
 				}
@@ -269,14 +269,21 @@ void UpdateGame(void)
 						break;
 					}
 
-					switch (rand() % 2)
+					if (pPlayer->state == PLAYERSTATE_SLEEP)
 					{
-					case 0:
-						SetSanta(pos);
-						break;
-					case 1:
+						switch (rand() % 2)
+						{
+						case 0:
+							SetSanta(pos);
+							break;
+						case 1:
+							SetBlackSanta(pos);
+							break;
+						}
+					}
+					else
+					{
 						SetBlackSanta(pos);
-						break;
 					}
 				}
 			}
