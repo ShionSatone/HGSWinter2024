@@ -22,6 +22,7 @@
 #define PLAYER_RIGHTFOOT_NAME "data\\MODEL\\AKRmodel\\07_footR.x"
 #define PLAYER_LEFTLEG_NAME "data\\MODEL\\AKRmodel\\08_legL.x"
 #define PLAYER_LEFTFOOT_NAME "data\\MODEL\\AKRmodel\\09_footL.x"
+#define LOADPLAYER ("data\\MOTION\\model15p.txt")
 #define MAX_MODEL (16)
 #define NUM_MODEL (10)
 #define MAX_KEY (16)
@@ -123,5 +124,5 @@ Player* GetPlayer(void);
 
 void UpdateMotion(void);
 void CollisionPlayer(D3DXVECTOR3 pos, float Length);
-
+void LoadPlayer(void);//ÉvÉåÉCÉÑÅ[ÇÃì«Ç›çûÇ›èàóù
 #endif _PLAYER_H_

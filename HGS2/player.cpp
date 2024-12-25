@@ -5,6 +5,9 @@
 //
 //----------------------------------------
 
+//****************************************
+// インクルードファイル
+//****************************************
 #include"player.h"
 #include"game.h"
 #include"shadow.h"
@@ -16,7 +19,14 @@
 #include"life.h"
 #include"snowball.h"
 
-//グローバル変数宣言
+//****************************************
+// マクロ定義
+//****************************************
+#define MAX_WORD (128) // 最大の文字数
+
+//****************************************
+// グローバル変数
+//****************************************
 Player g_Player;
 
 static MOTION_INFO g_Motion[] =
@@ -136,143 +146,144 @@ void InitPlayer(void)
 	g_Player.bUse = true;
 
 	LoadModel();
+	LoadPlayer();
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_BODY_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[0].pBuffMat,
-		NULL,
-		&g_Player.aModel[0].dwNumMat,
-		&g_Player.aModel[0].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_BODY_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[0].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[0].dwNumMat,
+	//	&g_Player.aModel[0].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_HEAD_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[1].pBuffMat,
-		NULL,
-		&g_Player.aModel[1].dwNumMat,
-		&g_Player.aModel[1].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_HEAD_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[1].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[1].dwNumMat,
+	//	&g_Player.aModel[1].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_RIGHTARM_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[2].pBuffMat,
-		NULL,
-		&g_Player.aModel[2].dwNumMat,
-		&g_Player.aModel[2].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_RIGHTARM_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[2].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[2].dwNumMat,
+	//	&g_Player.aModel[2].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_RIGHTHAND_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[3].pBuffMat,
-		NULL,
-		&g_Player.aModel[3].dwNumMat,
-		&g_Player.aModel[3].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_RIGHTHAND_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[3].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[3].dwNumMat,
+	//	&g_Player.aModel[3].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_LEFTARM_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[4].pBuffMat,
-		NULL,
-		&g_Player.aModel[4].dwNumMat,
-		&g_Player.aModel[4].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_LEFTARM_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[4].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[4].dwNumMat,
+	//	&g_Player.aModel[4].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_LEFTHAND_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[5].pBuffMat,
-		NULL,
-		&g_Player.aModel[5].dwNumMat,
-		&g_Player.aModel[5].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_LEFTHAND_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[5].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[5].dwNumMat,
+	//	&g_Player.aModel[5].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_RIGHTLEG_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[6].pBuffMat,
-		NULL,
-		&g_Player.aModel[6].dwNumMat,
-		&g_Player.aModel[6].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_RIGHTLEG_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[6].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[6].dwNumMat,
+	//	&g_Player.aModel[6].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_RIGHTFOOT_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[7].pBuffMat,
-		NULL,
-		&g_Player.aModel[7].dwNumMat,
-		&g_Player.aModel[7].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_RIGHTFOOT_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[7].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[7].dwNumMat,
+	//	&g_Player.aModel[7].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_LEFTLEG_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[8].pBuffMat,
-		NULL,
-		&g_Player.aModel[8].dwNumMat,
-		&g_Player.aModel[8].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_LEFTLEG_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[8].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[8].dwNumMat,
+	//	&g_Player.aModel[8].pMesh
+	//);
 
-	//Xファイル読み込み
-	D3DXLoadMeshFromX
-	(
-		PLAYER_LEFTFOOT_NAME,
-		D3DXMESH_SYSTEMMEM,
-		pDevice,
-		NULL,
-		&g_Player.aModel[9].pBuffMat,
-		NULL,
-		&g_Player.aModel[9].dwNumMat,
-		&g_Player.aModel[9].pMesh
-	);
+	////Xファイル読み込み
+	//D3DXLoadMeshFromX
+	//(
+	//	PLAYER_LEFTFOOT_NAME,
+	//	D3DXMESH_SYSTEMMEM,
+	//	pDevice,
+	//	NULL,
+	//	&g_Player.aModel[9].pBuffMat,
+	//	NULL,
+	//	&g_Player.aModel[9].dwNumMat,
+	//	&g_Player.aModel[9].pMesh
+	//);
 
-	g_Player.nNumModel = NUM_MODEL;
+	//g_Player.nNumModel = NUM_MODEL;
 
 	int nCntModel;
-	for (nCntModel = 0;  nCntModel < g_Player.nNumModel; nCntModel++)
-	{
 
+	for (nCntModel = 0; nCntModel < g_Player.nNumModel; nCntModel++)
+	{
 		//マテリアルデータへのポインタを取得
 		pMat = (D3DXMATERIAL*)g_Player.aModel[nCntModel].pBuffMat->GetBufferPointer();
 
@@ -333,46 +344,11 @@ void InitPlayer(void)
 		g_Player.aModel[nCntModel].vtxMaxDef = g_Player.aModel[nCntModel].vtxMax;
 	}
 
-	g_Player.aModel[0].nIdxModelParent = -1;
-	g_Player.aModel[0].pos = D3DXVECTOR3(0.0f, 15.0f, 0.0f);
-	g_Player.aModel[0].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[0].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[1].nIdxModelParent = 0;
-	g_Player.aModel[1].pos = D3DXVECTOR3(0.0f, 15.0f, 0.0f);
-	g_Player.aModel[1].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[1].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[2].nIdxModelParent = 0;
-	g_Player.aModel[2].pos = D3DXVECTOR3(-7.5f, 12.0f, 0.0f);
-	g_Player.aModel[2].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[2].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[3].nIdxModelParent = 2;
-	g_Player.aModel[3].pos = D3DXVECTOR3(-10.0f, 0.0f, 0.0f);
-	g_Player.aModel[3].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[3].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[4].nIdxModelParent = 0;
-	g_Player.aModel[4].pos = D3DXVECTOR3(7.5f, 12.0f, 0.0f);
-	g_Player.aModel[4].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[4].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[5].nIdxModelParent = 4;
-	g_Player.aModel[5].pos = D3DXVECTOR3(10.0f, 0.0f, 0.0f);
-	g_Player.aModel[5].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[5].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[6].nIdxModelParent = 0;
-	g_Player.aModel[6].pos = D3DXVECTOR3(-4.0f, 0.0f, 0.0f);
-	g_Player.aModel[6].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[6].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[7].nIdxModelParent = 6;
-	g_Player.aModel[7].pos = D3DXVECTOR3(0.0f, -10.0f, 0.0f);
-	g_Player.aModel[7].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[7].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[8].nIdxModelParent = 0;
-	g_Player.aModel[8].pos = D3DXVECTOR3(4.0f, 0.0f, 0.0f);
-	g_Player.aModel[8].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[8].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Player.aModel[9].nIdxModelParent = 8;
-	g_Player.aModel[9].pos = D3DXVECTOR3(0.0f, -10.0f, 0.0f);
-	g_Player.aModel[9].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Player.aModel[9].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	//全モデルの大きさを設定する
+	for (int nCntModel = 0; nCntModel < g_Player.nNumModel; nCntModel++)
+	{
+		g_Player.aModel[nCntModel].scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);//大きさを設定
+	}
 
 	for (int nCnt = 0; nCnt < MAX_MODEL; nCnt++)
 	{
@@ -1128,7 +1104,7 @@ void UpdateMotion(void)
 			}
 		}
 	}
-	
+
 	for (int nCntModel = 0; nCntModel < g_Player.nNumModel; nCntModel++)
 	{
 		D3DXVECTOR3 Oldpos = D3DXVECTOR3(g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosX, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosY, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosZ);
@@ -1215,4 +1191,228 @@ void CollisionPlayer(D3DXVECTOR3 pos, float Length)
 		D3DXVec3Normalize(&Hitvec, &Hitvec);
 		g_Player.move += Hitvec * Space;
 	}
+}
+//================================================
+// プレイヤーの読み込み処理
+//================================================
+void LoadPlayer(void)
+{
+	LPDIRECT3DDEVICE9 pDevice;
+
+	pDevice = GetDevice();
+
+	FILE* pFile;
+
+	int nNumModel = 0;
+	int nCnt = 0;
+	char skip[3];
+	int nIdx = 0;
+	int nCntPartsPos = 0;
+	int nCntPartsRot = 0;
+	int nCntMotion = 0;
+	int nKey = 0;
+
+	pFile = fopen(LOADPLAYER, "r");
+
+	if (pFile != NULL)
+	{
+		while (1)
+		{
+			char aStr[MAX_WORD];//文字読み込み用変数
+
+			fscanf(pFile, "%s", &aStr[0]);
+
+			if (strcmp(aStr, "SCRIPT") == 0)
+			{//読み取った文字がSCRIPTだったら
+
+				while (1)
+				{
+					fscanf(pFile, "%s", &aStr[0]);
+
+					if (strcmp(aStr, "NUM_MODEL") == 0)
+					{
+						//読み取った文字がNUM_MODELだったら
+
+						fscanf(pFile, "%s", &skip[0]); //[=]を読み飛ばす
+						fscanf(pFile, "%d", &nNumModel); //モデルの数を読み込む変数に代入
+					}
+					else if (strcmp(aStr, "MODEL_FILENAME") == 0)
+					{//読み取った文字がMODEL_FILENAMEだったら
+
+						fscanf(pFile, "%s", &skip[0]);
+						fscanf(pFile, "%s", &aStr[0]);
+
+						const char* FILE_NAME = {}; //ファイルの名前を格納する変数
+
+						FILE_NAME = aStr; // 読み取ったファイルの名前を代入
+
+						//モデルを読み込む
+						D3DXLoadMeshFromX(FILE_NAME,
+							D3DXMESH_SYSTEMMEM,
+							pDevice,
+							NULL,
+							&g_Player.aModel[nCnt].pBuffMat,
+							NULL,
+							&g_Player.aModel[nCnt].dwNumMat,
+							&g_Player.aModel[nCnt].pMesh);
+
+						nCnt++;//モデルのカウントを増やす
+					}
+					else if (strcmp(aStr, "CHARACTERSET") == 0)
+					{//読み取った文字がCHARACTERSETだったら
+						while (1)
+						{
+							fscanf(pFile, "%s", &aStr[0]);
+
+							if (strcmp(aStr, "NUM_PARTS") == 0)
+							{
+								fscanf(pFile, "%s", &skip[0]);
+
+								fscanf(pFile, "%d", &g_Player.nNumModel);
+								break;
+							}
+						}
+					}
+					else if (strcmp(aStr, "PARTSSET") == 0)
+					{
+						while (1)
+						{
+							fscanf(pFile, "%s", &aStr[0]);
+
+							if (strcmp(aStr, "INDEX") == 0)
+							{
+								fscanf(pFile, "%s", &skip[0]);
+
+								fscanf(pFile, "%d", &nIdx);
+							}
+							else if (strcmp(aStr, "PARENT") == 0)
+							{
+								fscanf(pFile, "%s", &skip[0]);
+
+								fscanf(pFile, "%d", &g_Player.aModel[nIdx].nIdxModelParent);
+							}
+							else if (strcmp(aStr, "POS") == 0)
+							{
+								fscanf(pFile, "%s", &skip[0]);
+
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].pos.x);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].pos.y);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].pos.z);
+
+							}
+							else if (strcmp(aStr, "ROT") == 0)
+							{
+								fscanf(pFile, "%s", &skip[0]);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].rot.x);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].rot.y);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].rot.z);
+							}
+							else if (strcmp(aStr, "END_PARTSSET") == 0)
+							{
+								break;
+							}
+						}
+					}
+					else if (strcmp(aStr, "MOTIONSET") == 0)
+					{
+						while (1)
+						{
+							fscanf(pFile, "%s", &aStr[0]);
+
+							if (strcmp(aStr, "NUM_KEY") == 0)
+							{
+								fscanf(pFile, "%s", &skip[0]);
+
+								fscanf(pFile, "%d", &g_Player.aMotionInfo[nCntMotion].nNumKey);
+
+							}
+							else if (strcmp(aStr, "LOOP") == 0)
+							{
+								fscanf(pFile, "%s", &skip[0]);
+
+								fscanf(pFile, "%d", &g_Player.aMotionInfo[nCntMotion].bLoop);
+							}
+
+							if (strcmp(aStr, "KEYSET") == 0)
+							{
+								while (1)
+								{
+									fscanf(pFile, "%s", &aStr[0]);
+
+									if (strcmp(aStr, "FRAME") == 0)
+									{
+										fscanf(pFile, "%s", &skip[0]);
+
+										fscanf(pFile, "%d", &g_Player.aMotionInfo[nCntMotion].aKeyInfo[nKey].nFrame);
+									}
+									else if (strcmp(aStr, "KEY") == 0)
+									{
+										while (1)
+										{
+											fscanf(pFile, "%s", &aStr[0]);
+
+											if (strcmp(aStr, "POS") == 0)
+											{
+												fscanf(pFile, "%s", &skip[0]);
+
+												fscanf(pFile, "%f", &g_Player.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsPos].fPosX);
+												fscanf(pFile, "%f", &g_Player.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsPos].fPosY);
+												fscanf(pFile, "%f", &g_Player.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsPos].fPosZ);
+
+												nCntPartsPos++;
+											}
+											else if (strcmp(aStr, "ROT") == 0)
+											{
+												fscanf(pFile, "%s", &skip[0]);
+
+												fscanf(pFile, "%f", &g_Player.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsRot].fRotX);
+												fscanf(pFile, "%f", &g_Player.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsRot].fRotY);
+												fscanf(pFile, "%f", &g_Player.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsRot].fRotZ);
+
+												nCntPartsRot++;
+
+											}
+											else if (strcmp(aStr, "END_KEY") == 0)
+											{
+												break;
+											}
+										}
+									}
+									else if (strcmp(aStr, "END_KEYSET") == 0)
+									{
+										nKey++;
+										nCntPartsPos = 0;
+										nCntPartsRot = 0;
+										break;
+									}
+								}
+							}
+
+							else if (strcmp(aStr, "END_MOTIONSET") == 0)
+							{
+								nKey = 0;
+								nCntMotion++;
+								break;
+							}
+						}
+					}
+
+					else if (strcmp(aStr, "END_MODELSET") == 0)
+					{
+						break;
+					}
+				}
+			}
+
+			if (strcmp(aStr, "END_SCRIPT") == 0)
+			{
+				break;
+			}
+		}
+	}
+	else
+	{
+		return;
+	}
+	fclose(pFile);
 }
