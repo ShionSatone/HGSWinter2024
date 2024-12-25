@@ -10,8 +10,8 @@
 
 #include"main.h"
 
-#define SNOW_NUM (5)//フレーム発生数
-#define SNOW_SPASE (3000)
+#define SNOW_NUM (1)//フレーム発生数
+#define SNOW_SPASE (500)
 
 void InitSnow(void);//パーティクルの初期化処理
 void UninitSnow(void);//パーティクルの終了処理

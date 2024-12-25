@@ -99,6 +99,8 @@ void InitGame(void)
 	//ステージ
 	LoadStage();
 
+	SetSnow(D3DXVECTOR3(0.0f, 500.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 1.0f));
+
 	D3DXVECTOR3 posScore;//スコアの位置
 	g_gameState = GAMESTATE_NORMAL;
 	g_nCounterGameState = 0;

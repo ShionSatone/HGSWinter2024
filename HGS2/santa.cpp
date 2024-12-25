@@ -454,7 +454,7 @@ void UpdateSanta(void)
 				if (sqrtf(Xlong * Xlong + Zlong * Zlong) < PRESENT_SPACE)
 				{
 					DeletePresent();
-					AddScore(1);
+					AddScore(2);
 					g_Santa.bPresent = true;
 				}
 			}

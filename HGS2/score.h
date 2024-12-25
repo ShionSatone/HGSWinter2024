@@ -11,7 +11,7 @@
 #include"main.h"
 
 #define SCORE_MAX (2)//桁数
-#define U_MAX_S (11)//テクスチャ数(横)
+#define U_MAX_S (10)//テクスチャ数(横)
 #define V_MAX_S (1)//テクスチャ数(縦)
 #define SCORE_WIDTH (350.0f)//サイズ
 #define SCORE_HEIGHT (70.0f)//サイズ
