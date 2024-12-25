@@ -49,6 +49,7 @@ typedef enum
 	PLAYERSTATE_NORMAL,//通常
 	PLAYERSTATE_DAMAGE,//ダメージ
 	PLAYERSTATE_DIE,//死
+	PLAYERSTATE_SLEEP,//睡眠
 	PLAYERSTATE_MAX//数
 }PLAYERSTATE;
 
@@ -62,6 +63,17 @@ typedef enum
 	MOTIONTYPE_LANDING,
 	MOTIONTYPE_MAX
 }MOTIONTYPE;
+
+//************************
+// モーションの状態
+//************************
+typedef enum
+{
+	MOTIONSTATE_NEUTRAL = 0,//ニュートラル
+	MOTIONSTATE_MOVE,       //歩きモーション
+	MOTIONSTATE_ACTION,     //攻撃モーション
+	MOTIONSTATE_MAX
+}MOTIONSTATE;
 
 //キーの構造体
 typedef struct
@@ -114,6 +126,9 @@ typedef struct
 	int nCounterMotion;
 	Stage* pStage;
 	bool bUse;
+	MOTIONSTATE motionstate; // モーションの状態
+	float PlayerMove;//プレイヤーの移動量
+	int nCounterstate; // プレイヤーの状態カウンター
 }Player;
 
 void InitPlayer(void);//ポリゴンの初期化処理

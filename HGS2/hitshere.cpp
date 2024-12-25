@@ -335,14 +335,22 @@ void BedShere(void)
 	D3DXVECTOR3 scale = D3DXVECTOR3(100.0f, 0.0f, 0.0f);
 
 	float Space = sqrtf((pPlayer->pos.x - pBed->pos.x) * (pPlayer->pos.x - pBed->pos.x) + (pPlayer->pos.y - pBed->pos.y) * (pPlayer->pos.y - pBed->pos.y) + (pPlayer->pos.z - pBed->pos.z) * (pPlayer->pos.z - pBed->pos.z));
-	if (Space < PLAYER_SIZE * 0.5f + scale.x)
+	
+	if (GetKeyboradTrigger(DIK_K) == true)
 	{
-		if (GetKeyboradTrigger(DIK_K) == true)
+		if (Space < PLAYER_SIZE * 0.5f + scale.x)
 		{
-			pPlayer->pos.x = pBed->pos.x;
-			pPlayer->pos.y = pBed->pos.y + 50.0f;
-			pPlayer->pos.z = pBed->pos.z;
+			if (pPlayer->state == PLAYERSTATE_SLEEP)
+			{ // Q‚Ä‚éê‡
 
+				pPlayer->pos.y = 0.1f;
+				pPlayer->state = PLAYERSTATE_NORMAL;
+			}
+			else if (pPlayer->state != PLAYERSTATE_SLEEP)
+			{ // Q‚Ä‚È‚¢ê‡
+
+				pPlayer->state = PLAYERSTATE_SLEEP;		// Q‚éó‘Ô‚É‚·‚é
+			}
 		}
 	}
 }
