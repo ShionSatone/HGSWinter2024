@@ -20,6 +20,7 @@
 #define PATA1_TIME (1)
 #define PATA2_TIME (5)
 #define PATA3_TIME (10)
+#define DOOR_SPACE (0.0f)
 
 //ƒQ[ƒ€ó‘Ô‚Ì—ñ‹“Œ^’è‹`
 typedef enum
