@@ -457,7 +457,7 @@ void UpdateBlackSanta(void)
 			{
 				NullShadow(g_BlackSanta.nIdxShadow);
 				NullLife(g_BlackSanta.nIdxLife);
-				SetParticle(g_BlackSanta.pos, g_BlackSanta.scale);
+				SetParticle(g_BlackSanta.pos, g_BlackSanta.scale,PARTICLE_TYPE_NONE);
 				g_BlackSanta.state = BLACKSANTASTATE_APPEAR;
 			}
 			break;

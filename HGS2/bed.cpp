@@ -8,6 +8,7 @@
 #include"bed.h"
 #include"camera.h"
 #include"input.h"
+#include "particle.h"
 
 // É}ÉNÉçíËã`
 #define X_NAME "data\\MODEL\\bed.x"
@@ -92,7 +93,10 @@ void UninitBed(void)
 //-------------------
 void UpdateBed(void)
 {
-
+	if (GetKeyboradTrigger(DIK_K) == true)
+	{
+		SetParticle(D3DXVECTOR3(g_Bed.pos.x, g_Bed.pos.y + 50.0f, g_Bed.pos.z), D3DXVECTOR3(1.0f, 1.0f, 1.0f), PARTICLE_TYPE_COLLECT);
+	}
 }
 
 //-------------------

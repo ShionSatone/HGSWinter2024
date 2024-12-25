@@ -668,7 +668,7 @@ void UpdateSanta(void)
 			{
 				NullShadow(g_Santa.nIdxShadow);
 				NullLife(g_Santa.nIdxLife);
-				SetParticle(g_Santa.pos, g_Santa.scale);
+				SetParticle(g_Santa.pos, g_Santa.scale, PARTICLE_TYPE_NONE);
 				g_Santa.state = SANTASTATE_APPEAR;
 			}
 			break;
