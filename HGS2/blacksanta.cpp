@@ -11,7 +11,7 @@
 #include"input.h"
 #include"file.h"
 #include"particle.h"
-#include"present.h"
+#include"socks.h"
 
 //グローバル変数宣言
 BlackSanta g_BlackSanta;
@@ -416,10 +416,10 @@ void UpdateBlackSanta(void)
 	{
 		//移動処理
 
-		Present* pPresent = GetPresent();
+		Socks* pSocks = GetSocks();
 		float Oldrot = atan2f(g_BlackSanta.move.x, g_BlackSanta.move.z);//今の方向
-		float Xlong = pPresent->pos.x - g_BlackSanta.pos.x;
-		float Zlong = pPresent->pos.z - g_BlackSanta.pos.z;
+		float Xlong = pSocks->pos.x - g_BlackSanta.pos.x;
+		float Zlong = pSocks->pos.z - g_BlackSanta.pos.z;
 		float Destrot = atan2f(Xlong, Zlong);//敵の方向
 
 		float Diffrot = Destrot - Oldrot;//差の角度
