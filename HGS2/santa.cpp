@@ -122,10 +122,8 @@ void InitSanta(void)
 	g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 	g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 	g_Santa.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Santa.nLife = SANTA_LIFE;
 	g_Santa.state = SANTASTATE_NORMAL;
 	g_Santa.nIdxShadow = -1;
-	g_Santa.nIdxLife = -1;
 	g_Santa.pStage = NULL;
 
 	g_Santa.bLoopMotion = false;
@@ -653,12 +651,7 @@ void UpdateSanta(void)
 			g_Santa.bUse = false;
 			break;
 		case SANTASTATE_NORMAL:
-			if (g_Santa.nLife <= 0)
-			{
-				g_Santa.state = SANTASTATE_DIE;
-			}
 			SetPositionShadow(g_Santa.nIdxShadow, g_Santa.pos, g_Santa.scale, 200.0f);
-			SetLife(g_Santa.pos + D3DXVECTOR3(0.0f, LIFE_SPACE, 0.0f), (float)((float)g_Santa.nLife / (float)SANTA_LIFE), g_Santa.nIdxLife);
 			break;
 		case SANTASTATE_DIE:
 			g_Santa.Destrot.x = D3DX_PI * 0.5f;
@@ -667,7 +660,6 @@ void UpdateSanta(void)
 			if (nCnt >= 20)
 			{
 				NullShadow(g_Santa.nIdxShadow);
-				NullLife(g_Santa.nIdxLife);
 				SetParticle(g_Santa.pos, g_Santa.scale);
 				g_Santa.state = SANTASTATE_APPEAR;
 			}
@@ -782,10 +774,8 @@ void SetSanta(D3DXVECTOR3 pos)
 		g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 		g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 		g_Santa.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-		g_Santa.nLife = SANTA_LIFE;
 		g_Santa.state = SANTASTATE_NORMAL;
 		g_Santa.nIdxShadow = SetShadow(g_Santa.pos, g_Santa.rot);
-		g_Santa.nIdxLife = LinkLife();
 		g_Santa.pStage = NULL;
 
 		g_Santa.bLoopMotion = false;
@@ -813,12 +803,9 @@ void EndSanta(void)
 		g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 		g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 		g_Santa.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-		g_Santa.nLife = SANTA_LIFE;
 		g_Santa.state = SANTASTATE_NORMAL;
 		NullShadow(g_Santa.nIdxShadow);
 		g_Santa.nIdxShadow = -1;
-		NullLife(g_Santa.nIdxLife);
-		g_Santa.nIdxLife = -1;
 		g_Santa.pStage = NULL;
 
 		g_Santa.bLoopMotion = false;
