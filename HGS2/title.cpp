@@ -31,6 +31,7 @@
 #include "desk.h"
 #include "chair.h"
 #include"player.h"
+#include"boolshelf.h"
 
 #define DEMO_TIME (600)
 #define TITLE_MAX (3)
@@ -91,6 +92,7 @@ void InitTitle(void)
 	InitWall();			// 壁
 	InitDesk();    //机の初期化処理
 	InitChair();    //椅子の初期化処理
+	InitBoolShelf();    //本棚の初期化処理
 
 
 	LPDIRECT3DDEVICE9 pDevice;//デバイスへポインタ
@@ -266,6 +268,7 @@ void UninitTitle(void)
 	UninitMeshWall();
 	UninitBillboard();
 
+	UninitBoolShelf();    //本棚の初期化処理
 	UninitPlayer();     //プレイヤー
 	UninitBed();			// ベッド
 	UninitChimney();      //煙突の終了処理
@@ -1637,6 +1640,7 @@ void UpdateTitle(void)
 	UpdateWall();			// 壁
 	UpdateDesk();    //机の更新処理
 	UpdateChair();    //椅子の更新処理
+	UpdateBoolShelf();    //本棚の初期化処理
 }
 
 //-------------------
@@ -1665,6 +1669,7 @@ void DrawTitle(void)
 	DrawWall();			// 壁
 	DrawDesk();    //机の描画処理
 	DrawChair();    //椅子の描画処理
+	DrawBoolShelf();    //本棚の初期化処理
 
     //デバイスの取得
 	pDevice = GetDevice();
