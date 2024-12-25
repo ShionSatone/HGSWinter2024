@@ -85,9 +85,6 @@ void InitGame(void)
 	//ステージ
 	LoadStage();
 
-	SetSanta(D3DXVECTOR3(-100.0f, 0.0f, 0.0f));
-	SetBlackSanta(D3DXVECTOR3(20.0f, 0.0f, 0.0f));
-
 	D3DXVECTOR3 posScore;//スコアの位置
 	g_gameState = GAMESTATE_NORMAL;
 	g_nCounterGameState = 0;
@@ -142,6 +139,7 @@ void UninitGame(void)
 void UpdateGame(void)
 {
 	SetSanta(D3DXVECTOR3(-100.0f, 0.0f, 0.0f));
+	SetBlackSanta(D3DXVECTOR3(-100.0f, 0.0f, 0.0f));
 
 	if (GetKeyboradTrigger(DIK_P) == true || GetJoykeyTrigger(JOYKEY_START, CONTROLLER_MAX) == true || GetMouseTrigger(MOUSE_SENTER) == true)
 	{
