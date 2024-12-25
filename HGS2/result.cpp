@@ -23,6 +23,17 @@
 #include"meshwall.h"
 #include"snowball.h"
 
+#include "bed.h"
+#include "socks.h"
+#include "window.h"
+#include "wall.h"
+#include "chimney.h"
+#include "door.h"
+#include "desk.h"
+#include "chair.h"
+#include"player.h"
+#include"boolshelf.h"
+
 #define RESULT_TIME (600)
 #define RESULT_WIDTH (200)
 #define RESULT_HEIGHT (200)
@@ -43,6 +54,17 @@ void InitResult(void)
 	InitSnowBall();
 	InitMeshWall();
 	InitBillboard();
+
+	InitPlayer();     //プレイヤー
+	InitBed();			// ベッド
+	InitChimney();      //煙突の初期化処理
+	InitDoor();      //ドアの初期化処理
+	InitSocks();		// 靴下
+	InitWindow();		// 窓
+	InitWall();			// 壁
+	InitDesk();    //机の初期化処理
+	InitChair();    //椅子の初期化処理
+	InitBoolShelf();    //本棚の初期化処理
 
 	HWND hWnd = GethWnd();
 
@@ -153,6 +175,17 @@ void UninitResult(void)
 	UninitSnowBall();
 	UninitMeshWall();
 	UninitBillboard();
+
+	UninitBoolShelf();    //本棚の初期化処理
+	UninitPlayer();     //プレイヤー
+	UninitBed();			// ベッド
+	UninitChimney();      //煙突の終了処理
+	UninitDoor();      //ドアの終了処理
+	UninitSocks();		// 靴下
+	UninitWindow();		// 窓
+	UninitWall();			// 壁
+	UninitDesk();    //机の終了処理
+	UninitChair();    //椅子の終了処理
 
 	//テクスチャの破棄
 	if (g_apTextureResult != NULL)
@@ -287,6 +320,17 @@ void UpdateResult(void)
 	UpdateSnowBall();
 	UpdateMeshWall();
 	UpdateBillboard();
+
+	UpdatePlayer();     //プレイヤー
+	UpdateBed();			// ベッド
+	UpdateChimney();      //煙突の更新処理
+	UpdateDoor();      //ドアの更新処理
+	UpdateSocks();		// 靴下
+	UpdateWindow();		// 窓
+	UpdateWall();			// 壁
+	UpdateDesk();    //机の更新処理
+	UpdateChair();    //椅子の更新処理
+	UpdateBoolShelf();    //本棚の初期化処理
 }
 
 //-------------------
@@ -305,6 +349,17 @@ void DrawResult(void)
 	DrawMeshWall();
 	DrawSnowBall();
 	DrawAlphaMeshWall();
+
+	DrawPlayer();     //プレイヤー
+	DrawBed();			// ベッド
+	DrawChimney();      //煙突の描画処理
+	DrawDoor();      //ドアの描画処理
+	DrawSocks();		// 靴下
+	DrawWindow();		// 窓
+	DrawWall();			// 壁
+	DrawDesk();    //机の描画処理
+	DrawChair();    //椅子の描画処理
+	DrawBoolShelf();    //本棚の初期化処理
 
 	//デバイスの取得
 	pDevice = GetDevice();

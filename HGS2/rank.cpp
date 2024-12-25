@@ -26,6 +26,17 @@
 #include"meshwall.h"
 #include"snowball.h"
 
+#include "bed.h"
+#include "socks.h"
+#include "window.h"
+#include "wall.h"
+#include "chimney.h"
+#include "door.h"
+#include "desk.h"
+#include "chair.h"
+#include"player.h"
+#include"boolshelf.h"
+
 #define NUMBER_WIDTH (64)
 #define NUMBER_HEIGHT (750)
 #define RANK_MAX (2)
@@ -50,6 +61,17 @@ void InitRank(void)
 	InitSnowBall();
 	InitMeshWall();
 	InitBillboard();
+
+	InitPlayer();     //プレイヤー
+	InitBed();			// ベッド
+	InitChimney();      //煙突の初期化処理
+	InitDoor();      //ドアの初期化処理
+	InitSocks();		// 靴下
+	InitWindow();		// 窓
+	InitWall();			// 壁
+	InitDesk();    //机の初期化処理
+	InitChair();    //椅子の初期化処理
+	InitBoolShelf();    //本棚の初期化処理
 
 	LPDIRECT3DDEVICE9 pDevice;//デバイスへポインタ
 	VERTEX_2D* pVtx;//頂点情報ポインタ
@@ -259,6 +281,17 @@ void UninitRank(void)
 	UninitMeshWall();
 	UninitBillboard();
 
+	UninitBoolShelf();    //本棚の初期化処理
+	UninitPlayer();     //プレイヤー
+	UninitBed();			// ベッド
+	UninitChimney();      //煙突の終了処理
+	UninitDoor();      //ドアの終了処理
+	UninitSocks();		// 靴下
+	UninitWindow();		// 窓
+	UninitWall();			// 壁
+	UninitDesk();    //机の終了処理
+	UninitChair();    //椅子の終了処理
+
 	//テクスチャの破棄
 	for (int i = 0; i < RANK_MAX; i++)
 	{
@@ -391,6 +424,17 @@ void UpdateRank(void)
 		UpdateSnowBall();
 		UpdateMeshWall();
 		UpdateBillboard();
+
+		UpdatePlayer();     //プレイヤー
+		UpdateBed();			// ベッド
+		UpdateChimney();      //煙突の更新処理
+		UpdateDoor();      //ドアの更新処理
+		UpdateSocks();		// 靴下
+		UpdateWindow();		// 窓
+		UpdateWall();			// 壁
+		UpdateDesk();    //机の更新処理
+		UpdateChair();    //椅子の更新処理
+		UpdateBoolShelf();    //本棚の初期化処理
 	}
 }
 
@@ -410,6 +454,17 @@ void DrawRank(void)
 	DrawMeshWall();
 	DrawSnowBall();
 	DrawAlphaMeshWall();
+
+	DrawPlayer();     //プレイヤー
+	DrawBed();			// ベッド
+	DrawChimney();      //煙突の描画処理
+	DrawDoor();      //ドアの描画処理
+	DrawSocks();		// 靴下
+	DrawWindow();		// 窓
+	DrawWall();			// 壁
+	DrawDesk();    //机の描画処理
+	DrawChair();    //椅子の描画処理
+	DrawBoolShelf();    //本棚の初期化処理
 
 //デバイスの取得
 	pDevice = GetDevice();

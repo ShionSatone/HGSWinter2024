@@ -29,7 +29,7 @@
 #define NUM_KEY (2)
 #define MAX_MOTION (16)
 #define NUM_MOTION (1)
-#define SPEED (2.8f)
+#define SPEED (1.0f)
 #define SPEED_DEF (0.0f)
 #define JUMP (20.0f)
 #define JUMP_INA (0.9f)
