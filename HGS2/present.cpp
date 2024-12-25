@@ -8,6 +8,7 @@
 #include"present.h"
 #include"camera.h"
 #include"input.h"
+#include"shadow.h"
 
 // マクロ定義
 #define X_NAME "data\\MODEL\\prezent.x"
@@ -28,6 +29,7 @@ void InitPresent(void)
 	g_Present.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Present.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Present.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Present.nIdxShadow = SetShadow(g_Present.pos, g_Present.rot);
 
 	//Xファイル読み込み
 	D3DXLoadMeshFromX
@@ -92,7 +94,7 @@ void UninitPresent(void)
 //-------------------
 void UpdatePresent(void)
 {
-
+	SetPositionShadow(g_Present.nIdxShadow, g_Present.pos, g_Present.rot, 100.0f);
 }
 
 //-------------------
