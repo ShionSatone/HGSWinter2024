@@ -115,6 +115,7 @@ void DrawDesk(void)
 
 	//デバイスの取得
 	pDevice = GetDevice();
+
 	//マトリックス初期化
 	D3DXMatrixIdentity(&g_Desk.mtxWorld);
 

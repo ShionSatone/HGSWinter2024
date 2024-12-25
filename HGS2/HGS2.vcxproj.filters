@@ -168,6 +168,9 @@
     <ClCompile Include="desk.cpp">
       <Filter>ソース ファイル\Ob</Filter>
     </ClCompile>
+    <ClCompile Include="chair.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -301,6 +304,9 @@
     </ClInclude>
     <ClInclude Include="desk.h">
       <Filter>ヘッダー ファイル\Ob</Filter>
+    </ClInclude>
+    <ClInclude Include="chair.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
