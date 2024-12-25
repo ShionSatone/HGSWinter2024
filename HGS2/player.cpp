@@ -832,7 +832,7 @@ void UpdatePlayer(void)
 			g_Player.aModel[nCntModel].vtxMin.z = g_Player.aModel[nCntModel].vtxMinDef.z * g_Player.scale.z;
 		}
 
-		//UpdateMotion();
+		UpdateMotion();
 
 		switch (g_Player.state)
 		{
@@ -968,211 +968,75 @@ Player* GetPlayer(void)
 //------------------------------
 void UpdateMotion(void)
 {
-	static MOTIONTYPE OldMotion = MOTIONTYPE_NEUTRAL;
-	static int BlendCnt = 0;
-	if (OldMotion != g_Player.motionType)
-	{
-		g_Player.aMotionInfo[OldMotion] = g_Motion[OldMotion];
-		g_Player.aMotionInfo[g_Player.motionType] = g_Motion[g_Player.motionType];
-
-		for (int nCntModel = 0; nCntModel < g_Player.nNumModel; nCntModel++)
-		{
-			D3DXVECTOR3 Oldpos = D3DXVECTOR3(g_Player.aMotionInfo[OldMotion].aKeyInfo[g_Player.aMotionInfo[OldMotion].nNumKey - 1].aKey[nCntModel].fPosX, g_Player.aMotionInfo[OldMotion].aKeyInfo[g_Player.aMotionInfo[OldMotion].nNumKey - 1].aKey[nCntModel].fPosY, g_Player.aMotionInfo[OldMotion].aKeyInfo[g_Player.aMotionInfo[OldMotion].nNumKey - 1].aKey[nCntModel].fPosZ);
-			D3DXVECTOR3 Destpos = D3DXVECTOR3(g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[0].aKey[nCntModel].fPosX, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[0].aKey[nCntModel].fPosY, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[0].aKey[nCntModel].fPosZ);
-			D3DXVECTOR3 posDif = Destpos - Oldpos;
-
-			D3DXVECTOR3 Oldrot = D3DXVECTOR3(g_Player.aMotionInfo[OldMotion].aKeyInfo[g_Player.aMotionInfo[OldMotion].nNumKey - 1].aKey[nCntModel].fRotX, g_Player.aMotionInfo[OldMotion].aKeyInfo[g_Player.aMotionInfo[OldMotion].nNumKey - 1].aKey[nCntModel].fRotY, g_Player.aMotionInfo[OldMotion].aKeyInfo[g_Player.aMotionInfo[OldMotion].nNumKey - 1].aKey[nCntModel].fRotZ);
-			D3DXVECTOR3 Destrot = D3DXVECTOR3(g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[0].aKey[nCntModel].fRotX, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[0].aKey[nCntModel].fRotY, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[0].aKey[nCntModel].fRotZ);
-
-			//正規化
-			if (Destrot.x - Oldrot.x > D3DX_PI)
-			{
-				Destrot.x = Oldrot.x + ((Destrot.x - Oldrot.x) - D3DX_PI * 2.0f);
-			}
-			else if (Destrot.x - Oldrot.x < -D3DX_PI)
-			{
-				Destrot.x = Oldrot.x + ((Destrot.x - Oldrot.x) + D3DX_PI * 2.0f);
-			}
-			//正規化
-			if (Destrot.y - Oldrot.y > D3DX_PI)
-			{
-				Destrot.y = Oldrot.y + ((Destrot.y - Oldrot.y) - D3DX_PI * 2.0f);
-			}
-			else if (Destrot.y - Oldrot.y < -D3DX_PI)
-			{
-				Destrot.y = Oldrot.y + ((Destrot.y - Oldrot.y) + D3DX_PI * 2.0f);
-			}
-			//正規化
-			if (Destrot.z - Oldrot.z > D3DX_PI)
-			{
-				Destrot.z = Oldrot.z + ((Destrot.z - Oldrot.z) - D3DX_PI * 2.0f);
-			}
-			else if (Destrot.z - Oldrot.z < -D3DX_PI)
-			{
-				Destrot.z = Oldrot.z + ((Destrot.z - Oldrot.z) + D3DX_PI * 2.0f);
-			}
-
-			D3DXVECTOR3 rotDif = Destrot - Oldrot;
-
-			g_Player.aModel[nCntModel].pos = g_Player.aModel[nCntModel].posDef + Oldpos + posDif * (BlendCnt / BLEND_FRAME);
-			g_Player.aModel[nCntModel].rot = Oldrot + rotDif * (BlendCnt / BLEND_FRAME);
-
-			//正規化
-			if (g_Player.aModel[nCntModel].rot.x > D3DX_PI)
-			{
-				g_Player.aModel[nCntModel].rot.x -= D3DX_PI * 2.0f;
-			}
-			else if (g_Player.aModel[nCntModel].rot.x < -D3DX_PI)
-			{
-				g_Player.aModel[nCntModel].rot.x += D3DX_PI * 2.0f;
-			}
-			//正規化
-			if (g_Player.aModel[nCntModel].rot.y > D3DX_PI)
-			{
-				g_Player.aModel[nCntModel].rot.y -= D3DX_PI * 2.0f;
-			}
-			else if (g_Player.aModel[nCntModel].rot.y < -D3DX_PI)
-			{
-				g_Player.aModel[nCntModel].rot.y += D3DX_PI * 2.0f;
-			}
-			//正規化
-			if (g_Player.aModel[nCntModel].rot.z > D3DX_PI)
-			{
-				g_Player.aModel[nCntModel].rot.z -= D3DX_PI * 2.0f;
-			}
-			else if (g_Player.aModel[nCntModel].rot.z < -D3DX_PI)
-			{
-				g_Player.aModel[nCntModel].rot.z += D3DX_PI * 2.0f;
-			}
-		}
-
-		if (BlendCnt == (int)BLEND_FRAME)
-		{
-			BlendCnt = 0;
-			OldMotion = g_Player.motionType;
-			return;
-		}
-		BlendCnt++;
-		return;
-	}
-	g_Player.aMotionInfo[g_Player.motionType] = g_Motion[g_Player.motionType];
-	g_Player.nNumKey = g_Player.aMotionInfo[g_Player.motionType].nNumKey;
-	g_Player.bLoopMotion = g_Player.aMotionInfo[g_Player.motionType].bLoop;
-	static int nDestKey = g_Player.nKey + 1;
-
-	if (g_Player.nCounterMotion >= g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].nFrame)
-	{
-		g_Player.nCounterMotion = 0;
-	}
-
-	if (g_Player.nCounterMotion == 0)
-	{
-		if (nDestKey >= g_Player.nNumKey - 1)
-		{
-			if (g_Player.bLoopMotion)
-			{
-				g_Player.nKey++;
-				nDestKey = 0;
-
-				for (int nCntModel = 0; nCntModel < g_Player.nNumModel; nCntModel++)
-				{
-					g_Player.aModel[nCntModel].pos = g_Player.aModel[nCntModel].posDef + D3DXVECTOR3(g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosX, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosY, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosZ);
-					g_Player.aModel[nCntModel].rot = D3DXVECTOR3(g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotX, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotY, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotZ);
-				}
-			}
-			else
-			{
-				g_Player.nKey = -1;
-				nDestKey = g_Player.nKey + 1;
-				g_Player.motionType = MOTIONTYPE_NEUTRAL;
-				return;
-			}
-		}
-		else
-		{
-			g_Player.nKey++;
-			if (g_Player.nKey > g_Player.nNumKey - 1)
-			{
-				g_Player.nKey = 0;
-			}
-			nDestKey = g_Player.nKey + 1;
-
-			for (int nCntModel = 0; nCntModel < g_Player.nNumModel; nCntModel++)
-			{
-				g_Player.aModel[nCntModel].pos = g_Player.aModel[nCntModel].posDef + D3DXVECTOR3(g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosX, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosY, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosZ);
-				g_Player.aModel[nCntModel].rot = D3DXVECTOR3(g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotX, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotY, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotZ);
-			}
-		}
-	}
+	int nextKey = 0;//次のキー
 
 	for (int nCntModel = 0; nCntModel < g_Player.nNumModel; nCntModel++)
 	{
-		D3DXVECTOR3 Oldpos = D3DXVECTOR3(g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosX, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosY, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosZ);
-		D3DXVECTOR3 Destpos = D3DXVECTOR3(g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[nDestKey].aKey[nCntModel].fPosX, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[nDestKey].aKey[nCntModel].fPosY, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[nDestKey].aKey[nCntModel].fPosZ);
-		D3DXVECTOR3 posDif = Destpos - Oldpos;
+		float DiffPosX, DiffPosY, DiffPosZ, DiffRotX, DiffRotY, DiffRotZ; //位置の差、向きの差を求める変数
 
-		D3DXVECTOR3 Oldrot = D3DXVECTOR3(g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotX, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotY, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotZ);
-		D3DXVECTOR3 Destrot = D3DXVECTOR3(g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[nDestKey].aKey[nCntModel].fRotX, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[nDestKey].aKey[nCntModel].fRotY, g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[nDestKey].aKey[nCntModel].fRotZ);
+		DiffPosX = DiffPosY = DiffPosZ = DiffRotX = DiffRotY = DiffRotZ = 0.0f; //変数を初期化
 
-		//正規化
-		if (Destrot.x - Oldrot.x > D3DX_PI)
-		{
-			Destrot.x = Oldrot.x + ((Destrot.x - Oldrot.x) - D3DX_PI * 2.0f);
-		}
-		else if (Destrot.x - Oldrot.x < -D3DX_PI)
-		{
-			Destrot.x = Oldrot.x + ((Destrot.x - Oldrot.x) + D3DX_PI * 2.0f);
-		}
-		//正規化
-		if (Destrot.y - Oldrot.y > D3DX_PI)
-		{
-			Destrot.y = Oldrot.y + ((Destrot.y - Oldrot.y) - D3DX_PI * 2.0f);
-		}
-		else if (Destrot.y - Oldrot.y < -D3DX_PI)
-		{
-			Destrot.y = Oldrot.y + ((Destrot.y - Oldrot.y) + D3DX_PI * 2.0f);
-		}
-		//正規化
-		if (Destrot.z - Oldrot.z > D3DX_PI)
-		{
-			Destrot.z = Oldrot.z + ((Destrot.z - Oldrot.z) - D3DX_PI * 2.0f);
-		}
-		else if (Destrot.z - Oldrot.z < -D3DX_PI)
-		{
-			Destrot.z = Oldrot.z + ((Destrot.z - Oldrot.z) + D3DX_PI * 2.0f);
-		}
+		nextKey = (g_Player.nKey + 1) % g_Player.aMotionInfo[g_Player.motionType].nNumKey;//次のキーを計算
 
-		D3DXVECTOR3 rotDif = Destrot - Oldrot;
+		//位置の差、向きの差を求める
+		DiffPosX = g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[nextKey].aKey[nCntModel].fPosX - g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosX;
+		DiffPosY = g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[nextKey].aKey[nCntModel].fPosY - g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosY;
+		DiffPosZ = g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[nextKey].aKey[nCntModel].fPosZ - g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosZ;
+		DiffRotX = g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[nextKey].aKey[nCntModel].fRotX - g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotX;
+		DiffRotY = g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[nextKey].aKey[nCntModel].fRotY - g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotY;
+		DiffRotZ = g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[nextKey].aKey[nCntModel].fRotZ - g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotZ;
 
-		g_Player.aModel[nCntModel].pos = g_Player.aModel[nCntModel].posDef + Oldpos + posDif * (g_Player.nCounterMotion / (float)g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].nFrame);
-		g_Player.aModel[nCntModel].rot = Oldrot + rotDif * (g_Player.nCounterMotion / (float)g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].nFrame);
+		//パーツの位置Xを設定
+		g_Player.aModel[nCntModel].pos.x =
+			g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosX +
+			DiffPosX *
+			((float)g_Player.nCounterMotion /
+				(float)g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].nFrame);
 
-		//正規化
-		if (g_Player.aModel[nCntModel].rot.x > D3DX_PI)
+		//パーツの位置Yを設定
+		g_Player.aModel[nCntModel].pos.y =
+			g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosY +
+			DiffPosY *
+			((float)g_Player.nCounterMotion /
+				(float)g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].nFrame);
+
+		//パーツの位置Zを設定
+		g_Player.aModel[nCntModel].pos.z =
+			g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fPosZ +
+			DiffPosZ *
+			((float)g_Player.nCounterMotion /
+				(float)g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].nFrame);
+
+		//パーツの向きXを設定
+		g_Player.aModel[nCntModel].rot.x =
+			g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotX +
+			DiffRotX *
+			((float)g_Player.nCounterMotion /
+				(float)g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].nFrame);
+
+		//パーツの向きYを設定
+		g_Player.aModel[nCntModel].rot.y =
+			g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotY +
+			DiffRotY *
+			((float)g_Player.nCounterMotion /
+				(float)g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].nFrame);
+
+		//パーツの向きZを設定
+		g_Player.aModel[nCntModel].rot.z =
+			g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].aKey[nCntModel].fRotZ +
+			DiffRotZ *
+			((float)g_Player.nCounterMotion /
+				(float)g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].nFrame);
+
+		//オフセットと足す
+		g_Player.aModel[nCntModel].rot += g_Player.aModel[nCntModel].offrot;
+		g_Player.aModel[nCntModel].pos += g_Player.aModel[nCntModel].offpos;
+
+		//カウンターモーションが最大まで行ったら0に戻す
+		if (g_Player.nCounterMotion >= g_Player.aMotionInfo[g_Player.motionType].aKeyInfo[g_Player.nKey].nFrame)
 		{
-			g_Player.aModel[nCntModel].rot.x -= D3DX_PI * 2.0f;
-		}
-		else if (g_Player.aModel[nCntModel].rot.x < -D3DX_PI)
-		{
-			g_Player.aModel[nCntModel].rot.x += D3DX_PI * 2.0f;
-		}
-		//正規化
-		if (g_Player.aModel[nCntModel].rot.y > D3DX_PI)
-		{
-			g_Player.aModel[nCntModel].rot.y -= D3DX_PI * 2.0f;
-		}
-		else if (g_Player.aModel[nCntModel].rot.y < -D3DX_PI)
-		{
-			g_Player.aModel[nCntModel].rot.y += D3DX_PI * 2.0f;
-		}
-		//正規化
-		if (g_Player.aModel[nCntModel].rot.z > D3DX_PI)
-		{
-			g_Player.aModel[nCntModel].rot.z -= D3DX_PI * 2.0f;
-		}
-		else if (g_Player.aModel[nCntModel].rot.z < -D3DX_PI)
-		{
-			g_Player.aModel[nCntModel].rot.z += D3DX_PI * 2.0f;
+			g_Player.nKey = (g_Player.nKey + 1) % g_Player.aMotionInfo[g_Player.motionType].nNumKey;
+			g_Player.nCounterMotion = 0;
 		}
 	}
 	g_Player.nCounterMotion++;
@@ -1295,17 +1159,17 @@ void LoadPlayer(void)
 							{
 								fscanf(pFile, "%s", &skip[0]);
 
-								fscanf(pFile, "%f", &g_Player.aModel[nIdx].pos.x);
-								fscanf(pFile, "%f", &g_Player.aModel[nIdx].pos.y);
-								fscanf(pFile, "%f", &g_Player.aModel[nIdx].pos.z);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].offpos.x);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].offpos.y);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].offpos.z);
 
 							}
 							else if (strcmp(aStr, "ROT") == 0)
 							{
 								fscanf(pFile, "%s", &skip[0]);
-								fscanf(pFile, "%f", &g_Player.aModel[nIdx].rot.x);
-								fscanf(pFile, "%f", &g_Player.aModel[nIdx].rot.y);
-								fscanf(pFile, "%f", &g_Player.aModel[nIdx].rot.z);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].offrot.x);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].offrot.y);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].offrot.z);
 							}
 							else if (strcmp(aStr, "END_PARTSSET") == 0)
 							{

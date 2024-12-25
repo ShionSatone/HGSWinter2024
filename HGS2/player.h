@@ -91,7 +91,7 @@ typedef struct
 //プレイヤー構造体
 typedef struct
 {
-	D3DXVECTOR3 pos;
+	D3DXVECTOR3 pos;//位置
 	D3DXVECTOR3 posOld;
 	D3DXVECTOR3 move;
 	D3DXVECTOR3 rot;

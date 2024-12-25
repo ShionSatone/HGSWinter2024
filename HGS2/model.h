@@ -16,8 +16,10 @@ typedef struct
 	LPD3DXBUFFER pBuffMat;//マテリアルポインタ
 	LPDIRECT3DTEXTURE9 apTexture[64];
 	D3DXVECTOR3 pos;
+	D3DXVECTOR3 offpos;//オフセットのポス
 	D3DXVECTOR3 posDef;
 	D3DXVECTOR3 rot;
+	D3DXVECTOR3 offrot;//オフセットの向き
 	D3DXVECTOR3 scale;
 	D3DXMATRIX mtxWorld;
 	DWORD dwNumMat;//マテリアル数
