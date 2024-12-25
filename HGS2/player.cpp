@@ -394,8 +394,11 @@ void UpdatePlayer(void)
 
 	if (GetKeyboradTrigger(DIK_RETURN) == true||GetJoykeyTrigger(JOYKEY_RT, CONTROLLER_1)==true)
 	{
-		g_Player.nKey = 0;//キーを0番目から始める
-		g_Player.motionType = MOTIONTYPE_ACTION;
+		if (g_Player.motionType != MOTIONTYPE_ACTION)
+		{
+			g_Player.nKey = 0;//キーを0番目から始める
+			g_Player.motionType = MOTIONTYPE_ACTION;
+		}
 	}
 
 	//モーションの状態
