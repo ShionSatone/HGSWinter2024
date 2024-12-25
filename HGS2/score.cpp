@@ -41,7 +41,7 @@ void InitScore(void)
 		&g_pTextureScore
 	);
 
-	g_posScore = D3DXVECTOR3(SCREEN_WIDTH-SCORE_MAX*(SCORE_WIDTH/U_MAX_S)+ (SCORE_WIDTH / U_MAX_S)/2,(SCORE_HEIGHT/V_MAX_S)/2,0.0f);
+	g_posScore = D3DXVECTOR3(SCREEN_WIDTH-SCORE_MAX* (SCORE_WIDTH / U_MAX_S) + (SCORE_WIDTH / U_MAX_S) /2, (SCORE_HEIGHT / V_MAX_S) /2,0.0f);
 	g_nScore = 0;
 
 	g_pVtxBuffScore->Lock(0, 0, (void**)&pVtx, 0);//プレイヤーバッファのロック
@@ -72,7 +72,7 @@ void InitScore(void)
 		pVtx[2].tex = D3DXVECTOR2(0.0f, UV_DEF / V_MAX_S);
 		pVtx[3].tex = D3DXVECTOR2(UV_DEF / U_MAX_S, UV_DEF / V_MAX_S);
 
-		g_posScore.x += SCORE_WIDTH/U_MAX_S;
+		g_posScore.x += (SCORE_WIDTH / U_MAX_S);
 		pVtx += VT_MAX;
 	}
 

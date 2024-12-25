@@ -26,6 +26,7 @@
 #include"santa.h"
 #include"blacksanta.h"
 #include "bed.h"
+#include "socks.h"
 
 #include"shadow.h"
 #include"billboard.h"
@@ -75,6 +76,7 @@ void InitGame(void)
 	InitBed();			// ベッド
 	InitChimney();      //煙突の初期化処理
 	InitDoor();      //ドアの初期化処理
+	InitSocks();		// 靴下
 
 	//空間
 	SetMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
@@ -131,6 +133,7 @@ void UninitGame(void)
 	UninitBed();			// ベッド
 	UninitChimney();      //煙突の終了処理
 	UninitDoor();      //ドアの終了処理
+	UninitSocks();		// 靴下
 }
 
 //--------------
@@ -138,6 +141,8 @@ void UninitGame(void)
 //--------------
 void UpdateGame(void)
 {
+	SetSanta(D3DXVECTOR3(-100.0f, 0.0f, 0.0f));
+
 	if (GetKeyboradTrigger(DIK_P) == true || GetJoykeyTrigger(JOYKEY_START, CONTROLLER_MAX) == true || GetMouseTrigger(MOUSE_SENTER) == true)
 	{
 		FADE fade;
@@ -259,6 +264,7 @@ void UpdateGame(void)
 		UpdateBed();			// ベッド
 		UpdateChimney();      //煙突の更新処理
 		UpdateDoor();      //ドアの更新処理
+		UpdateSocks();		// 靴下
 	}
 }
 
@@ -291,6 +297,7 @@ void DrawGame(void)
 	DrawBed();			// ベッド
 	DrawChimney();      //煙突の描画処理
 	DrawDoor();      //ドアの描画処理
+	DrawSocks();		// 靴下
 }
 
 //----------------------
