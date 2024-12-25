@@ -565,10 +565,19 @@ void UpdatePlayer(void)
 
 	Bed* pBed = GetBed();
 
-	if (g_Player.state != PLAYERSTATE_SLEEP)
+	/*if (g_Player.state != PLAYERSTATE_SLEEP)
 	{
 		g_Player.pos.y = 0.0f;
+	}*/
+
+	g_Player.pos.y = 0.0f;
+
+
+	if (g_Player.state == PLAYERSTATE_SLEEP)
+	{
+		g_Player.pos.y = 50.0f;
 	}
+
 	switch (g_Player.state)
 	{
 	case PLAYERSTATE_APPEAR:
