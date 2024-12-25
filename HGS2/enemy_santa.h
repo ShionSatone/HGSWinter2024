@@ -114,15 +114,15 @@ typedef struct
 	int nCounterMotion;
 	Stage* pStage;
 	bool bUse;
-}Player;
+}Enemy;
 
-void InitPlayer(void);//ポリゴンの初期化処理
-void UninitPlayer(void);//ポリゴンの終了処理
-void UpdatePlayer(void);//ポリゴンの更新処理
-void DrawPlayer(void);//ポリゴンの描画処理
-Player* GetPlayer(void);
+void InitEnemy(void);//ポリゴンの初期化処理
+void UninitEnemy(void);//ポリゴンの終了処理
+void UpdateEnemy(void);//ポリゴンの更新処理
+void DrawEnemy(void);//ポリゴンの描画処理
+Enemy* GetEnemy(void);
 
-void UpdateMotion(void);
-void CollisionPlayer(D3DXVECTOR3 pos, float Length);
+void UpdateMotionEnemy(void);
+void CollisionEnemy(D3DXVECTOR3 pos, float Length);
 
 #endif _ENEMY_SANTA_H_
