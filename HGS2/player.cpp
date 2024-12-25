@@ -130,6 +130,7 @@ void InitPlayer(void)
 	pDevice = GetDevice();
 
 	g_Player.pos = D3DXVECTOR3(0.0f, 0.1f, 0.0f);
+	g_Player.Size = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Player.posOld = D3DXVECTOR3(0.0f, 0.1f, 0.0f);
 	g_Player.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Player.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
@@ -215,6 +216,9 @@ void InitPlayer(void)
 
 			g_Player.aModel[nCntModel].pVtxBuff += g_Player.aModel[nCntModel].sizeFVF;
 		}
+		g_Player.Size.x = g_Player.aModel[nCntModel].vtxMax.x - g_Player.aModel[nCntModel].vtxMin.x;
+		g_Player.Size.y = g_Player.aModel[nCntModel].vtxMax.y - g_Player.aModel[nCntModel].vtxMin.y;
+		g_Player.Size.z = g_Player.aModel[nCntModel].vtxMax.z - g_Player.aModel[nCntModel].vtxMin.z;
 
 		g_Player.aModel[nCntModel].vtxMinDef = g_Player.aModel[nCntModel].vtxMin;
 		g_Player.aModel[nCntModel].vtxMaxDef = g_Player.aModel[nCntModel].vtxMax;
@@ -404,7 +408,7 @@ void UpdatePlayer(void)
 
 	if (GetKeyboradTrigger(DIK_RETURN) == true||GetJoykeyTrigger(JOYKEY_RT, CONTROLLER_1)==true)
 	{
-		if (g_Player.motionType != MOTIONTYPE_ACTION)
+		if (g_Player.motionType != MOTIONTYPE_ACTION && g_Player.state != PLAYERSTATE_SLEEP)
 		{
 			g_Player.nKey = 0;//キーを0番目から始める
 			g_Player.motionType = MOTIONTYPE_ACTION;
@@ -560,6 +564,10 @@ void UpdatePlayer(void)
 
 	Bed* pBed = GetBed();
 
+	if (g_Player.state != PLAYERSTATE_SLEEP)
+	{
+		g_Player.pos.y = 0.0f;
+	}
 	switch (g_Player.state)
 	{
 	case PLAYERSTATE_APPEAR:
@@ -791,6 +799,79 @@ bool CollisionSword(D3DXVECTOR3 pos)
 	}
 	
 	return bHit;//ヒット判定を返す
+}
+//======================================
+// オブジェクトとプレイヤーの判定
+//======================================
+void CollisionObj(D3DXVECTOR3 pos, D3DXVECTOR3 Size)
+{
+	if (g_Player.bUse == true)
+	{
+		if (g_Player.posOld.y <= pos.y + Size.y
+			&& g_Player.posOld.y + g_Player.Size.y >= pos.y)
+		{
+			//左右のめり込み判定
+			if (g_Player.pos.z - g_Player.Size.z * 0.5f < pos.z + Size.z * 0.5f
+				&& g_Player.pos.z + g_Player.Size.z * 0.5f > pos.z - Size.z * 0.5f)
+			{
+				//xが左から右にめり込んだ	
+				if (g_Player.posOld.x + g_Player.Size.x * 0.5f < pos.x - Size.x * 0.5f
+					&& g_Player.pos.x + g_Player.Size.x * 0.5f > pos.x - Size.x * 0.5f)
+				{
+					g_Player.pos.x = g_Player.posOld.x;
+				}
+				//xが右から左にめり込んだ	
+				else if (g_Player.posOld.x - g_Player.Size.x * 0.5f > pos.x + Size.x * 0.5f
+					&& g_Player.pos.x - g_Player.Size.x * 0.5f < pos.x + Size.x * 0.5f)
+				{
+					g_Player.pos.x = g_Player.pos.x = g_Player.posOld.x;;
+				}
+			}
+
+			//前と後ろの判定
+			if (g_Player.pos.x - g_Player.Size.x * 0.5f < pos.x + Size.x * 0.5f
+				&& g_Player.pos.x + g_Player.Size.x * 0.5f > pos.x - Size.x * 0.5f)
+			{
+				//zが前方からめり込んだ
+				if (g_Player.posOld.z + g_Player.Size.z * 0.5f < pos.z - Size.z * 0.5f
+					&& g_Player.pos.z + g_Player.Size.z * 0.5f > pos.z - Size.z * 0.5f)
+				{
+					g_Player.pos.z = g_Player.posOld.z;
+				}
+				//zが後方からめり込んだ
+				else if (g_Player.posOld.z - g_Player.Size.z * 0.5f > pos.z + Size.z * 0.5f
+					&& g_Player.pos.z - g_Player.Size.z * 0.5f < pos.z + Size.z * 0.5f)
+				{
+					g_Player.pos.z = g_Player.posOld.z;
+				}
+			}
+		}
+
+		if (g_Player.pos.x - g_Player.Size.x * 0.5f <= pos.x + Size.x * 0.5f
+			&& g_Player.pos.x + g_Player.Size.x * 0.5f >= pos.x - Size.x * 0.5f)
+		{
+			if (g_Player.pos.z - g_Player.Size.z * 0.5f <= pos.z + Size.z * 0.5f
+				&& g_Player.pos.z + g_Player.Size.z * 0.5f >= pos.z - Size.z * 0.5f)
+			{
+				//上から下
+				if (g_Player.posOld.y >= pos.y + Size.y
+					&& g_Player.pos.y < pos.y + Size.y)
+				{
+					g_Player.pos.y = g_Player.posOld.y;
+					g_Player.move.y = 0.0f;
+				}
+				//下から上
+				else if (g_Player.posOld.y + g_Player.Size.y * 0.5f <= pos.y - Size.y * 0.5f
+					&& g_Player.pos.y + g_Player.Size.y * 0.5f > pos.y - Size.y * 0.5f)
+				{
+					g_Player.pos.y = g_Player.posOld.y;
+					g_Player.move.y = 0.0f;
+				}
+
+			}
+		}
+	}
+
 }
 
 //------------------------------

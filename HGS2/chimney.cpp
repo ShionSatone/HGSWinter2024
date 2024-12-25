@@ -11,6 +11,7 @@
 #include"chimney.h"
 #include"camera.h"
 #include"input.h"
+#include "player.h"
 
 //***************************************
 // マクロ定義
@@ -49,6 +50,48 @@ void InitChimney(void)
 		&g_Chimney.dwNumMat,
 		&g_Chimney.pMesh
 	);
+
+	//頂点数
+	g_Chimney.nNumVtx = g_Chimney.pMesh->GetNumVertices();
+	//頂点サイズ
+	g_Chimney.sizeFVF = D3DXGetFVFVertexSize(g_Chimney.pMesh->GetFVF());
+	//頂点バッファの取得
+	g_Chimney.pMesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&g_Chimney.pVtxBuff);
+
+	for (int nCntVtx = 0; nCntVtx < g_Chimney.nNumVtx; nCntVtx++)
+	{
+		D3DXVECTOR3 vtx = *(D3DXVECTOR3*)g_Chimney.pVtxBuff;
+
+		if (vtx.x > g_Chimney.vtxMax.x)
+		{
+			g_Chimney.vtxMax.x = vtx.x;
+		}
+		if (vtx.x < g_Chimney.vtxMin.x)
+		{
+			g_Chimney.vtxMin.x = vtx.x;
+		}
+		if (vtx.y > g_Chimney.vtxMax.y)
+		{
+			g_Chimney.vtxMax.y = vtx.y;
+		}
+		if (vtx.y < g_Chimney.vtxMin.y)
+		{
+			g_Chimney.vtxMin.y = vtx.y;
+		}
+		if (vtx.z > g_Chimney.vtxMax.z)
+		{
+			g_Chimney.vtxMax.z = vtx.z;
+		}
+		if (vtx.z < g_Chimney.vtxMin.z)
+		{
+			g_Chimney.vtxMin.z = vtx.z;
+		}
+
+		g_Chimney.pVtxBuff += g_Chimney.sizeFVF;
+	}
+	g_Chimney.Size.x = g_Chimney.vtxMax.x - g_Chimney.vtxMin.x;
+	g_Chimney.Size.y = g_Chimney.vtxMax.y - g_Chimney.vtxMin.y;
+	g_Chimney.Size.z = g_Chimney.vtxMax.z - g_Chimney.vtxMin.z;
 
 	//マテリアルデータへのポインタを取得
 	pMat = (D3DXMATERIAL*)g_Chimney.pBuffMat->GetBufferPointer();
@@ -100,7 +143,7 @@ void UninitChimney(void)
 //=======================================
 void UpdateChimney(void)
 {
-
+	CollisionObj(g_Chimney.pos, g_Chimney.Size);//煙突とプレイヤーの当たり判定
 }
 
 //=======================================

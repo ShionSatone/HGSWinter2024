@@ -29,6 +29,7 @@ typedef struct
 	DWORD sizeFVF;
 	BYTE* pVtxBuff;
 	int nIdxWallParent;
+	D3DXVECTOR3 Size;//壁のサイズ
 }Wall;
 
 void InitWall(void);//ポリゴンの初期化処理

@@ -9,6 +9,7 @@
 #include"camera.h"
 #include"input.h"
 #include "particle.h"
+#include "player.h"
 
 // マクロ定義
 #define X_NAME "data\\MODEL\\socks.x"
@@ -42,6 +43,48 @@ void InitSocks(void)
 		&g_Socks.dwNumMat,
 		&g_Socks.pMesh
 	);
+
+	//頂点数
+	g_Socks.nNumVtx = g_Socks.pMesh->GetNumVertices();
+	//頂点サイズ
+	g_Socks.sizeFVF = D3DXGetFVFVertexSize(g_Socks.pMesh->GetFVF());
+	//頂点バッファの取得
+	g_Socks.pMesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&g_Socks.pVtxBuff);
+
+	for (int nCntVtx = 0; nCntVtx < g_Socks.nNumVtx; nCntVtx++)
+	{
+		D3DXVECTOR3 vtx = *(D3DXVECTOR3*)g_Socks.pVtxBuff;
+
+		if (vtx.x > g_Socks.vtxMax.x)
+		{
+			g_Socks.vtxMax.x = vtx.x;
+		}
+		if (vtx.x < g_Socks.vtxMin.x)
+		{
+			g_Socks.vtxMin.x = vtx.x;
+		}
+		if (vtx.y > g_Socks.vtxMax.y)
+		{
+			g_Socks.vtxMax.y = vtx.y;
+		}
+		if (vtx.y < g_Socks.vtxMin.y)
+		{
+			g_Socks.vtxMin.y = vtx.y;
+		}
+		if (vtx.z > g_Socks.vtxMax.z)
+		{
+			g_Socks.vtxMax.z = vtx.z;
+		}
+		if (vtx.z < g_Socks.vtxMin.z)
+		{
+			g_Socks.vtxMin.z = vtx.z;
+		}
+
+		g_Socks.pVtxBuff += g_Socks.sizeFVF;
+	}
+	g_Socks.Size.x = g_Socks.vtxMax.x - g_Socks.vtxMin.x;
+	g_Socks.Size.y = g_Socks.vtxMax.y - g_Socks.vtxMin.y;
+	g_Socks.Size.z = g_Socks.vtxMax.z - g_Socks.vtxMin.z;
 
 	//マテリアルデータへのポインタを取得
 	pMat = (D3DXMATERIAL*)g_Socks.pBuffMat->GetBufferPointer();
@@ -93,7 +136,7 @@ void UninitSocks(void)
 //-------------------
 void UpdateSocks(void)
 {
-
+	CollisionObj(g_Socks.pos, g_Socks.Size);//プレイヤーとの当たり判定
 }
 
 //-------------------

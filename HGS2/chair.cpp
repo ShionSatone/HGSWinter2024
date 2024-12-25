@@ -11,6 +11,7 @@
 #include"chair.h"
 #include"camera.h"
 #include"input.h"
+#include "player.h"
 
 //***************************************
 // マクロ定義
@@ -49,6 +50,48 @@ void InitChair(void)
 		&g_Chair.dwNumMat,
 		&g_Chair.pMesh
 	);
+
+	//頂点数
+	g_Chair.nNumVtx = g_Chair.pMesh->GetNumVertices();
+	//頂点サイズ
+	g_Chair.sizeFVF = D3DXGetFVFVertexSize(g_Chair.pMesh->GetFVF());
+	//頂点バッファの取得
+	g_Chair.pMesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&g_Chair.pVtxBuff);
+
+	for (int nCntVtx = 0; nCntVtx < g_Chair.nNumVtx; nCntVtx++)
+	{
+		D3DXVECTOR3 vtx = *(D3DXVECTOR3*)g_Chair.pVtxBuff;
+
+		if (vtx.x > g_Chair.vtxMax.x)
+		{
+			g_Chair.vtxMax.x = vtx.x;
+		}
+		if (vtx.x < g_Chair.vtxMin.x)
+		{
+			g_Chair.vtxMin.x = vtx.x;
+		}
+		if (vtx.y > g_Chair.vtxMax.y)
+		{
+			g_Chair.vtxMax.y = vtx.y;
+		}
+		if (vtx.y < g_Chair.vtxMin.y)
+		{
+			g_Chair.vtxMin.y = vtx.y;
+		}
+		if (vtx.z > g_Chair.vtxMax.z)
+		{
+			g_Chair.vtxMax.z = vtx.z;
+		}
+		if (vtx.z < g_Chair.vtxMin.z)
+		{
+			g_Chair.vtxMin.z = vtx.z;
+		}
+
+		g_Chair.pVtxBuff += g_Chair.sizeFVF;
+	}
+	g_Chair.Size.x = g_Chair.vtxMax.x - g_Chair.vtxMin.x;
+	g_Chair.Size.y = g_Chair.vtxMax.y - g_Chair.vtxMin.y;
+	g_Chair.Size.z = g_Chair.vtxMax.z - g_Chair.vtxMin.z;
 
 	//マテリアルデータへのポインタを取得
 	pMat = (D3DXMATERIAL*)g_Chair.pBuffMat->GetBufferPointer();
@@ -100,7 +143,7 @@ void UninitChair(void)
 //=======================================
 void UpdateChair(void)
 {
-
+	CollisionObj(g_Chair.pos, g_Chair.Size);//プレイヤーとの当たり判定
 }
 
 //=======================================
