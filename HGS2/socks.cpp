@@ -26,7 +26,7 @@ void InitSocks(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 
-	g_Socks.pos = D3DXVECTOR3(300.0f, 0.0f, 100.0f);
+	g_Socks.pos = D3DXVECTOR3(222.0f, 0.0f, 50.0f);
 	g_Socks.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Socks.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
