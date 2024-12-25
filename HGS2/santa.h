@@ -34,7 +34,6 @@
 #define SANTA_SCALE_SPEED (0.2f)
 #define SANTA_SCALE_MIN (0.5f)
 #define SANTA_SCALE_MAX (10.0f)
-#define SANTA_LIFE (1000)
 #define SANTA_BLEND_FRAME (10.0f)
 #define SANTA_SIZE (50.0f)
 #define PRESENT_SPACE (30.0f)
@@ -59,11 +58,9 @@ typedef struct
 	D3DXVECTOR3 rot;
 	D3DXVECTOR3 Destrot;
 	D3DXVECTOR3 scale;
-	int nLife;
 	SANTASTATE state;
 	D3DXMATRIX mtxWorld;
 	int nIdxShadow;
-	int nIdxLife;
 	Model aModel[MAX_MODEL_SANTA];
 	int nNumModel;
 	MOTION_INFO aMotionInfo[MAX_MOTION_SANTA];
