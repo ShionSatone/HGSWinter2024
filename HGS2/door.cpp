@@ -12,6 +12,7 @@
 #include"camera.h"
 #include"input.h"
 #include "santa.h"
+#include "blacksanta.h"
 
 //***************************************
 // マクロ定義
@@ -35,7 +36,7 @@ void InitDoor(void)
 	pDevice = GetDevice();
 
 	g_Door.pos = D3DXVECTOR3(-100.0f, 0.0f, 25.0f);
-	g_Door.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Door.rot = D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f);
 	g_Door.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
 	//Xファイル読み込み
@@ -102,8 +103,9 @@ void UninitDoor(void)
 void UpdateDoor(void)
 {
 	Santa* pSanta = GetSanta();//サンタを取得
+	BlackSanta* pBlacSanta = GetBlackSanta();
 
-	if (pSanta->bUse == true)
+	if (pSanta->bUse == true|| pBlacSanta->bUse == true)
 	{//サンタが使われている
 		g_Door.rotDest.y = 0.0f; //ドアが空いた
 	}
