@@ -105,7 +105,7 @@ void UpdateDoor(void)
 	Santa* pSanta = GetSanta();//サンタを取得
 	BlackSanta* pBlacSanta = GetBlackSanta();
 
-	if (pSanta->bUse == true|| pBlacSanta->bUse == true)
+	if (pSanta->Startpos.z == g_Door.pos.z && pSanta->bUse == true || pBlacSanta->pos.z == g_Door.pos.z && pBlacSanta->bUse == true)
 	{//サンタが使われている
 		g_Door.rotDest.y = 0.0f; //ドアが空いた
 	}
