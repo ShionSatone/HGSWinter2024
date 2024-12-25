@@ -169,7 +169,7 @@
       <Filter>ソース ファイル\Ob</Filter>
     </ClCompile>
     <ClCompile Include="chair.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Ob</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -306,7 +306,7 @@
       <Filter>ヘッダー ファイル\Ob</Filter>
     </ClInclude>
     <ClInclude Include="chair.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Ob</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
