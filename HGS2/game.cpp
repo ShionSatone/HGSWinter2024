@@ -40,6 +40,7 @@
 #include"snowball.h"
 #include "chimney.h"
 #include "door.h"
+#include "meshorbit.h"
 
 //グローバル変数
 GAMESTATE g_gameState = GAMESTATE_NONE;
@@ -81,6 +82,7 @@ void InitGame(void)
 	InitDoor();      //ドアの初期化処理
 	InitSocks();		// 靴下
 	InitWindow();		// 窓
+	InitMeshSword();    //剣の軌道の初期化処理
 
 	//空間
 	SetMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
@@ -136,6 +138,7 @@ void UninitGame(void)
 	UninitDoor();      //ドアの終了処理
 	UninitSocks();		// 靴下
 	UninitWindow();		// 窓
+	UninitMeshSword();    //剣の軌道の終了処理
 }
 
 //--------------
@@ -325,6 +328,7 @@ void UpdateGame(void)
 		UpdateDoor();      //ドアの更新処理
 		UpdateSocks();		// 靴下
 		UpdateWindow();		// 窓
+		UpdateMeshSword();    //剣の軌道の更新処理
 	}
 }
 
@@ -359,6 +363,7 @@ void DrawGame(void)
 	DrawDoor();      //ドアの描画処理
 	DrawSocks();		// 靴下
 	DrawWindow();		// 窓
+	DrawMeshSword();    //剣の軌道の描画処理
 }
 
 //----------------------
