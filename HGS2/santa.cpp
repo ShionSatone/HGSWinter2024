@@ -16,7 +16,6 @@
 #include"life.h"
 #include"snowball.h"
 
-#if 0
 //ÉOÉçÅ[ÉoÉãïœêîêÈåæ
 Santa g_Santa;
 
@@ -134,7 +133,7 @@ void InitSanta(void)
 	g_Santa.nKey = -1;
 	g_Santa.nNumKey = 0;
 	g_Santa.nNumMotion = NUM_MOTION_SANTA;
-	g_Santa.bUse = true;
+	g_Santa.bUse = false;
 
 	LoadModel();
 
@@ -273,9 +272,36 @@ void UpdateSanta(void)
 
 		//à⁄ìÆèàóù
 
-		g_Santa.move.x += sinf(pCamera->rot.y + D3DX_PI * 0.5f + -atan2f(*(pStick + 1), *pStick)) * SANTA_SPEED;
-		g_Santa.move.z += cosf(pCamera->rot.y + D3DX_PI * 0.5f + -atan2f(*(pStick + 1), *pStick)) * SANTA_SPEED;
-		g_Santa.Destrot.y = pCamera->rot.y + D3DX_PI * -0.5f + -atan2f(*(pStick + 1), *pStick);
+		//Player* pPlayer = GetPlayer();
+		//float Oldrot = atan2f(g_Santa.move.x, g_Santa.move.z);//ç°ÇÃï˚å¸
+		//float Xlong = pPlayer->pos.x - g_Santa.pos.x;
+		//float Zlong = pPlayer->pos.z - g_Santa.pos.z;
+		//float Destrot = atan2f(Xlong, Zlong);//ìGÇÃï˚å¸
+
+		//float Diffrot = Destrot - Oldrot;//ç∑ÇÃäpìx
+		//if (Diffrot > D3DX_PI)
+		//{//èCê≥
+		//	Diffrot -= D3DX_PI * 2;
+		//}
+		//else if (Diffrot < -D3DX_PI)
+		//{//èCê≥
+		//	Diffrot += D3DX_PI * 2;
+		//}
+
+		//Oldrot += Diffrot * 1.0f;//äpìxÇï‚ê≥
+
+		//if (Oldrot > D3DX_PI)
+		//{//èCê≥
+		//	Oldrot -= D3DX_PI * 2;
+		//}
+		//else if (Oldrot < -D3DX_PI)
+		//{//èCê≥
+		//	Oldrot += D3DX_PI * 2;
+		//}
+
+		//g_Santa.move.x += sinf(Oldrot) * SANTA_SPEED;
+		//g_Santa.move.z += cosf(Oldrot) * SANTA_SPEED;
+		//g_Santa.Destrot.y = Oldrot - D3DX_PI;
 		if (g_Santa.motionType != MOTIONTYPE_JUMP && g_Santa.motionType != MOTIONTYPE_LANDING && g_Santa.motionType != MOTIONTYPE_ACTION)
 		{
 			g_Santa.motionType = MOTIONTYPE_MOVE;
@@ -422,7 +448,7 @@ void UpdateSanta(void)
 			g_Santa.aModel[nCntModel].vtxMin.z = g_Santa.aModel[nCntModel].vtxMinDef.z * g_Santa.scale.z;
 		}
 
-		//UpdateMotion();
+		//UpdateSantaMotion();
 
 		switch (g_Santa.state)
 		{
@@ -435,7 +461,7 @@ void UpdateSanta(void)
 				g_Santa.state = SANTASTATE_DIE;
 			}
 			SetPositionShadow(g_Santa.nIdxShadow, g_Santa.pos, g_Santa.scale, 200.0f);
-			SetLife(g_Santa.pos + g_Santa.aModel[0].pos + g_Santa.aModel[1].pos + g_Santa.aModel[10].pos, (float)((float)g_Santa.nLife / (float)Santa_LIFE), g_Santa.nIdxLife);
+			SetLife(g_Santa.pos + D3DXVECTOR3(0.0f, LIFE_SPACE, 0.0f), (float)((float)g_Santa.nLife / (float)SANTA_LIFE), g_Santa.nIdxLife);
 			break;
 		case SANTASTATE_DIE:
 			g_Santa.Destrot.x = D3DX_PI * 0.5f;
@@ -545,6 +571,66 @@ void DrawSanta(void)
 	}
 }
 
+//-----------------------------
+//èoåª
+//-----------------------------
+void SetSanta(D3DXVECTOR3 pos)
+{
+	g_Santa.pos = pos;
+
+	g_Santa.posOld = pos;
+	g_Santa.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
+	g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
+	g_Santa.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Santa.bJump = false;
+	g_Santa.nLife = SANTA_LIFE;
+	g_Santa.state = SANTASTATE_NORMAL;
+	g_Santa.nIdxShadow = SetShadow(g_Santa.pos, g_Santa.rot);
+	g_Santa.nIdxLife = LinkLife();
+	g_Santa.pStage = NULL;
+
+	g_Santa.bLoopMotion = false;
+	g_Santa.motionType = MOTIONTYPE_NEUTRAL;
+	g_Santa.nCounterMotion = 0;
+	g_Santa.nKey = -1;
+	g_Santa.nNumKey = 0;
+	g_Santa.nNumMotion = NUM_MOTION_SANTA;
+
+	g_Santa.bUse = true;
+}
+
+//-----------------------------
+//îjä¸
+//-----------------------------
+void EndSanta(void)
+{
+	g_Santa.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+
+	g_Santa.posOld = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Santa.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
+	g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
+	g_Santa.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Santa.bJump = false;
+	g_Santa.nLife = SANTA_LIFE;
+	g_Santa.state = SANTASTATE_NORMAL;
+	NullShadow(g_Santa.nIdxShadow);
+	g_Santa.nIdxShadow = -1;
+	NullLife(g_Santa.nIdxLife);
+	g_Santa.nIdxLife = -1;
+	g_Santa.pStage = NULL;
+
+	g_Santa.bLoopMotion = false;
+	g_Santa.motionType = MOTIONTYPE_NEUTRAL;
+	g_Santa.nCounterMotion = 0;
+	g_Santa.nKey = -1;
+	g_Santa.nNumKey = 0;
+	g_Santa.nNumMotion = NUM_MOTION_SANTA;
+
+	g_Santa.bUse = false;
+}
+
 //------------------------------
 //à íuéÊìæ
 //------------------------------
@@ -556,7 +642,7 @@ Santa* GetSanta(void)
 //------------------------------
 //ÉÇÅ[ÉVÉáÉì
 //------------------------------
-void UpdateMotion(void)
+void UpdateSantaMotion(void)
 {
 	static MOTIONTYPE OldMotion = MOTIONTYPE_NEUTRAL;
 	static int BlendCnt = 0;
@@ -782,4 +868,3 @@ void CollisionSanta(D3DXVECTOR3 pos, float Length)
 		g_Santa.move += Hitvec * Space;
 	}
 }
-#endif

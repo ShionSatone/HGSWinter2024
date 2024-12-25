@@ -7,7 +7,6 @@
 
 #ifndef _SANTA_H_
 #define _SANTA_H_
-#if 0
 #include"main.h"
 #include"stage.h"
 #include"model.h"
@@ -89,7 +88,7 @@ typedef struct
 	D3DXVECTOR3 scale;
 	bool bJump;
 	int nLife;
-	PLAYERSTATE state;
+	SANTASTATE state;
 	D3DXMATRIX mtxWorld;
 	int nIdxShadow;
 	int nIdxLife;
@@ -112,7 +111,9 @@ void UpdateSanta(void);//ポリゴンの更新処理
 void DrawSanta(void);//ポリゴンの描画処理
 Santa* GetSanta(void);
 
+void SetSanta(D3DXVECTOR3 pos);
+void EndSanta(void);
+
 void UpdateSantaMotion(void);
 void CollisionSanta(D3DXVECTOR3 pos, float Length);
 #endif
-#endif _SANTA_H_
