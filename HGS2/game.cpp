@@ -41,6 +41,7 @@
 #include"snowball.h"
 #include "chimney.h"
 #include "door.h"
+#include "meshorbit.h"
 
 //グローバル変数
 GAMESTATE g_gameState = GAMESTATE_NONE;
@@ -82,6 +83,7 @@ void InitGame(void)
 	InitDoor();      //ドアの初期化処理
 	InitSocks();		// 靴下
 	InitWindow();		// 窓
+	InitMeshSword();    //剣の軌道の初期化処理
 	InitWall();			// 壁
 
 	//空間
@@ -138,6 +140,7 @@ void UninitGame(void)
 	UninitDoor();      //ドアの終了処理
 	UninitSocks();		// 靴下
 	UninitWindow();		// 窓
+	UninitMeshSword();    //剣の軌道の終了処理
 	UninitWall();		// 壁
 }
 
@@ -237,13 +240,13 @@ void UpdateGame(void)
 					switch (rand() % PATA_MAX)
 					{
 					case PATA1:
-						g_SantaTime = 5;
+						g_SantaTime = PATA1_TIME;
 						break;
 					case PATA2:
-						g_SantaTime = 10;
+						g_SantaTime = PATA2_TIME;
 						break;
 					case PATA3:
-						g_SantaTime = 20;
+						g_SantaTime = PATA3_TIME;
 						break;
 					}
 				}
@@ -269,14 +272,21 @@ void UpdateGame(void)
 						break;
 					}
 
-					switch (rand() % 2)
+					if (pPlayer->state == PLAYERSTATE_SLEEP)
 					{
-					case 0:
-						SetSanta(pos);
-						break;
-					case 1:
+						switch (rand() % 2)
+						{
+						case 0:
+							SetSanta(pos);
+							break;
+						case 1:
+							SetBlackSanta(pos);
+							break;
+						}
+					}
+					else
+					{
 						SetBlackSanta(pos);
-						break;
 					}
 				}
 			}
@@ -328,6 +338,7 @@ void UpdateGame(void)
 		UpdateDoor();      //ドアの更新処理
 		UpdateSocks();		// 靴下
 		UpdateWindow();		// 窓
+		UpdateMeshSword();    //剣の軌道の更新処理
 		UpdateWall();		// 壁
 	}
 }
@@ -363,6 +374,7 @@ void DrawGame(void)
 	DrawDoor();      //ドアの描画処理
 	DrawSocks();		// 靴下
 	DrawWindow();		// 窓
+	DrawMeshSword();    //剣の軌道の描画処理
 	DrawWall();			// 壁
 }
 

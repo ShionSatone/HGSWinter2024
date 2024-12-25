@@ -41,6 +41,7 @@
 #define PLAYER_LIFE (1000)
 #define BLEND_FRAME (10.0f)
 #define PLAYER_SIZE (50.0f)
+#define MODEL_SWORD (15) // 剣のモデルのインデックス
 
 //プレイヤー状態の列挙型定義
 typedef enum

@@ -15,7 +15,7 @@
 //***************************************
 // マクロ定義
 //***************************************
-#define X_NAME "data\\MODEL\\test.x"
+#define X_NAME "data\\MODEL\\chimney.x"
 
 //***************************************
 // グローバル変数宣言
@@ -33,7 +33,7 @@ void InitChimney(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 
-	g_Chimney.pos = D3DXVECTOR3(0.0f, 0.0f, 20.0f);
+	g_Chimney.pos = D3DXVECTOR3(0.0f, 0.0f, 120.0f);
 	g_Chimney.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Chimney.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 

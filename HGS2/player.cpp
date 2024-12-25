@@ -28,7 +28,6 @@
 // マクロ定義
 //****************************************
 #define MAX_WORD (128) // 最大の文字数
-#define MODEL_SWORD (15) // 剣のモデルのインデックス
 #define NUM_SWORDPOS (4) // 剣の位置の数
 
 //****************************************
@@ -152,7 +151,7 @@ void InitPlayer(void)
 	g_Player.motionstate = MOTIONSTATE_NEUTRAL; // モーションの状態
 	g_Player.PlayerMove = 0.0f; // プレイヤーの移動量
 	g_Player.nCounterstate = 0; // プレイヤーの状態カウンター
-	g_Player.SwordOffpos = D3DXVECTOR3(0.0f, 85.0f, 0.0f);//剣の先の基準の位置
+	g_Player.SwordOffpos = D3DXVECTOR3(0.0f, 75.0f, 0.0f);//剣の先の基準の位置
 
 	LoadModel();
 	LoadPlayer();// プレイヤーのロード処理
@@ -442,7 +441,6 @@ void UpdatePlayer(void)
 	CollisionSnowBall(g_Player.pos, PLAYER_SIZE);
 
 	g_Player.bJump = !CollisionStage(&g_Player.pStage);
-
 
 	//サンタと剣の当たり判定
 	if (CollisionSword(pSanta->pos) == true && pSanta->bUse==true)
@@ -777,14 +775,14 @@ bool CollisionSword(D3DXVECTOR3 pos)
 		fRadius = fSwordRadius + fSantaRadius;//半径を求める
 		fRadius = fRadius * fRadius;
 
-#ifdef _DEBUG
-		SetEffect(D3DXVECTOR3(fSwordPosX, fSwordPosY, fSwordPosZ),
-			D3DXVECTOR3(0.0f, 0.0f, 0.0f),
-			D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f),
-			D3DXVECTOR3(1.0f, 1.0f, 1.0f),
-			10,
-			EFFECT_TYPE_NORMAL);
-#endif
+//#ifdef _DEBUG
+//		SetEffect(D3DXVECTOR3(fSwordPosX, fSwordPosY, fSwordPosZ),
+//			D3DXVECTOR3(0.0f, 0.0f, 0.0f),
+//			D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f),
+//			D3DXVECTOR3(1.0f, 1.0f, 1.0f),
+//			10,
+//			EFFECT_TYPE_NORMAL);
+//#endif
 
 		if (fDistanse <= fRadius && g_Player.motionType == MOTIONTYPE_ACTION)
 		{

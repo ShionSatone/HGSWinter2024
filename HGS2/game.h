@@ -17,6 +17,9 @@
 #define FRAME (60)
 #define HOUR (24)
 #define MINUTE (60)
+#define PATA1_TIME (1)
+#define PATA2_TIME (5)
+#define PATA3_TIME (10)
 
 //ƒQ[ƒ€ó‘Ô‚Ì—ñ‹“Œ^’è‹`
 typedef enum
