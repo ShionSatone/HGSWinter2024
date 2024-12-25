@@ -71,9 +71,6 @@ void InitGame(void)
 	//ステージ
 	LoadStage();	
 
-	//カメラ
-	GameCamera();
-
 	D3DXVECTOR3 posScore;//スコアの位置
 	g_gameState = GAMESTATE_NORMAL;
 	g_nCounterGameState = 0;
