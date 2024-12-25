@@ -177,6 +177,9 @@
     <ClCompile Include="tuto.cpp">
       <Filter>ソース ファイル\Base</Filter>
     </ClCompile>
+    <ClCompile Include="field.cpp">
+      <Filter>ソース ファイル\Ob</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -319,6 +322,9 @@
     </ClInclude>
     <ClInclude Include="tuto.h">
       <Filter>ヘッダー ファイル\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="field.h">
+      <Filter>ヘッダー ファイル\Ob</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

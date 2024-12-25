@@ -29,6 +29,7 @@
 #include "socks.h"
 #include "window.h"
 #include "wall.h"
+#include "field.h"
 
 #include"shadow.h"
 #include"billboard.h"
@@ -91,6 +92,7 @@ void InitGame(void)
 	InitDesk();    //机の初期化処理
 	InitChair();    //椅子の初期化処理
 	InitBoolShelf();    //本棚の初期化処理
+	InitField();
 
 	//空間
 	SetMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
@@ -151,6 +153,7 @@ void UninitGame(void)
 	UninitDesk();    //机の終了処理
 	UninitChair();    //椅子の終了処理
 	UninitBoolShelf();    //本棚の終了処理
+	UninitField();
 }
 
 //--------------
@@ -354,6 +357,7 @@ void UpdateGame(void)
 		UpdateDesk();    //机の更新処理
 		UpdateChair();    //椅子の更新処理
 		UpdateBoolShelf();    //本棚の更新処理
+		UpdateField();
 	}
 }
 
@@ -393,6 +397,7 @@ void DrawGame(void)
 	DrawChair();    //椅子の描画処理
 	DrawBoolShelf();    //本棚の描画処理
 	DrawEffect();
+	DrawField();
 
 }
 
