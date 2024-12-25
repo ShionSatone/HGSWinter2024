@@ -194,6 +194,7 @@ void DrawMeshSword(void)
 		D3DXMatrixIdentity(&g_MeshSword.mtxWorldMeshSword);
 
 		pDevice->SetRenderState(D3DRS_CULLMODE, TRUE);
+
 		//Œü‚«‚ð”½‰f
 		D3DXMatrixRotationYawPitchRoll(&mtxRot, g_MeshSword.rot.y, g_MeshSword.rot.x, g_MeshSword.rot.z);
 		D3DXMatrixMultiply(&g_MeshSword.mtxWorldMeshSword, &g_MeshSword.mtxWorldMeshSword, &mtxRot);
