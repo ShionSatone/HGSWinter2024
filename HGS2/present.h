@@ -29,6 +29,7 @@ typedef struct
 	DWORD sizeFVF;
 	BYTE* pVtxBuff;
 	int nIdxPresentParent;
+	int nIdxShadow;
 	bool bUse;
 }Present;
 
