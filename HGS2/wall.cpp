@@ -4,7 +4,7 @@
 //Author fuma sato
 //
 //----------------------------------------
-
+#if 0
 #include"bed.h"
 #include"camera.h"
 #include"input.h"
@@ -164,3 +164,4 @@ void SetBedPos(D3DXVECTOR3 pos)
 {
 	g_Bed.pos = pos;		// à íuê›íË
 }
+#endif

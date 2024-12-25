@@ -162,6 +162,9 @@
     <ClCompile Include="meshorbit.cpp">
       <Filter>ソース ファイル\Ob</Filter>
     </ClCompile>
+    <ClCompile Include="wall.cpp">
+      <Filter>ソース ファイル\Ob</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -288,6 +291,9 @@
       <Filter>ヘッダー ファイル\Ob</Filter>
     </ClInclude>
     <ClInclude Include="meshorbit.h">
+      <Filter>ヘッダー ファイル\Ob</Filter>
+    </ClInclude>
+    <ClInclude Include="wall.h">
       <Filter>ヘッダー ファイル\Ob</Filter>
     </ClInclude>
   </ItemGroup>
