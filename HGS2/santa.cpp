@@ -15,6 +15,7 @@
 #include"bed.h"
 #include"present.h"
 #include"score.h"
+#include"player.h"
 
 //グローバル変数宣言
 Santa g_Santa;
@@ -422,12 +423,46 @@ void UpdateSanta(void)
 	if (g_Santa.bUse)
 	{
 		//移動処理
+		Player* pPlayer = GetPlayer();
 		Bed* pBed;
 		float Oldrot;//今の方向
 		float Xlong;
 		float Zlong;
 		float Destrot;//ベットの方向
-		if (g_Santa.bPresent)
+		if (pPlayer->state==PLAYERSTATE_SLEEP)
+		{
+			if (g_Santa.bPresent)
+			{
+				//移動処理
+				Oldrot = atan2f(g_Santa.move.x, g_Santa.move.z);//今の方向
+				Xlong = g_Santa.Startpos.x - g_Santa.pos.x;
+				Zlong = g_Santa.Startpos.z - g_Santa.pos.z;
+				Destrot = atan2f(Xlong, Zlong);//ベットの方向
+
+				if (sqrtf(Xlong * Xlong + Zlong * Zlong) < PRESENT_SPACE)
+				{
+					EndSanta();
+				}
+			}
+			else
+			{
+				//移動処理
+				pBed = GetBed();
+				Oldrot = atan2f(g_Santa.move.x, g_Santa.move.z);//今の方向
+				Xlong = pBed->pos.x - g_Santa.pos.x;
+				Zlong = pBed->pos.z + 100.0f - g_Santa.pos.z;
+				Destrot = atan2f(Xlong, Zlong);//ベットの方向
+
+				SetPresentPos(g_Santa.pos + D3DXVECTOR3(sinf(g_Santa.rot.y - D3DX_PI) * PRESENT_SPACE, 0.0f, cosf(g_Santa.rot.y - D3DX_PI) * PRESENT_SPACE) + D3DXVECTOR3(0.0f, 50.0f, 0.0f));
+				if (sqrtf(Xlong * Xlong + Zlong * Zlong) < PRESENT_SPACE)
+				{
+					DeletePresent();
+					AddScore(1);
+					g_Santa.bPresent = true;
+				}
+			}
+		}
+		else
 		{
 			//移動処理
 			Oldrot = atan2f(g_Santa.move.x, g_Santa.move.z);//今の方向
@@ -435,25 +470,14 @@ void UpdateSanta(void)
 			Zlong = g_Santa.Startpos.z - g_Santa.pos.z;
 			Destrot = atan2f(Xlong, Zlong);//ベットの方向
 
-			if (sqrtf(Xlong * Xlong + Zlong * Zlong) < PRESENT_SPACE)
+			if (!g_Santa.bPresent)
 			{
-				EndSanta();
+				SetPresentPos(g_Santa.pos + D3DXVECTOR3(sinf(g_Santa.rot.y - D3DX_PI) * PRESENT_SPACE, 0.0f, cosf(g_Santa.rot.y - D3DX_PI) * PRESENT_SPACE) + D3DXVECTOR3(0.0f, 50.0f, 0.0f));
 			}
-		}
-		else
-		{
-			//移動処理
-			pBed = GetBed();
-			Oldrot = atan2f(g_Santa.move.x, g_Santa.move.z);//今の方向
-			Xlong = pBed->pos.x - g_Santa.pos.x;
-			Zlong = pBed->pos.z + 100.0f - g_Santa.pos.z;
-			Destrot = atan2f(Xlong, Zlong);//ベットの方向
-
-			SetPresentPos(g_Santa.pos + D3DXVECTOR3(sinf(g_Santa.rot.y - D3DX_PI) * PRESENT_SPACE, 0.0f, cosf(g_Santa.rot.y - D3DX_PI) * PRESENT_SPACE) + D3DXVECTOR3(0.0f, 50.0f, 0.0f));
 			if (sqrtf(Xlong * Xlong + Zlong * Zlong) < PRESENT_SPACE)
 			{
-				AddScore(1);
-				g_Santa.bPresent = true;
+				DeletePresent();
+				EndSanta();
 			}
 		}
 
@@ -478,8 +502,16 @@ void UpdateSanta(void)
 			Oldrot += D3DX_PI * 2;
 		}
 
-		g_Santa.move.x += sinf(Oldrot) * SANTA_SPEED;
-		g_Santa.move.z += cosf(Oldrot) * SANTA_SPEED;
+		if (pPlayer->state == PLAYERSTATE_SLEEP)
+		{
+			g_Santa.move.x += sinf(Oldrot) * SANTA_SPEED;
+			g_Santa.move.z += cosf(Oldrot) * SANTA_SPEED;
+		}
+		else
+		{
+			g_Santa.move.x += sinf(Oldrot) * SANTA_SPEED * 10.0f;
+			g_Santa.move.z += cosf(Oldrot) * SANTA_SPEED * 10.0f;
+		}
 		g_Santa.Destrot.y = Oldrot - D3DX_PI;
 		if (g_Santa.motionType != MOTIONTYPE_JUMP && g_Santa.motionType != MOTIONTYPE_LANDING && g_Santa.motionType != MOTIONTYPE_ACTION)
 		{
@@ -741,27 +773,30 @@ void DrawSanta(void)
 //-----------------------------
 void SetSanta(D3DXVECTOR3 pos)
 {
-	g_Santa.pos = pos;
-	g_Santa.posOld = pos;
-	g_Santa.Startpos = pos;
-	g_Santa.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
-	g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
-	g_Santa.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Santa.nLife = SANTA_LIFE;
-	g_Santa.state = SANTASTATE_NORMAL;
-	g_Santa.nIdxShadow = SetShadow(g_Santa.pos, g_Santa.rot);
-	g_Santa.nIdxLife = LinkLife();
-	g_Santa.pStage = NULL;
+	if (!g_Santa.bUse)
+	{
+		g_Santa.pos = pos;
+		g_Santa.posOld = pos;
+		g_Santa.Startpos = pos;
+		g_Santa.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
+		g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
+		g_Santa.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+		g_Santa.nLife = SANTA_LIFE;
+		g_Santa.state = SANTASTATE_NORMAL;
+		g_Santa.nIdxShadow = SetShadow(g_Santa.pos, g_Santa.rot);
+		g_Santa.nIdxLife = LinkLife();
+		g_Santa.pStage = NULL;
 
-	g_Santa.bLoopMotion = false;
-	g_Santa.motionType = MOTIONTYPE_NEUTRAL;
-	g_Santa.nCounterMotion = 0;
-	g_Santa.nKey = -1;
-	g_Santa.nNumKey = 0;
-	g_Santa.nNumMotion = NUM_MOTION_SANTA;
-	g_Santa.bPresent = false;
-	g_Santa.bUse = true;
+		g_Santa.bLoopMotion = false;
+		g_Santa.motionType = MOTIONTYPE_NEUTRAL;
+		g_Santa.nCounterMotion = 0;
+		g_Santa.nKey = -1;
+		g_Santa.nNumKey = 0;
+		g_Santa.nNumMotion = NUM_MOTION_SANTA;
+		g_Santa.bPresent = false;
+		g_Santa.bUse = true;
+	}
 }
 
 //-----------------------------
@@ -769,29 +804,32 @@ void SetSanta(D3DXVECTOR3 pos)
 //-----------------------------
 void EndSanta(void)
 {
-	g_Santa.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Santa.posOld = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Santa.Startpos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Santa.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
-	g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
-	g_Santa.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Santa.nLife = SANTA_LIFE;
-	g_Santa.state = SANTASTATE_NORMAL;
-	NullShadow(g_Santa.nIdxShadow);
-	g_Santa.nIdxShadow = -1;
-	NullLife(g_Santa.nIdxLife);
-	g_Santa.nIdxLife = -1;
-	g_Santa.pStage = NULL;
+	if (g_Santa.bUse)
+	{
+		g_Santa.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		g_Santa.posOld = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		g_Santa.Startpos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		g_Santa.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
+		g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
+		g_Santa.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+		g_Santa.nLife = SANTA_LIFE;
+		g_Santa.state = SANTASTATE_NORMAL;
+		NullShadow(g_Santa.nIdxShadow);
+		g_Santa.nIdxShadow = -1;
+		NullLife(g_Santa.nIdxLife);
+		g_Santa.nIdxLife = -1;
+		g_Santa.pStage = NULL;
 
-	g_Santa.bLoopMotion = false;
-	g_Santa.motionType = MOTIONTYPE_NEUTRAL;
-	g_Santa.nCounterMotion = 0;
-	g_Santa.nKey = -1;
-	g_Santa.nNumKey = 0;
-	g_Santa.nNumMotion = NUM_MOTION_SANTA;
-	g_Santa.bPresent = false;
-	g_Santa.bUse = false;
+		g_Santa.bLoopMotion = false;
+		g_Santa.motionType = MOTIONTYPE_NEUTRAL;
+		g_Santa.nCounterMotion = 0;
+		g_Santa.nKey = -1;
+		g_Santa.nNumKey = 0;
+		g_Santa.nNumMotion = NUM_MOTION_SANTA;
+		g_Santa.bPresent = false;
+		g_Santa.bUse = false;
+	}
 }
 
 //------------------------------

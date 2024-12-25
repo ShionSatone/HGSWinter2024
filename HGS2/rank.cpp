@@ -130,7 +130,7 @@ void InitRank(void)
 	}
 
 	TimeReset();
-	posScore = D3DXVECTOR3(SCREEN_WIDTH / 2 - (SCORE_WIDTH / SCORE_MAX) * (SCORE_MAX / 2), SCORE_HEIGHT * 0.5f, 0.0f);
+	posScore = D3DXVECTOR3(SCREEN_WIDTH / 2 - (SCORE_WIDTH / U_MAX_S) * (SCORE_MAX / 2), (SCORE_HEIGHT / V_MAX_S) * 0.5f, 0.0f);
 	posScoreDef = posScore;
 
 	//‹óŠÔ
@@ -149,10 +149,10 @@ void InitRank(void)
 		for (int i2 = 0; i2 < SCORE_MAX; i2++)
 		{
 			//À•WÝ’è
-			pVtx[0].pos = D3DXVECTOR3(posScore.x - (SCORE_WIDTH / SCORE_MAX) / 2, posScore.y - SCORE_HEIGHT / 2, posScore.z);
-			pVtx[1].pos = D3DXVECTOR3(posScore.x + (SCORE_WIDTH / SCORE_MAX) / 2, posScore.y - SCORE_HEIGHT / 2, posScore.z);
-			pVtx[2].pos = D3DXVECTOR3(posScore.x - (SCORE_WIDTH / SCORE_MAX) / 2, posScore.y + SCORE_HEIGHT / 2, posScore.z);
-			pVtx[3].pos = D3DXVECTOR3(posScore.x + (SCORE_WIDTH / SCORE_MAX) / 2, posScore.y + SCORE_HEIGHT / 2, posScore.z);
+			pVtx[0].pos = D3DXVECTOR3(posScore.x - (SCORE_WIDTH / U_MAX_S) / 2, posScore.y - (SCORE_HEIGHT/ V_MAX_S) / 2, posScore.z);
+			pVtx[1].pos = D3DXVECTOR3(posScore.x + (SCORE_WIDTH / U_MAX_S) / 2, posScore.y - (SCORE_HEIGHT/ V_MAX_S) / 2, posScore.z);
+			pVtx[2].pos = D3DXVECTOR3(posScore.x - (SCORE_WIDTH / U_MAX_S) / 2, posScore.y + (SCORE_HEIGHT/ V_MAX_S) / 2, posScore.z);
+			pVtx[3].pos = D3DXVECTOR3(posScore.x + (SCORE_WIDTH / U_MAX_S) / 2, posScore.y + (SCORE_HEIGHT/ V_MAX_S) / 2, posScore.z);
 
 			//rhw
 			pVtx[0].rhw = 1.0f;
@@ -191,18 +191,18 @@ void InitRank(void)
 			pVtx[2].tex = D3DXVECTOR2(UV_DEF / U_MAX_S * aPosTexUr[i][i2], UV_DEF / V_MAX_S * (aPosTexUr[i][i2] / U_MAX_S) + UV_DEF / V_MAX_S);
 			pVtx[3].tex = D3DXVECTOR2(UV_DEF / U_MAX_S * aPosTexUr[i][i2] + UV_DEF / U_MAX_S, UV_DEF / V_MAX_S * (aPosTexUr[i][i2] / U_MAX_S) + UV_DEF / V_MAX_S);
 
-			posScore.x += SCORE_WIDTH / SCORE_MAX;
+			posScore.x += SCORE_WIDTH / U_MAX_S;
 			pVtx += VT_MAX;
 		}
 		posScore = posScoreDef;
-		posScore.y += SCORE_HEIGHT * (i+1);
+		posScore.y += (SCORE_HEIGHT / V_MAX_S) * (i+1);
 	}
 
 	//À•WÝ’è
-	pVtx[0].pos = D3DXVECTOR3((SCREEN_WIDTH / 2) - SCORE_WIDTH / 2 - NUMBER_WIDTH- NUMBER_SEPAESE, SCREEN_HEIGHT / 2 - NUMBER_HEIGHT / 2- NUMBER_SEPAESE/2, 0.0f);
-	pVtx[1].pos = D3DXVECTOR3((SCREEN_WIDTH / 2) - SCORE_WIDTH / 2- NUMBER_SEPAESE, SCREEN_HEIGHT / 2 - NUMBER_HEIGHT / 2- NUMBER_SEPAESE/2, 0.0f);
-	pVtx[2].pos = D3DXVECTOR3((SCREEN_WIDTH / 2) - SCORE_WIDTH / 2 - NUMBER_WIDTH- NUMBER_SEPAESE, SCREEN_HEIGHT / 2 + NUMBER_HEIGHT / 2- NUMBER_SEPAESE/2, 0.0f);
-	pVtx[3].pos = D3DXVECTOR3((SCREEN_WIDTH / 2) - SCORE_WIDTH / 2- NUMBER_SEPAESE, SCREEN_HEIGHT / 2 + NUMBER_HEIGHT / 2- NUMBER_SEPAESE/2, 0.0f);
+	pVtx[0].pos = D3DXVECTOR3((SCREEN_WIDTH / 2) - (SCORE_WIDTH / U_MAX_S) / 2 - NUMBER_WIDTH- NUMBER_SEPAESE, SCREEN_HEIGHT / 2 - NUMBER_HEIGHT / 2- NUMBER_SEPAESE/2, 0.0f);
+	pVtx[1].pos = D3DXVECTOR3((SCREEN_WIDTH / 2) - (SCORE_WIDTH / U_MAX_S) / 2- NUMBER_SEPAESE, SCREEN_HEIGHT / 2 - NUMBER_HEIGHT / 2- NUMBER_SEPAESE/2, 0.0f);
+	pVtx[2].pos = D3DXVECTOR3((SCREEN_WIDTH / 2) - (SCORE_WIDTH / U_MAX_S) / 2 - NUMBER_WIDTH- NUMBER_SEPAESE, SCREEN_HEIGHT / 2 + NUMBER_HEIGHT / 2- NUMBER_SEPAESE/2, 0.0f);
+	pVtx[3].pos = D3DXVECTOR3((SCREEN_WIDTH / 2) - (SCORE_WIDTH / U_MAX_S) / 2- NUMBER_SEPAESE, SCREEN_HEIGHT / 2 + NUMBER_HEIGHT / 2- NUMBER_SEPAESE/2, 0.0f);
 
 	//rhw
 	pVtx[0].rhw = 1.0f;

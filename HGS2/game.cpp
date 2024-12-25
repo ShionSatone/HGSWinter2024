@@ -135,6 +135,8 @@ void UninitGame(void)
 //--------------
 void UpdateGame(void)
 {
+	SetSanta(D3DXVECTOR3(-100.0f, 0.0f, 0.0f));
+
 	if (GetKeyboradTrigger(DIK_P) == true || GetJoykeyTrigger(JOYKEY_START, CONTROLLER_MAX) == true || GetMouseTrigger(MOUSE_SENTER) == true)
 	{
 		FADE fade;
