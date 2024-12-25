@@ -1,13 +1,12 @@
 //---------------------------------------
 //
-//モデル表示処理の定義・宣言[model.h]
+//プレゼント処理[present.h]
 //Author fuma sato
 //
 //---------------------------------------
 
-#if 0
-#ifndef _MODEL_H_
-#define _MODEL_H_
+#ifndef _PRESENT_H_
+#define _PRESENT_H_
 
 #include"main.h"
 
@@ -29,13 +28,15 @@ typedef struct
 	int nNumVtx;
 	DWORD sizeFVF;
 	BYTE* pVtxBuff;
-	int nIdxModelParent;
-}Model;
+	int nIdxPresentParent;
+}Present;
 
-void InitModel(void);//ポリゴンの初期化処理
-void UninitModel(void);//ポリゴンの終了処理
-void UpdateModel(void);//ポリゴンの更新処理
-void DrawModel(void);//ポリゴンの描画処理
+void InitPresent(void);//ポリゴンの初期化処理
+void UninitPresent(void);//ポリゴンの終了処理
+void UpdatePresent(void);//ポリゴンの更新処理
+void DrawPresent(void);//ポリゴンの描画処理
 
-#endif
+Present* GetPresent(void);
+void SetPresentPos(D3DXVECTOR3 pos);
+
 #endif _MODEL_H_

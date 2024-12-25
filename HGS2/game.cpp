@@ -22,6 +22,7 @@
 #include"hitshere.h"
 #include"snow.h"
 #include"ui.h"
+#include "present.h"
 
 #include"shadow.h"
 #include"billboard.h"
@@ -63,6 +64,7 @@ void InitGame(void)
 	InitTime();
 	InitUi();
 	InitHitShere();
+	InitPresent();		// ƒvƒŒƒ[ƒ“ƒg
 
 	//‹óŠÔ
 	SetMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
@@ -110,6 +112,7 @@ void UninitGame(void)
 	UninitLife();
 	UninitShadow();
 	UninitModel();
+	UninitPresent();		// ƒvƒŒƒ[ƒ“ƒg
 }
 
 //--------------
@@ -232,6 +235,7 @@ void UpdateGame(void)
 		UpdateScore();
 		UpdateSnow();
 		UpdateUi();
+		UpdatePresent();
 	}
 }
 
@@ -258,6 +262,7 @@ void DrawGame(void)
 	DrawScore();
 	DrawTime();
 	DrawUi();
+	DrawPresent();
 }
 
 //----------------------
