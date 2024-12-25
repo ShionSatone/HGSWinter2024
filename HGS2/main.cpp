@@ -24,7 +24,11 @@
 
 LPDIRECT3D9 g_pD3D = NULL;//ダイレクトXオブジェクトのグローバルポインタを宣言
 LPDIRECT3DDEVICE9 g_pD3DDevice = NULL;//ダイレクトXデバイスのグローバルポインタを宣言
+#if _DEBUG
+MODE g_mode = MODE_GAME;
+#else
 MODE g_mode = MODE_TITLE;
+#endif
 HINSTANCE g_hInstance;
 HWND g_hWnd;
 bool g_bStop = false;
