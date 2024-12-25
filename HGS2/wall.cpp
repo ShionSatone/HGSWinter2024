@@ -38,9 +38,9 @@ void InitWall(void)
 	g_Wall[0].pos = D3DXVECTOR3(0.0f, 0.0f, -130.0f);
 	g_Wall[1].pos = D3DXVECTOR3(0.0f, 0.0f, 130.0f);
 	g_Wall[2].pos = D3DXVECTOR3(250.0f, 0.0f, 0.0f);
-	g_Wall[2].rot = D3DXVECTOR3(0.0f, D3DX_PI * -0.5f, 0.0f);
+	g_Wall[2].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Wall[3].pos = D3DXVECTOR3(-250.0f, 0.0f, 0.0f);
-	g_Wall[3].rot = D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f);
+	g_Wall[3].rot = D3DXVECTOR3(0.0f,0.0f, 0.0f);
 
 	for (int i = 0; i < NUM_FILE; i++)
 	{
