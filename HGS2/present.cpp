@@ -9,6 +9,7 @@
 #include"camera.h"
 #include"input.h"
 #include"shadow.h"
+#include "particle.h"
 
 // ƒ}ƒNƒ’è‹`
 #define X_NAME "data\\MODEL\\prezent.x"
