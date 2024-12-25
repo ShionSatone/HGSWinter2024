@@ -5,6 +5,9 @@
 //
 //----------------------------------------
 
+//****************************************
+// インクルードファイル
+//****************************************
 #include"player.h"
 #include"game.h"
 #include"shadow.h"
@@ -16,7 +19,14 @@
 #include"life.h"
 #include"snowball.h"
 
-//グローバル変数宣言
+//****************************************
+// マクロ定義
+//****************************************
+#define MAX_WORD (128) // 最大の文字数
+
+//****************************************
+// グローバル変数
+//****************************************
 Player g_Player;
 
 static MOTION_INFO g_Motion[] =
@@ -272,7 +282,6 @@ void InitPlayer(void)
 	int nCntModel;
 	for (nCntModel = 0;  nCntModel < g_Player.nNumModel; nCntModel++)
 	{
-
 		//マテリアルデータへのポインタを取得
 		pMat = (D3DXMATERIAL*)g_Player.aModel[nCntModel].pBuffMat->GetBufferPointer();
 
@@ -1215,4 +1224,230 @@ void CollisionPlayer(D3DXVECTOR3 pos, float Length)
 		D3DXVec3Normalize(&Hitvec, &Hitvec);
 		g_Player.move += Hitvec * Space;
 	}
+}
+//================================================
+// プレイヤーの読み込み処理
+//================================================
+void LoadPlayer(void)
+{
+	LPDIRECT3DDEVICE9 pDevice;
+
+	pDevice = GetDevice();
+
+	FILE* pFile;
+
+	int nNumModel = 0;
+	int nCnt = 0;
+	char skip[3];
+	int nNumParts = 0;
+	int nIdx = 0;
+	int Parent = 0;
+	D3DXVECTOR3 pos;
+	D3DXVECTOR3 rot;
+	int nNumKey = 0;
+	int nCntPartsPos = 0;
+	int nCntPartsRot = 0;
+	int nCntMotion = 0;
+
+	if (pFile != NULL)
+	{
+		while (1)
+		{
+			char aStr[MAX_WORD];//文字読み込み用変数
+
+			fscanf(pFile, "%s", &aStr[0]);
+
+			if (strcmp(aStr, "SCRIPT") == 0)
+			{//読み取った文字がSCRIPTだったら
+
+				while (1)
+				{
+					fscanf(pFile, "%s", &aStr[0]);
+
+					if (strcmp(aStr, "NUM_MODEL") == 0)
+					{
+						//読み取った文字がNUM_MODELだったら
+
+						fscanf(pFile, "%s", &skip[0]); //[=]を読み飛ばす
+						fscanf(pFile, "%d", &nNumModel); //モデルの数を読み込む変数に代入
+					}
+					else if (strcmp(aStr, "MODEL_FILENAME") == 0)
+					{//読み取った文字がMODEL_FILENAMEだったら
+
+						fscanf(pFile, "%s", &skip[0]);
+						fscanf(pFile, "%s", &aStr[0]);
+
+						const char* FILE_NAME = {}; //ファイルの名前を格納する変数
+
+						FILE_NAME = aStr; // 読み取ったファイルの名前を代入
+
+						//モデルを読み込む
+						D3DXLoadMeshFromX(FILE_NAME,
+							D3DXMESH_SYSTEMMEM,
+							pDevice,
+							NULL,
+							&g_Player.aModel[nCnt].pBuffMat,
+							NULL,
+							&g_Player.aModel[nCnt].dwNumMat,
+							&g_Player.aModel[nCnt].pMesh);
+
+						nCnt++;//モデルのカウントを増やす
+					}
+					else if (strcmp(aStr, "CHARACTERSET") == 0)
+					{//読み取った文字がCHARACTERSETだったら
+						while (1)
+						{
+							fscanf(pFile, "%s", &aStr[0]);
+
+							if (strcmp(aStr, "NUM_PARTS") == 0)
+							{
+								fscanf(pFile, "%s", &skip[0]);
+
+								fscanf(pFile, "%d", &g_Player.nNumModel);
+								break;
+							}
+						}
+					}
+					else if (strcmp(aStr, "PARTSSET") == 0)
+					{
+						while (1)
+						{
+							fscanf(pFile, "%s", &aStr[0]);
+
+							if (strcmp(aStr, "INDEX") == 0)
+							{
+								fscanf(pFile, "%s", &skip[0]);
+
+								fscanf(pFile, "%d", &nIdx);
+							}
+							else if (strcmp(aStr, "PARENT") == 0)
+							{
+								fscanf(pFile, "%s", &skip[0]);
+
+								fscanf(pFile, "%d", &g_Player.aModel[nIdx].nIdxModelParent);
+							}
+							else if (strcmp(aStr, "POS") == 0)
+							{
+								fscanf(pFile, "%s", &skip[0]);
+
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].pos.x);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].pos.y);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].pos.z);
+
+							}
+							else if (strcmp(aStr, "ROT") == 0)
+							{
+								fscanf(pFile, "%s", &skip[0]);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].rot.x);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].rot.y);
+								fscanf(pFile, "%f", &g_Player.aModel[nIdx].rot.z);
+							}
+							else if (strcmp(aStr, "END_PARTSSET") == 0)
+							{
+								break;
+							}
+						}
+					}
+					else if (strcmp(aStr, "MOTIONSET") == 0)
+					{
+						while (1)
+						{
+							fscanf(pFile, "%s", &aStr[0]);
+
+							if (strcmp(aStr, "NUM_KEY") == 0)
+							{
+								fscanf(pFile, "%s", &skip[0]);
+
+								fscanf(pFile, "%d", &g_Player.aMotionInfo[nCntMotion].nNumKey);
+
+							}
+							else if (strcmp(aStr, "LOOP") == 0)
+							{
+								fscanf(pFile, "%s", &gomi[0]);
+
+								fscanf(pFile, "%d", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].bLoop);
+							}
+
+							if (strcmp(aStr, "KEYSET") == 0)
+							{
+								while (1)
+								{
+									fscanf(pFile, "%s", &aStr[0]);
+
+									if (strcmp(aStr, "FRAME") == 0)
+									{
+										fscanf(pFile, "%s", &gomi[0]);
+
+										fscanf(pFile, "%d", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].aKeyInfo[nKey].nFrame);
+									}
+									else if (strcmp(aStr, "KEY") == 0)
+									{
+										while (1)
+										{
+											fscanf(pFile, "%s", &aStr[0]);
+
+											if (strcmp(aStr, "POS") == 0)
+											{
+												fscanf(pFile, "%s", &gomi[0]);
+
+												fscanf(pFile, "%f", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsPos].fPosX);
+												fscanf(pFile, "%f", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsPos].fPosY);
+												fscanf(pFile, "%f", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsPos].fPosZ);
+
+												nCntPartsPos++;
+											}
+											else if (strcmp(aStr, "ROT") == 0)
+											{
+												fscanf(pFile, "%s", &gomi[0]);
+
+												fscanf(pFile, "%f", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsRot].fRotX);
+												fscanf(pFile, "%f", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsRot].fRotY);
+												fscanf(pFile, "%f", &g_LoadPlayer[nType].Motion.aMotionInfo[nCntMotion].aKeyInfo[nKey].aKey[nCntPartsRot].fRotZ);
+
+												nCntPartsRot++;
+
+											}
+											else if (strcmp(aStr, "END_KEY") == 0)
+											{
+												break;
+											}
+										}
+									}
+									else if (strcmp(aStr, "END_KEYSET") == 0)
+									{
+										nKey++;
+										nCntPartsPos = 0;
+										nCntPartsRot = 0;
+										break;
+									}
+								}
+							}
+
+							else if (strcmp(aStr, "END_MOTIONSET") == 0)
+							{
+								nKey = 0;
+								nCntMotion++;
+								break;
+							}
+						}
+					}
+
+					else if (strcmp(aStr, "END_MODELSET") == 0)
+					{
+						break;
+					}
+				}
+			}
+
+			if (strcmp(aStr, "END_SCRIPT") == 0)
+			{
+				break;
+			}
+		}
+	}
+	else
+	{
+		return;
+	}
+	fclose(pFile);
 }
