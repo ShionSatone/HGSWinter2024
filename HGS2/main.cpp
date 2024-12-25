@@ -15,6 +15,7 @@
 #include"sound.h"
 #include"title.h"
 #include"game.h"
+#include"tuto.h"
 #include"shadow.h"
 #include"player.h"
 #include"input.h"
@@ -400,6 +401,9 @@ void Uninit(void)
 	case MODE_TITLE:
 		UninitTitle();
 		break;
+	case MODE_TUTO:
+		UninitTuto();
+		break;
 	case MODE_GAME:
 		UninitGame();
 		break;
@@ -459,6 +463,9 @@ void Update(void)
 	case MODE_TITLE:
 		UpdateTitle();
 		break;
+	case MODE_TUTO:
+		UpdateTuto();
+		break;
 	case MODE_GAME:
 		UpdateGame();
 		break;
@@ -495,6 +502,9 @@ void Draw(void)
 		{
 		case MODE_TITLE:
 			DrawTitle();
+			break;
+		case MODE_TUTO:
+			DrawTuto();
 			break;
 		case MODE_GAME:
 			DrawGame();
@@ -538,6 +548,9 @@ void SetMode(MODE mode)
 	case MODE_TITLE:
 		UninitTitle();
 		break;
+	case MODE_TUTO:
+		UninitTuto();
+		break;
 	case MODE_GAME:
 		UninitGame();
 		break;
@@ -556,6 +569,9 @@ void SetMode(MODE mode)
 	{
 	case MODE_TITLE:
 		InitTitle();
+		break;
+	case MODE_TUTO:
+		InitTuto();
 		break;
 	case MODE_GAME:
 		InitGame();

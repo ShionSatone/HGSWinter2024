@@ -186,6 +186,7 @@
     <ClCompile Include="stage.cpp" />
     <ClCompile Include="time.cpp" />
     <ClCompile Include="title.cpp" />
+    <ClCompile Include="tuto.cpp" />
     <ClCompile Include="ui.cpp" />
     <ClCompile Include="wall.cpp" />
     <ClCompile Include="window.cpp" />
@@ -234,6 +235,7 @@
     <ClInclude Include="stage.h" />
     <ClInclude Include="time.h" />
     <ClInclude Include="title.h" />
+    <ClInclude Include="tuto.h" />
     <ClInclude Include="ui.h" />
     <ClInclude Include="wall.h" />
     <ClInclude Include="window.h" />
