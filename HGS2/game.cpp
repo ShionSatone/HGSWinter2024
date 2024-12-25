@@ -23,6 +23,8 @@
 #include"snow.h"
 #include"ui.h"
 #include "present.h"
+#include"santa.h"
+#include "bed.h"
 
 #include"shadow.h"
 #include"billboard.h"
@@ -55,6 +57,7 @@ void InitGame(void)
 	InitSnowBall();
 	InitMeshWall();
 	InitPlayer();//プレイヤー
+	InitSanta();
 	InitBullet();
 	InitEffect();
 	InitParticle();
@@ -65,13 +68,16 @@ void InitGame(void)
 	InitUi();
 	InitHitShere();
 	InitPresent();		// プレゼント
+	InitBed();			// ベッド
 
 	//空間
 	SetMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	SetCylinder(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	SetSphere(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	//ステージ
-	LoadStage();	
+	LoadStage();
+
+	SetSanta(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 	D3DXVECTOR3 posScore;//スコアの位置
 	g_gameState = GAMESTATE_NORMAL;
@@ -107,12 +113,14 @@ void UninitGame(void)
 	UninitSnowBall();
 	UninitSphere();
 	UninitMeshField();
+	UninitSanta();
 	UninitPlayer();//プレイヤー
 	UninitStage();
 	UninitLife();
 	UninitShadow();
 	UninitModel();
 	UninitPresent();		// プレゼント
+	UninitBed();			// ベッド
 }
 
 //--------------
@@ -222,6 +230,7 @@ void UpdateGame(void)
 		UpdateLife();
 		UpdateStage();
 		UpdatePlayer();//プレイヤー
+		UpdateSanta();
 		UpdateHitShere();
 		UpdateMeshWall();
 		UpdateMeshField();
@@ -236,6 +245,7 @@ void UpdateGame(void)
 		UpdateSnow();
 		UpdateUi();
 		UpdatePresent();
+		UpdateBed();			// ベッド
 	}
 }
 
@@ -256,6 +266,7 @@ void DrawGame(void)
 	DrawBullet();
 	DrawSnowBall();
 	DrawPlayer();//プレイヤー
+	DrawSanta();
 	DrawHitShere();
 	DrawAlphaMeshWall();
 	DrawLife();
@@ -263,6 +274,7 @@ void DrawGame(void)
 	DrawTime();
 	DrawUi();
 	DrawPresent();
+	DrawBed();			// ベッド
 }
 
 //----------------------

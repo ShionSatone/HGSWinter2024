@@ -120,7 +120,6 @@ void InitSanta(void)
 	g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 	g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 	g_Santa.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Santa.bJump = false;
 	g_Santa.nLife = SANTA_LIFE;
 	g_Santa.state = SANTASTATE_NORMAL;
 	g_Santa.nIdxShadow = -1;
@@ -227,7 +226,6 @@ void InitSanta(void)
 	}
 
 	g_Santa.nIdxShadow = SetShadow(g_Santa.pos, g_Santa.rot);
-	g_Santa.nIdxLife = LinkLife();
 }
 
 //-------------------
@@ -306,20 +304,8 @@ void UpdateSanta(void)
 		{
 			g_Santa.motionType = MOTIONTYPE_MOVE;
 		}
-		if (!g_Santa.bJump)
-		{
-			g_Santa.move.y += SANTA_JUMP;
-			g_Santa.bJump = true;
-			g_Santa.motionType = MOTIONTYPE_JUMP;
-		}
 
 		g_Santa.move.y += GRAVITY;
-
-		if (g_Santa.bJump)
-		{
-			g_Santa.move.x *= SANTA_JUMP_INA;
-			g_Santa.move.z *= SANTA_JUMP_INA;
-		}
 
 		g_Santa.posOld = g_Santa.pos;
 
@@ -336,7 +322,7 @@ void UpdateSanta(void)
 
 		CollisionSnowBall(g_Santa.pos, SANTA_SIZE);
 
-		g_Santa.bJump = !CollisionStage(&g_Santa.pStage);
+		CollisionStage(&g_Santa.pStage);
 
 		if (g_Santa.pStage != NULL)
 		{
@@ -583,7 +569,6 @@ void SetSanta(D3DXVECTOR3 pos)
 	g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 	g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 	g_Santa.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Santa.bJump = false;
 	g_Santa.nLife = SANTA_LIFE;
 	g_Santa.state = SANTASTATE_NORMAL;
 	g_Santa.nIdxShadow = SetShadow(g_Santa.pos, g_Santa.rot);
@@ -612,7 +597,6 @@ void EndSanta(void)
 	g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 	g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 	g_Santa.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_Santa.bJump = false;
 	g_Santa.nLife = SANTA_LIFE;
 	g_Santa.state = SANTASTATE_NORMAL;
 	NullShadow(g_Santa.nIdxShadow);
