@@ -370,7 +370,6 @@ void DrawGame(void)
 	DrawStage();
 	DrawBillboard();
 	DrawMeshWall();
-	DrawEffect();
 	DrawBullet();
 	DrawSnowBall();
 	DrawPlayer();//プレイヤー
@@ -393,6 +392,8 @@ void DrawGame(void)
 	DrawDesk();    //机の描画処理
 	DrawChair();    //椅子の描画処理
 	DrawBoolShelf();    //本棚の描画処理
+	DrawEffect();
+
 }
 
 //----------------------

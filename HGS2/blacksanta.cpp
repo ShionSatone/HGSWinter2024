@@ -604,6 +604,7 @@ void UpdateBlackSanta(void)
 
 			if (g_BlackSanta.nStealCnt / FRAME >= g_BlackSanta.nStealTime)
 			{
+				SetParticle(D3DXVECTOR3(pSocks->pos.x - 10.0f, pSocks->pos.y + 50.0f, pSocks->pos.z - 10.0f), D3DXVECTOR3(2.0f, 2.0f, 2.0f), PARTICLE_TYPE_COLLECT);
 				AddScore(-1);
 				EndBlackSanta();
 			}
