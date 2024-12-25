@@ -35,7 +35,7 @@ void InitDoor(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 
-	g_Door.pos = D3DXVECTOR3(-100.0f, 0.0f, 25.0f);
+	g_Door.pos = D3DXVECTOR3(-250.0f, 0.0f, 0.0f);
 	g_Door.rot = D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f);
 	g_Door.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 

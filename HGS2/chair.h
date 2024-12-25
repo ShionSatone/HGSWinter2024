@@ -1,12 +1,12 @@
 //=======================================
 //
-//　机 [desk.h]
+//　椅子 [chair.h]
 //　Author YOSHIDA YUTO
 //
 //=======================================
 
-#ifndef _DESK_H_
-#define _DESK_H_
+#ifndef _CHAIR_H_
+#define _CHAIR_H_
 
 //***************************************
 // インクルードファイル
@@ -19,7 +19,7 @@
 #define MAX_TEXTURE (64) // テクスチャの最大数
 
 //***************************************
-// 机の構造体
+// 椅子の構造体
 //***************************************
 typedef struct
 {
@@ -35,15 +35,15 @@ typedef struct
 	DWORD sizeFVF;
 	BYTE* pVtxBuff;
 	int nIdxBedParent;
-}Desk;
+}Chair;
 
 //***************************************
 // プロトタイプ宣言
 //***************************************
-void InitDesk(void);//机の初期化処理
-void UninitDesk(void);//机のの終了処理
-void UpdateDesk(void);//机のの更新処理
-void DrawDesk(void);//机のの描画処理
-Desk* GetDesk(void);//机の取得処理
-void SetDeskPos(D3DXVECTOR3 pos);//机の設定処理
-#endif _DESK_H_
+void InitChair(void);//椅子の初期化処理
+void UninitChair(void);//椅子のの終了処理
+void UpdateChair(void);//椅子のの更新処理
+void DrawChair(void);//椅子のの描画処理
+Chair* GetChair(void);//椅子の取得処理
+void SetChairPos(D3DXVECTOR3 pos);//椅子の設定処理
+#endif _CHAIR_H_
