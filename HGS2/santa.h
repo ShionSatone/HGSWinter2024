@@ -28,6 +28,7 @@
 #define SANTA_LIFE (1000)
 #define SANTA_BLEND_FRAME (10.0f)
 #define SANTA_SIZE (50.0f)
+#define PRESENT_SPACE (1.0f)
 
 //プレイヤー状態の列挙型定義
 typedef enum
@@ -44,6 +45,7 @@ typedef struct
 {
 	D3DXVECTOR3 pos;
 	D3DXVECTOR3 posOld;
+	D3DXVECTOR3 Startpos;
 	D3DXVECTOR3 move;
 	D3DXVECTOR3 rot;
 	D3DXVECTOR3 Destrot;
@@ -63,6 +65,7 @@ typedef struct
 	int nKey;
 	int nCounterMotion;
 	Stage* pStage;
+	bool bPresent;
 	bool bUse;
 }Santa;
 
