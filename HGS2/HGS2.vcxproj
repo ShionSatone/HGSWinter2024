@@ -152,6 +152,7 @@
     <ClCompile Include="chimney.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="cylinder.cpp" />
+    <ClCompile Include="door.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="file.cpp" />
@@ -175,6 +176,7 @@
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="snow.cpp" />
     <ClCompile Include="snowball.cpp" />
+    <ClCompile Include="socks.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClCompile Include="stage.cpp" />
@@ -191,6 +193,7 @@
     <ClInclude Include="chimney.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="cylinder.h" />
+    <ClInclude Include="door.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="file.h" />
@@ -215,6 +218,7 @@
     <ClInclude Include="shadow.h" />
     <ClInclude Include="snow.h" />
     <ClInclude Include="snowball.h" />
+    <ClInclude Include="socks.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="sphere.h" />
     <ClInclude Include="stage.h" />
