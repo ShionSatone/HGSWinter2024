@@ -442,7 +442,6 @@ void UpdatePlayer(void)
 
 	g_Player.bJump = !CollisionStage(&g_Player.pStage);
 
-
 	//ƒTƒ“ƒ^‚ÆŒ•‚Ì“–‚½‚è”»’è
 	if (CollisionSword(pSanta->pos) == true && pSanta->bUse==true)
 	{
