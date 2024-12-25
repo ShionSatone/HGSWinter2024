@@ -129,13 +129,17 @@ typedef struct
 	MOTIONSTATE motionstate; // モーションの状態
 	float PlayerMove;//プレイヤーの移動量
 	int nCounterstate; // プレイヤーの状態カウンター
+	D3DXVECTOR3 SwordOffpos;//剣の架空の位置の基準
+	D3DXMATRIX SwordMtxWorld;//剣の先のワールドマトリックス
 }Player;
 
 void InitPlayer(void);//ポリゴンの初期化処理
 void UninitPlayer(void);//ポリゴンの終了処理
 void UpdatePlayer(void);//ポリゴンの更新処理
 void DrawPlayer(void);//ポリゴンの描画処理
+void SetWorldMtx(void);//剣のワールドマトリックス設定用関数
 Player* GetPlayer(void);
+bool CollisionSword(D3DXVECTOR3 pos);//サンタと剣の当たり判定
 
 void UpdateMotion(void);
 void CollisionPlayer(D3DXVECTOR3 pos, float Length);

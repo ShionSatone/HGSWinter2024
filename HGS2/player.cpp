@@ -19,11 +19,17 @@
 #include"life.h"
 #include"snowball.h"
 #include "bed.h"
+#include "santa.h"
+#include "effect.h"
+#include "score.h"
+#include "blacksanta.h"
 
 //****************************************
 // マクロ定義
 //****************************************
 #define MAX_WORD (128) // 最大の文字数
+#define MODEL_SWORD (15) // 剣のモデルのインデックス
+#define NUM_SWORDPOS (4) // 剣の位置の数
 
 //****************************************
 // グローバル変数
@@ -146,6 +152,7 @@ void InitPlayer(void)
 	g_Player.motionstate = MOTIONSTATE_NEUTRAL; // モーションの状態
 	g_Player.PlayerMove = 0.0f; // プレイヤーの移動量
 	g_Player.nCounterstate = 0; // プレイヤーの状態カウンター
+	g_Player.SwordOffpos = D3DXVECTOR3(0.0f, 85.0f, 0.0f);//剣の先の基準の位置
 
 	LoadModel();
 	LoadPlayer();// プレイヤーのロード処理
@@ -265,6 +272,9 @@ void UninitPlayer(void)
 //-------------------
 void UpdatePlayer(void)
 {
+	Santa* pSanta = GetSanta();
+	BlackSanta* pBlackSnata = GetBlackSanta();
+
 	if (g_Player.bUse)
 	{
 		Camera* pCamera = GetCamera();
@@ -432,6 +442,18 @@ void UpdatePlayer(void)
 	CollisionSnowBall(g_Player.pos, PLAYER_SIZE);
 
 	g_Player.bJump = !CollisionStage(&g_Player.pStage);
+
+
+	//サンタと剣の当たり判定
+	if (CollisionSword(pSanta->pos) == true && pSanta->bUse==true)
+	{
+		pSanta->bUse = false;//サンタの使用状態をfalseにする
+		AddScore(-1);
+	}
+	else if (CollisionSword(pBlackSnata->pos) == true && pBlackSnata->bUse == true)
+	{
+		pBlackSnata->bUse = false;//ブラックサンタの使用状態をfalseにする
+	}
 
 	if (g_Player.pStage != NULL)
 	{
@@ -664,9 +686,50 @@ void DrawPlayer(void)
 				g_Player.aModel[nCntModel].pMesh->DrawSubset(nCntMat);
 			}
 
+			if (nCntModel == 15)
+			{
+				SetWorldMtx();//剣のモデルの位置の反映が終わったら剣先のワールドマトリックスを設定
+			}
+
 			pDevice->SetMaterial(&matDef);
 		}
 	}
+}
+
+//======================================
+// 剣の先のワールドマトリックスの設定用
+//======================================
+void SetWorldMtx(void)
+{
+	LPDIRECT3DDEVICE9 pDevice;//デバイスへポインタ
+	D3DXMATRIX mtxRot, mtxTrans,mtxParent;//計算マトリックス
+
+	//デバイスの取得
+	pDevice = GetDevice();
+
+	//マトリックス初期化
+	D3DXMatrixIdentity(&g_Player.SwordMtxWorld);
+
+	//向きの反映(向きをモデル剣の向きにする)
+	D3DXMatrixRotationYawPitchRoll(&mtxRot, g_Player.aModel[MODEL_SWORD].rot.y,
+		g_Player.aModel[MODEL_SWORD].rot.x,
+		g_Player.aModel[MODEL_SWORD].rot.z);
+
+	D3DXMatrixMultiply(&g_Player.SwordMtxWorld, &g_Player.SwordMtxWorld, &mtxRot);
+
+	//位置の反映
+	D3DXMatrixTranslation(&mtxTrans, g_Player.SwordOffpos.x, g_Player.SwordOffpos.y, g_Player.SwordOffpos.z);
+	D3DXMatrixMultiply(&g_Player.SwordMtxWorld, &g_Player.SwordMtxWorld, &mtxTrans);
+
+	mtxParent = g_Player.aModel[MODEL_SWORD].mtxWorld; //親を設定
+
+	//親のワールドマトリックスと自分のワールドマトリックスをかけ合わせる
+	D3DXMatrixMultiply(&g_Player.SwordMtxWorld,
+		&g_Player.SwordMtxWorld,
+		&mtxParent);
+
+	//ワールドマトリックスの設定
+	pDevice->SetTransform(D3DTS_WORLD, &g_Player.SwordMtxWorld);
 }
 
 //------------------------------
@@ -675,6 +738,61 @@ void DrawPlayer(void)
 Player* GetPlayer(void)
 {
 	return &g_Player;
+}
+//======================================
+// サンタと剣の判定
+//======================================
+bool CollisionSword(D3DXVECTOR3 pos)
+{
+	bool bHit = false; // 当たっているかどうか
+
+	float fSwordDisX, fSwordDisY, fSwordDisZ; //剣の位置設定用変数
+	float fSwordPosX, fSwordPosY, fSwordPosZ; //剣の位置用変数
+
+	float fDistanseX, fDistanseY, fDistanseZ, fDistanse; //距離X,Y,Z,距離代入用変数
+	float fRadius;//半径用変数
+
+	fSwordDisX = g_Player.SwordMtxWorld._41 - g_Player.aModel[MODEL_SWORD].mtxWorld._41; // 剣の根元から剣の先までの距離Xを求める
+	fSwordDisY = g_Player.SwordMtxWorld._42 - g_Player.aModel[MODEL_SWORD].mtxWorld._42; // 剣の根元から剣の先までの距離Yを求める
+	fSwordDisZ = g_Player.SwordMtxWorld._43 - g_Player.aModel[MODEL_SWORD].mtxWorld._43; // 剣の根元から剣の先までの距離Zを求める
+
+	//剣の当たり判定の位置を設定
+	for (int nCntSwordPos = 0; nCntSwordPos < NUM_SWORDPOS; nCntSwordPos++)
+	{
+		//剣の当たり判定の位置を算出
+		fSwordPosX = g_Player.aModel[MODEL_SWORD].mtxWorld._41 + fSwordDisX * 0.25f * nCntSwordPos;
+		fSwordPosY = g_Player.aModel[MODEL_SWORD].mtxWorld._42 + fSwordDisY * 0.25f * nCntSwordPos;
+		fSwordPosZ = g_Player.aModel[MODEL_SWORD].mtxWorld._43 + fSwordDisZ * 0.25f * nCntSwordPos;
+
+		//距離XYZを求める
+		fDistanseX = pos.x - fSwordPosX;
+		fDistanseY = pos.y - fSwordPosY;
+		fDistanseZ = pos.z - fSwordPosZ;
+
+		fDistanse = (fDistanseX * fDistanseX) + (fDistanseY * fDistanseY) + (fDistanseZ * fDistanseZ);//距離を求める
+
+		float fSwordRadius = 20.0f; // 剣の半径
+		float fSantaRadius = 20.0f; //サンタの半径
+
+		fRadius = fSwordRadius + fSantaRadius;//半径を求める
+		fRadius = fRadius * fRadius;
+
+#ifdef _DEBUG
+		SetEffect(D3DXVECTOR3(fSwordPosX, fSwordPosY, fSwordPosZ),
+			D3DXVECTOR3(0.0f, 0.0f, 0.0f),
+			D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f),
+			D3DXVECTOR3(1.0f, 1.0f, 1.0f),
+			10,
+			EFFECT_TYPE_NORMAL);
+#endif
+
+		if (fDistanse <= fRadius && g_Player.motionType == MOTIONTYPE_ACTION)
+		{
+			bHit = true;//剣がサンタに当たった
+		}
+	}
+	
+	return bHit;//ヒット判定を返す
 }
 
 //------------------------------
@@ -1007,6 +1125,3 @@ void LoadPlayer(void)
 	}
 	fclose(pFile);
 }
-//=============================
-// パッドを使用しているか
-//=============================
