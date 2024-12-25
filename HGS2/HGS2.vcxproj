@@ -183,6 +183,7 @@
     <ClCompile Include="time.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="ui.cpp" />
+    <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bed.h" />
@@ -225,6 +226,7 @@
     <ClInclude Include="time.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="ui.h" />
+    <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RCa04368" />
