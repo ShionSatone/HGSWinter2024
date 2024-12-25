@@ -8,6 +8,7 @@
 #include"meshfield.h"
 #include"player.h"
 #include"snowball.h"
+#include"santa.h"
 
 //グローバル変数宣言
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffMeshField = NULL;//バッファのポインタ
@@ -244,6 +245,7 @@ MeshField* GetMeshField(void)
 void CollisionMeshField(void)
 {
 	Player* pPlayer = GetPlayer();
+	Santa* pSanta = GetSanta();
 	SnowBall* pSnowBall = GetSnowBall();
 	D3DXVECTOR3 aPos[2] = {}, Fieldvec = {}, Posvec = {}, PosOldvec = {}, movevec = {}, Norvec = {}, Dovec = {}, Hit = {};
 	int nCntMeshField;
@@ -277,6 +279,35 @@ void CollisionMeshField(void)
 					if (pPlayer->motionType == MOTIONTYPE_JUMP)
 					{
 						pPlayer->motionType = MOTIONTYPE_LANDING;
+					}
+				}
+			}
+
+			pSanta = GetSanta();
+			if (pSanta->bUse)
+			{
+				Fieldvec = aPos[1] - aPos[0];//壁のベクトル
+				Posvec = pSanta->pos - aPos[0];//壁に対するプレイヤーのベクトル
+				PosOldvec = pSanta->posOld - aPos[0];//壁に対するプレイヤーの旧ベクトル
+				movevec = pSanta->pos - pSanta->posOld;//プレイヤーの移動ベクトル
+				if ((Fieldvec.x * Posvec.y) - (Fieldvec.y * Posvec.x) <= 0.0f && (Fieldvec.x * PosOldvec.y) - (Fieldvec.y * PosOldvec.x) >= 0.0f && pSanta->pos.z < g_aMeshField[nCntMeshField].pos.z + MESHFIELD_WIDTH * 0.5f && pSanta->pos.z > g_aMeshField[nCntMeshField].pos.z - MESHFIELD_WIDTH * 0.5f)
+				{//地面の下
+					FieldCross = (Fieldvec.x * movevec.y) - (Fieldvec.y * movevec.x);
+					PosCross = (Posvec.x * movevec.y) - (Posvec.y * movevec.x);
+					PosCross /= FieldCross;
+					if (PosCross >= -0.01f && PosCross < 1.01f)
+					{
+						Hit = aPos[0] + Fieldvec * PosCross;
+						movevec = pSanta->pos - Hit;//プレイヤーの移動ベクトル
+						Norvec = D3DXVECTOR3(Fieldvec.y, -Fieldvec.x, Fieldvec.z);
+						D3DXVec3Normalize(&Norvec, &Norvec);
+						Dovec = Norvec * ((-movevec.x * Norvec.x) + (-movevec.y * Norvec.y));
+						pSanta->pos += Dovec * 1.001f;
+						pSanta->move.y = 0.0f;
+						if (pSanta->motionType == MOTIONTYPE_JUMP)
+						{
+							pSanta->motionType = MOTIONTYPE_LANDING;
+						}
 					}
 				}
 			}
