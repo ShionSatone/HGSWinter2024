@@ -660,7 +660,7 @@ void UpdateSanta(void)
 			if (nCnt >= 20)
 			{
 				NullShadow(g_Santa.nIdxShadow);
-				SetParticle(g_Santa.pos, g_Santa.scale);
+				SetParticle(g_Santa.pos, g_Santa.scale, PARTICLE_TYPE_NONE);
 				g_Santa.state = SANTASTATE_APPEAR;
 			}
 			break;

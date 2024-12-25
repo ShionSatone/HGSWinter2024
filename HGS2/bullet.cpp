@@ -143,7 +143,7 @@ void UpdateBullet(void)
 			{
 				g_aBullet[nCntBullet].bUse = false;
 				NullShadow(g_aBullet[nCntBullet].nIdxShadow);
-				SetParticle(g_aBullet[nCntBullet].pos, g_aBullet[nCntBullet].scale);
+				SetParticle(g_aBullet[nCntBullet].pos, g_aBullet[nCntBullet].scale, PARTICLE_TYPE_NONE);
 				PlaySound(SOUND_LABEL_EXPLOSION);
 			}
 			SetPositionShadow(g_aBullet[nCntBullet].nIdxShadow, g_aBullet[nCntBullet].pos, g_aBullet[nCntBullet].scale, BULLET_HEIGHT);
