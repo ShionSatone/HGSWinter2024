@@ -136,12 +136,7 @@ void UninitField(void)
 //-------------------
 void UpdateField(void)
 {
-	if (GetKeyboradTrigger(DIK_K) == true)
-	{
-		SetParticle(D3DXVECTOR3(g_Field.pos.x, g_Field.pos.y + 50.0f, g_Field.pos.z), D3DXVECTOR3(1.0f, 1.0f, 1.0f), PARTICLE_TYPE_COLLECT);
-	}
-
-	CollisionObj(g_Field.pos,g_Field.Size);//“–‚½‚è”»’è
+	//CollisionObj(g_Field.pos,g_Field.Size);//“–‚½‚è”»’è
 }
 
 //-------------------
