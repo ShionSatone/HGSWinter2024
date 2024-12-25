@@ -69,6 +69,8 @@ typedef struct
 	int nKey;
 	int nCounterMotion;
 	Stage* pStage;
+	int nStealCnt;
+	int nStealTime;
 	bool bUse;
 }BlackSanta;
 

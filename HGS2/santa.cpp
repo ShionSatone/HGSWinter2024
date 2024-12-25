@@ -507,8 +507,8 @@ void UpdateSanta(void)
 		}
 		else
 		{
-			g_Santa.move.x += sinf(Oldrot) * SANTA_SPEED * 10.0f;
-			g_Santa.move.z += cosf(Oldrot) * SANTA_SPEED * 10.0f;
+			g_Santa.move.x += sinf(Oldrot) * SANTA_SPEED * SANTA_AWAY;
+			g_Santa.move.z += cosf(Oldrot) * SANTA_SPEED * SANTA_AWAY;
 		}
 		g_Santa.Destrot.y = Oldrot - D3DX_PI;
 		if (g_Santa.motionType != MOTIONTYPE_JUMP && g_Santa.motionType != MOTIONTYPE_LANDING && g_Santa.motionType != MOTIONTYPE_ACTION)
