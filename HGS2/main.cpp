@@ -675,28 +675,7 @@ void DrawDebug(void)
 	rect.top += FONT_SIZE;
 
 	//文字列の代入
-	snprintf(&aStr[0], sizeof(aStr), "目標視点:%f %f %f\n", pCamera->posVDest.x, pCamera->posVDest.y, pCamera->posVDest.z);
-
-	//テキストの描画
-	g_pFont->DrawText(NULL, &aStr[0], -1, &rect, DT_LEFT, D3DCOLOR_RGBA(255, 255, 255, 255));
-	rect.top += FONT_SIZE;
-
-	//文字列の代入
 	snprintf(&aStr[0], sizeof(aStr), "注視点:%f %f %f\n", pCamera->posR.x, pCamera->posR.y, pCamera->posR.z);
-
-	//テキストの描画
-	g_pFont->DrawText(NULL, &aStr[0], -1, &rect, DT_LEFT, D3DCOLOR_RGBA(255, 255, 255, 255));
-	rect.top += FONT_SIZE;
-
-	//文字列の代入
-	snprintf(&aStr[0], sizeof(aStr), "目標注視点:%f %f %f\n", pCamera->posRDest.x, pCamera->posRDest.y, pCamera->posRDest.z);
-
-	//テキストの描画
-	g_pFont->DrawText(NULL, &aStr[0], -1, &rect, DT_LEFT, D3DCOLOR_RGBA(255, 255, 255, 255));
-	rect.top += FONT_SIZE;
-
-	//文字列の代入
-	snprintf(&aStr[0], sizeof(aStr), "距離:%f\n", pCamera->fDistance);
 
 	//テキストの描画
 	g_pFont->DrawText(NULL, &aStr[0], -1, &rect, DT_LEFT, D3DCOLOR_RGBA(255, 255, 255, 255));

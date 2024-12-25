@@ -135,9 +135,6 @@ void InitTitle(void)
 	//ステージ
 	LoadStage();
 
-	//カメラ
-	ViewCamera();
-
 	g_pVtxBuffTitle->Lock(0, 0, (void**)&pVtx, 0);//プレイヤーバッファのロック
 
 	//座標設定

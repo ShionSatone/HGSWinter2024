@@ -142,9 +142,6 @@ void InitRank(void)
 	//ステージ
 	LoadStage();
 
-	//カメラ
-	ViewCamera();
-
 	g_pVtxBuffRank->Lock(0, 0, (void**)&pVtx, 0);//プレイヤーバッファのロック
 
 	for (int i = 0; i < MAX_DATA; i++)

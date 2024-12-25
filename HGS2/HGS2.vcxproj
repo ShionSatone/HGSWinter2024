@@ -150,7 +150,6 @@
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="cylinder.cpp" />
     <ClCompile Include="effect.cpp" />
-    <ClCompile Include="enemy_santa.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="file.cpp" />
     <ClCompile Include="game.cpp" />
@@ -167,6 +166,7 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="rank.cpp" />
     <ClCompile Include="result.cpp" />
+    <ClCompile Include="santa.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="snow.cpp" />
@@ -185,7 +185,6 @@
     <ClInclude Include="cursor.h" />
     <ClInclude Include="cylinder.h" />
     <ClInclude Include="effect.h" />
-    <ClInclude Include="enemy_santa.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="file.h" />
     <ClInclude Include="game.h" />
@@ -203,6 +202,7 @@
     <ClInclude Include="rank.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="result.h" />
+    <ClInclude Include="santa.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="shadow.h" />
     <ClInclude Include="snow.h" />

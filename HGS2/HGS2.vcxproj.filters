@@ -135,7 +135,7 @@
     <ClCompile Include="ui.cpp">
       <Filter>ソース ファイル\Ui</Filter>
     </ClCompile>
-    <ClCompile Include="enemy_santa.cpp">
+    <ClCompile Include="santa.cpp">
       <Filter>ソース ファイル\Ob</Filter>
     </ClCompile>
   </ItemGroup>
@@ -239,7 +239,7 @@
     <ClInclude Include="stage.h">
       <Filter>ヘッダー ファイル\Ob</Filter>
     </ClInclude>
-    <ClInclude Include="enemy_santa.h">
+    <ClInclude Include="santa.h">
       <Filter>ヘッダー ファイル\Ob</Filter>
     </ClInclude>
   </ItemGroup>

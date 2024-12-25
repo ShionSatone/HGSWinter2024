@@ -92,9 +92,6 @@ void InitResult(void)
 	//ステージ
 	LoadStage();
 
-	//カメラ
-	ViewCamera();
-
 	g_pVtxBuffResult->Lock(0, 0, (void**)&pVtx, 0);//プレイヤーバッファのロック
 
 	for (int i = 0; i < SCORE_MAX; i++)
