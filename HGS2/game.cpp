@@ -41,6 +41,7 @@
 #include "chimney.h"
 #include "door.h"
 #include "meshorbit.h"
+#include "desk.h"
 
 //ƒOƒ[ƒoƒ‹•Ï”
 GAMESTATE g_gameState = GAMESTATE_NONE;
@@ -83,6 +84,7 @@ void InitGame(void)
 	InitSocks();		// ŒC‰º
 	InitWindow();		// ‘‹
 	InitMeshSword();    //Œ•‚Ì‹O“¹‚Ì‰Šú‰»ˆ—
+	InitDesk();    //Š÷‚Ì‰Šú‰»ˆ—
 
 	//‹óŠÔ
 	SetMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
@@ -139,6 +141,7 @@ void UninitGame(void)
 	UninitSocks();		// ŒC‰º
 	UninitWindow();		// ‘‹
 	UninitMeshSword();    //Œ•‚Ì‹O“¹‚ÌI—¹ˆ—
+	UninitDesk();    //Š÷‚ÌI—¹ˆ—
 }
 
 //--------------
@@ -336,6 +339,7 @@ void UpdateGame(void)
 		UpdateSocks();		// ŒC‰º
 		UpdateWindow();		// ‘‹
 		UpdateMeshSword();    //Œ•‚Ì‹O“¹‚ÌXVˆ—
+		UpdateDesk();    //Š÷‚ÌXVˆ—
 	}
 }
 
@@ -371,6 +375,7 @@ void DrawGame(void)
 	DrawSocks();		// ŒC‰º
 	DrawWindow();		// ‘‹
 	DrawMeshSword();    //Œ•‚Ì‹O“¹‚Ì•`‰æˆ—
+	DrawDesk();    //Š÷‚Ì•`‰æˆ—
 }
 
 //----------------------
