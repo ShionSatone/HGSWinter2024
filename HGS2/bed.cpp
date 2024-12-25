@@ -10,7 +10,7 @@
 #include"input.h"
 
 // マクロ定義
-#define X_NAME "data\\MODEL\\prezent.x"
+#define X_NAME "data\\MODEL\\bed.x"
 
 //グローバル変数宣言
 Bed g_Bed;
