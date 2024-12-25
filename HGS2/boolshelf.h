@@ -4,9 +4,8 @@
 //Author fuma sato
 //
 //---------------------------------------
-#if 0
-#ifndef _BED_H_
-#define _BED_H_
+#ifndef _BOOLSHELF_H_
+#define _BOOLSHELF_H_
 
 #include"main.h"
 
@@ -18,7 +17,7 @@ typedef struct
 	D3DXVECTOR3 pos;
 	D3DXVECTOR3 posDef;
 	D3DXVECTOR3 rot;
-	D3DXVECTOR3 scale;
+	D3DXVECTOR3 scale,Size;
 	D3DXMATRIX mtxWorld;
 	DWORD dwNumMat;//マテリアル数
 	D3DXVECTOR3 vtxMin;
@@ -28,16 +27,15 @@ typedef struct
 	int nNumVtx;
 	DWORD sizeFVF;
 	BYTE* pVtxBuff;
-	int nIdxBedParent;
-}Bed;
+	int nIdxBoolShelfParent;
+}BoolShelf;
 
-void InitBed(void);//ポリゴンの初期化処理
-void UninitBed(void);//ポリゴンの終了処理
-void UpdateBed(void);//ポリゴンの更新処理
-void DrawBed(void);//ポリゴンの描画処理
+void InitBoolShelf(void);//ポリゴンの初期化処理
+void UninitBoolShelf(void);//ポリゴンの終了処理
+void UpdateBoolShelf(void);//ポリゴンの更新処理
+void DrawBoolShelf(void);//ポリゴンの描画処理
 
-Bed* GetBed(void);
-void SetBedPos(D3DXVECTOR3 pos);
+BoolShelf* GetBoolShelf(void);
+void SetBoolShelfPos(D3DXVECTOR3 pos);
 
-#endif _BED_H_
-#endif
+#endif _BOOLSHELF_H_
