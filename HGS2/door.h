@@ -28,6 +28,7 @@ typedef struct
 	LPDIRECT3DTEXTURE9 apTexture[MAX_TEXTURE];//テクスチャへのポインタ
 	D3DXVECTOR3 pos;//位置
 	D3DXVECTOR3 rot;//向き
+	D3DXVECTOR3 rotDest;//目的の向き
 	D3DXVECTOR3 scale;//大きさ
 	D3DXMATRIX mtxWorld;//ワールドマトリックス
 	DWORD dwNumMat;//マテリアル数
@@ -46,4 +47,4 @@ void UpdateDoor(void);//ドアのの更新処理
 void DrawDoor(void);//ドアのの描画処理
 Door* GetDoor(void);//ドアの取得処理
 void SetDoorPos(D3DXVECTOR3 pos);//ドアの設定処理
-#endif _BED_H_
+#endif _DOOR_H_

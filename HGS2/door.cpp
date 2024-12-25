@@ -11,11 +11,12 @@
 #include"door.h"
 #include"camera.h"
 #include"input.h"
+#include "santa.h"
 
 //***************************************
 // マクロ定義
 //***************************************
-#define X_NAME "data\\MODEL\\doorkari.x"
+#define X_NAME "data\\MODEL\\door.x"
 
 //***************************************
 // グローバル変数宣言
@@ -33,7 +34,7 @@ void InitDoor(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 
-	g_Door.pos = D3DXVECTOR3(0.0f, 0.0f, 20.0f);
+	g_Door.pos = D3DXVECTOR3(-100.0f, 0.0f, 25.0f);
 	g_Door.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Door.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
@@ -100,7 +101,18 @@ void UninitDoor(void)
 //=======================================
 void UpdateDoor(void)
 {
+	Santa* pSanta = GetSanta();//サンタを取得
 
+	if (pSanta->bUse == true)
+	{//サンタが使われている
+		g_Door.rotDest.y = 0.0f; //ドアが空いた
+	}
+	else
+	{
+		g_Door.rotDest.y = D3DX_PI * 0.5f;//ドアがしまった
+	}
+
+	g_Door.rot.y += (g_Door.rotDest.y - g_Door.rot.y) * 0.05f;//ドアの向きを目的の向きにする
 }
 
 //=======================================
