@@ -26,7 +26,7 @@ void InitBoolShelf(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 
-	g_BoolShelf.pos = D3DXVECTOR3(190.0f, 0.0f, 120.0f);
+	g_BoolShelf.pos = D3DXVECTOR3(80.0f, 0.0f,-20.0f);
 	g_BoolShelf.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_BoolShelf.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
