@@ -379,8 +379,6 @@ void InitSanta(void)
 	{
 		g_Santa.aModel[nCnt].posDef = g_Santa.aModel[nCnt].pos;
 	}
-
-	g_Santa.nIdxShadow = SetShadow(g_Santa.pos, g_Santa.rot);
 }
 
 //-------------------

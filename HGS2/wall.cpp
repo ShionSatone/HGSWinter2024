@@ -9,6 +9,7 @@
 #include"camera.h"
 #include"input.h"
 #include "particle.h"
+#include "player.h"
 
 // マクロ定義
 #define X_NAME "data\\MODEL\\madowindow.x"
@@ -35,9 +36,9 @@ void InitWall(void)
 	pDevice = GetDevice();
 
 	g_Wall[0].pos = D3DXVECTOR3(0.0f, 0.0f, -130.0f);
-	g_Wall[1].pos = D3DXVECTOR3(0.0f, 0.0f, 200.0f);
-	g_Wall[2].pos = D3DXVECTOR3(300.0f, 0.0f, 0.0f);
-	g_Wall[2].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Wall[1].pos = D3DXVECTOR3(0.0f, 0.0f, 130.0f);
+	g_Wall[2].pos = D3DXVECTOR3(250.0f, 0.0f, 0.0f);
+	g_Wall[2].rot = D3DXVECTOR3(0.0f, D3DX_PI * -0.5f, 0.0f);
 	g_Wall[3].pos = D3DXVECTOR3(-250.0f, 0.0f, 0.0f);
 	g_Wall[3].rot = D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f);
 
@@ -80,7 +81,7 @@ void InitWall(void)
 			//Xファイル読み込み
 			D3DXLoadMeshFromX
 			(
-				"data\\MODEL\\wall1.x",
+				"data\\MODEL\\bedwall.x",
 				D3DXMESH_SYSTEMMEM,
 				pDevice,
 				NULL,
@@ -105,6 +106,48 @@ void InitWall(void)
 				&g_Wall[i].pMesh
 			);
 		}
+
+		//頂点数
+		g_Wall[i].nNumVtx = g_Wall[i].pMesh->GetNumVertices();
+		//頂点サイズ
+		g_Wall[i].sizeFVF = D3DXGetFVFVertexSize(g_Wall[i].pMesh->GetFVF());
+		//頂点バッファの取得
+		g_Wall[i].pMesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&g_Wall[i].pVtxBuff);
+
+		for (int nCntVtx = 0; nCntVtx < g_Wall[i].nNumVtx; nCntVtx++)
+		{
+			D3DXVECTOR3 vtx = *(D3DXVECTOR3*)g_Wall[i].pVtxBuff;
+
+			if (vtx.x > g_Wall[i].vtxMax.x)
+			{
+				g_Wall[i].vtxMax.x = vtx.x;
+			}
+			if (vtx.x < g_Wall[i].vtxMin.x)
+			{
+				g_Wall[i].vtxMin.x = vtx.x;
+			}
+			if (vtx.y > g_Wall[i].vtxMax.y)
+			{
+				g_Wall[i].vtxMax.y = vtx.y;
+			}
+			if (vtx.y < g_Wall[i].vtxMin.y)
+			{
+				g_Wall[i].vtxMin.y = vtx.y;
+			}
+			if (vtx.z > g_Wall[i].vtxMax.z)
+			{
+				g_Wall[i].vtxMax.z = vtx.z;
+			}
+			if (vtx.z < g_Wall[i].vtxMin.z)
+			{
+				g_Wall[i].vtxMin.z = vtx.z;
+			}
+
+			g_Wall[i].pVtxBuff += g_Wall[i].sizeFVF;
+		}
+		g_Wall[i].Size.x = g_Wall[i].vtxMax.x - g_Wall[i].vtxMin.x;
+		g_Wall[i].Size.y = g_Wall[i].vtxMax.y - g_Wall[i].vtxMin.y;
+		g_Wall[i].Size.z = g_Wall[i].vtxMax.z - g_Wall[i].vtxMin.z;
 
 		//マテリアルデータへのポインタを取得
 		pMat = (D3DXMATERIAL*)g_Wall[i].pBuffMat->GetBufferPointer();
@@ -169,7 +212,10 @@ void UninitWall(void)
 //-------------------
 void UpdateWall(void)
 {
-	
+	for (int i = 0; i < NUM_FILE; i++)
+	{
+		CollisionObj(g_Wall[i].pos,g_Wall[i].Size);//プレイヤーと壁の判定
+	}
 }
 
 //-------------------

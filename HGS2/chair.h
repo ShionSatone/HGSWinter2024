@@ -27,6 +27,7 @@ typedef struct
 	LPD3DXBUFFER pBuffMat;//マテリアルポインタ
 	LPDIRECT3DTEXTURE9 apTexture[MAX_TEXTURE];//テクスチャへのポインタ
 	D3DXVECTOR3 pos;//位置
+	D3DXVECTOR3 vtxMax,vtxMin,Size;//サイズ
 	D3DXVECTOR3 rot;//向き
 	D3DXVECTOR3 scale;//大きさ
 	D3DXMATRIX mtxWorld;//ワールドマトリックス

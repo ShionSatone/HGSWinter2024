@@ -35,7 +35,7 @@ void InitDoor(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 
-	g_Door.pos = D3DXVECTOR3(-250.0f, 0.0f, 0.0f);
+	g_Door.pos = D3DXVECTOR3(-250.0f, 0.0f, 21.0f);
 	g_Door.rot = D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f);
 	g_Door.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 
@@ -51,6 +51,47 @@ void InitDoor(void)
 		&g_Door.dwNumMat,
 		&g_Door.pMesh
 	);
+	//頂点数
+	g_Door.nNumVtx = g_Door.pMesh->GetNumVertices();
+	//頂点サイズ
+	g_Door.sizeFVF = D3DXGetFVFVertexSize(g_Door.pMesh->GetFVF());
+	//頂点バッファの取得
+	g_Door.pMesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&g_Door.pVtxBuff);
+
+	for (int nCntVtx = 0; nCntVtx < g_Door.nNumVtx; nCntVtx++)
+	{
+		D3DXVECTOR3 vtx = *(D3DXVECTOR3*)g_Door.pVtxBuff;
+
+		if (vtx.x > g_Door.vtxMax.x)
+		{
+			g_Door.vtxMax.x = vtx.x;
+		}
+		if (vtx.x < g_Door.vtxMin.x)
+		{
+			g_Door.vtxMin.x = vtx.x;
+		}
+		if (vtx.y > g_Door.vtxMax.y)
+		{
+			g_Door.vtxMax.y = vtx.y;
+		}
+		if (vtx.y < g_Door.vtxMin.y)
+		{
+			g_Door.vtxMin.y = vtx.y;
+		}
+		if (vtx.z > g_Door.vtxMax.z)
+		{
+			g_Door.vtxMax.z = vtx.z;
+		}
+		if (vtx.z < g_Door.vtxMin.z)
+		{
+			g_Door.vtxMin.z = vtx.z;
+		}
+
+		g_Door.pVtxBuff += g_Door.sizeFVF;
+	}
+	g_Door.Size.x = g_Door.vtxMax.x - g_Door.vtxMin.x;
+	g_Door.Size.y = g_Door.vtxMax.y - g_Door.vtxMin.y;
+	g_Door.Size.z = g_Door.vtxMax.z - g_Door.vtxMin.z;
 
 	//マテリアルデータへのポインタを取得
 	pMat = (D3DXMATERIAL*)g_Door.pBuffMat->GetBufferPointer();
@@ -115,6 +156,8 @@ void UpdateDoor(void)
 	}
 
 	g_Door.rot.y += (g_Door.rotDest.y - g_Door.rot.y) * 0.05f;//ドアの向きを目的の向きにする
+
+	CollisionObj(g_Door.pos, g_Door.Size);
 }
 
 //=======================================

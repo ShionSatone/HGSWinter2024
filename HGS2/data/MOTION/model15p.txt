@@ -30,7 +30,7 @@ MODEL_FILENAME = data/MODEL/HGSPlayer/ken.x	# [15]武器
 #-------------------------
 CHARACTERSET
 	NUM_PARTS = 16
-	MOVE = 1.2
+	MOVE = 2.8
 	
 	PARTSSET
 	   INDEX = 0

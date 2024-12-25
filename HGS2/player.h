@@ -29,11 +29,11 @@
 #define NUM_KEY (2)
 #define MAX_MOTION (16)
 #define NUM_MOTION (1)
-#define SPEED (1.0f)
+#define SPEED (2.8f)
 #define SPEED_DEF (0.0f)
 #define JUMP (20.0f)
 #define JUMP_INA (0.9f)
-#define PLAYER_INA (0.1f)
+#define PLAYER_INA (0.5f)
 #define ROT_SPEED (0.1f)
 #define SCALE_SPEED (0.2f)
 #define SCALE_MIN (0.5f)
@@ -132,6 +132,7 @@ typedef struct
 	int nCounterstate; // プレイヤーの状態カウンター
 	D3DXVECTOR3 SwordOffpos;//剣の架空の位置の基準
 	D3DXMATRIX SwordMtxWorld;//剣の先のワールドマトリックス
+	D3DXVECTOR3 Size;//プレイヤーのサイズ
 }Player;
 
 void InitPlayer(void);//ポリゴンの初期化処理
@@ -141,6 +142,7 @@ void DrawPlayer(void);//ポリゴンの描画処理
 void SetWorldMtx(void);//剣のワールドマトリックス設定用関数
 Player* GetPlayer(void);
 bool CollisionSword(D3DXVECTOR3 pos);//サンタと剣の当たり判定
+void CollisionObj(D3DXVECTOR3 pos, D3DXVECTOR3 Size);
 
 void UpdateMotion(void);
 void CollisionPlayer(D3DXVECTOR3 pos, float Length);
