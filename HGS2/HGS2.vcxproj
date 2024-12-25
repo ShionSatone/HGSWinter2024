@@ -176,6 +176,7 @@
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="snow.cpp" />
     <ClCompile Include="snowball.cpp" />
+    <ClCompile Include="socks.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClCompile Include="stage.cpp" />
@@ -217,6 +218,7 @@
     <ClInclude Include="shadow.h" />
     <ClInclude Include="snow.h" />
     <ClInclude Include="snowball.h" />
+    <ClInclude Include="socks.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="sphere.h" />
     <ClInclude Include="stage.h" />
