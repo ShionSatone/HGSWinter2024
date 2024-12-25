@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClCompile Include="bed.cpp" />
     <ClCompile Include="billboard.cpp" />
+    <ClCompile Include="blacksanta.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="cursor.cpp" />
@@ -183,6 +184,7 @@
   <ItemGroup>
     <ClInclude Include="bed.h" />
     <ClInclude Include="billboard.h" />
+    <ClInclude Include="blacksanta.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="cursor.h" />

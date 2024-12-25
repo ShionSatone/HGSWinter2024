@@ -8,13 +8,12 @@
 #include"santa.h"
 #include"game.h"
 #include"shadow.h"
-#include"camera.h"
 #include"input.h"
-#include"bullet.h"
 #include"file.h"
 #include"particle.h"
 #include"life.h"
-#include"snowball.h"
+#include"bed.h"
+#include"present.h"
 
 //グローバル変数宣言
 Santa g_Santa;
@@ -116,6 +115,7 @@ void InitSanta(void)
 
 	g_Santa.pos = D3DXVECTOR3(0.0f, 0.1f, 0.0f);
 	g_Santa.posOld = D3DXVECTOR3(0.0f, 0.1f, 0.0f);
+	g_Santa.Startpos = D3DXVECTOR3(0.0f, 0.1f, 0.0f);
 	g_Santa.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 	g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
@@ -132,6 +132,7 @@ void InitSanta(void)
 	g_Santa.nKey = -1;
 	g_Santa.nNumKey = 0;
 	g_Santa.nNumMotion = NUM_MOTION_SANTA;
+	g_Santa.bPresent = false;
 	g_Santa.bUse = false;
 
 	LoadModel();
@@ -266,40 +267,65 @@ void UpdateSanta(void)
 {
 	if (g_Santa.bUse)
 	{
-		Camera* pCamera = GetCamera();
-
 		//移動処理
+		Bed* pBed;
+		float Oldrot;//今の方向
+		float Xlong;
+		float Zlong;
+		float Destrot;//ベットの方向
+		if (g_Santa.bPresent)
+		{
+			//移動処理
+			Oldrot = atan2f(g_Santa.move.x, g_Santa.move.z);//今の方向
+			Xlong = g_Santa.Startpos.x - g_Santa.pos.x;
+			Zlong = g_Santa.Startpos.z - g_Santa.pos.z;
+			Destrot = atan2f(Xlong, Zlong);//ベットの方向
 
-		//Player* pPlayer = GetPlayer();
-		//float Oldrot = atan2f(g_Santa.move.x, g_Santa.move.z);//今の方向
-		//float Xlong = pPlayer->pos.x - g_Santa.pos.x;
-		//float Zlong = pPlayer->pos.z - g_Santa.pos.z;
-		//float Destrot = atan2f(Xlong, Zlong);//敵の方向
+			if (sqrtf(Xlong * Xlong + Zlong * Zlong) < PRESENT_SPACE)
+			{
+				EndSanta();
+			}
+		}
+		else
+		{
+			//移動処理
+			pBed = GetBed();
+			Oldrot = atan2f(g_Santa.move.x, g_Santa.move.z);//今の方向
+			Xlong = pBed->pos.x - g_Santa.pos.x;
+			Zlong = pBed->pos.z + pBed->vtxMax.z - g_Santa.pos.z;
+			Destrot = atan2f(Xlong, Zlong);//ベットの方向
 
-		//float Diffrot = Destrot - Oldrot;//差の角度
-		//if (Diffrot > D3DX_PI)
-		//{//修正
-		//	Diffrot -= D3DX_PI * 2;
-		//}
-		//else if (Diffrot < -D3DX_PI)
-		//{//修正
-		//	Diffrot += D3DX_PI * 2;
-		//}
+			if (sqrtf(Xlong * Xlong + Zlong * Zlong) < PRESENT_SPACE)
+			{
+				g_Santa.bPresent = true;
+			}
+			SetPresentPos(g_Santa.pos);
+		}
 
-		//Oldrot += Diffrot * 1.0f;//角度を補正
+		float Diffrot = Destrot - Oldrot;//差の角度
+		if (Diffrot > D3DX_PI)
+		{//修正
+			Diffrot -= D3DX_PI * 2;
+		}
+		else if (Diffrot < -D3DX_PI)
+		{//修正
+			Diffrot += D3DX_PI * 2;
+		}
 
-		//if (Oldrot > D3DX_PI)
-		//{//修正
-		//	Oldrot -= D3DX_PI * 2;
-		//}
-		//else if (Oldrot < -D3DX_PI)
-		//{//修正
-		//	Oldrot += D3DX_PI * 2;
-		//}
+		Oldrot += Diffrot * 1.0f;//角度を補正
 
-		//g_Santa.move.x += sinf(Oldrot) * SANTA_SPEED;
-		//g_Santa.move.z += cosf(Oldrot) * SANTA_SPEED;
-		//g_Santa.Destrot.y = Oldrot - D3DX_PI;
+		if (Oldrot > D3DX_PI)
+		{//修正
+			Oldrot -= D3DX_PI * 2;
+		}
+		else if (Oldrot < -D3DX_PI)
+		{//修正
+			Oldrot += D3DX_PI * 2;
+		}
+
+		g_Santa.move.x += sinf(Oldrot) * SANTA_SPEED;
+		g_Santa.move.z += cosf(Oldrot) * SANTA_SPEED;
+		g_Santa.Destrot.y = Oldrot - D3DX_PI;
 		if (g_Santa.motionType != MOTIONTYPE_JUMP && g_Santa.motionType != MOTIONTYPE_LANDING && g_Santa.motionType != MOTIONTYPE_ACTION)
 		{
 			g_Santa.motionType = MOTIONTYPE_MOVE;
@@ -319,8 +345,6 @@ void UpdateSanta(void)
 		g_Santa.move.z += (SANTA_SPEED_DEF - g_Santa.move.z) * SANTA_INA;
 
 		g_Santa.pStage = NULL;
-
-		CollisionSnowBall(g_Santa.pos, SANTA_SIZE);
 
 		CollisionStage(&g_Santa.pStage);
 
@@ -563,8 +587,8 @@ void DrawSanta(void)
 void SetSanta(D3DXVECTOR3 pos)
 {
 	g_Santa.pos = pos;
-
 	g_Santa.posOld = pos;
+	g_Santa.Startpos = pos;
 	g_Santa.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 	g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
@@ -581,7 +605,7 @@ void SetSanta(D3DXVECTOR3 pos)
 	g_Santa.nKey = -1;
 	g_Santa.nNumKey = 0;
 	g_Santa.nNumMotion = NUM_MOTION_SANTA;
-
+	g_Santa.bPresent = false;
 	g_Santa.bUse = true;
 }
 
@@ -591,8 +615,8 @@ void SetSanta(D3DXVECTOR3 pos)
 void EndSanta(void)
 {
 	g_Santa.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-
 	g_Santa.posOld = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Santa.Startpos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Santa.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Santa.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 	g_Santa.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
@@ -611,7 +635,7 @@ void EndSanta(void)
 	g_Santa.nKey = -1;
 	g_Santa.nNumKey = 0;
 	g_Santa.nNumMotion = NUM_MOTION_SANTA;
-
+	g_Santa.bPresent = false;
 	g_Santa.bUse = false;
 }
 
