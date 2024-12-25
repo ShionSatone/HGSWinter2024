@@ -11,9 +11,18 @@
 #include"player.h"
 #include"model.h"
 
-#define BLACKSANTA_BODY_NAME "data\\MODEL\\AKRmodel\\00_body.x"
+#define BLACKSANTA_BODY_NAME "data\\MODEL\\BlackSantamodel\\00_blacksantabody.x"
+#define BLACKSANTA_HEAD_NAME "data\\MODEL\\BlackSantamodel\\01_blacksantahead.x"
+#define BLACKSANTA_RIGHTARM_NAME "data\\MODEL\\BlackSantamodel\\02_blacksantaarmR.x"
+#define BLACKSANTA_RIGHTHAND_NAME "data\\MODEL\\BlackSantamodel\\03_blacksantahandR.x"
+#define BLACKSANTA_LEFTARM_NAME "data\\MODEL\\BlackSantamodel\\04_blacksantaarmL.x"
+#define BLACKSANTA_LEFTHAND_NAME "data\\MODEL\\BlackSantamodel\\05_blacksantahandL.x"
+#define BLACKSANTA_RIGHTLEG_NAME "data\\MODEL\\BlackSantamodel\\06_blacksantalegR.x"
+#define BLACKSANTA_RIGHTFOOT_NAME "data\\MODEL\\BlackSantamodel\\07_blacksantafootR.x"
+#define BLACKSANTA_LEFTLEG_NAME "data\\MODEL\\BlackSantamodel\\08_blacksantalegL.x"
+#define BLACKSANTA_LEFTFOOT_NAME "data\\MODEL\\BlackSantamodel\\09_blacksantafootL.x"
 #define MAX_MODEL_BLACKSANTA (16)
-#define NUM_MODEL_BLACKSANTA (1)
+#define NUM_MODEL_BLACKSANTA (10)
 #define MAX_KEY_BLACKSANTA (16)
 #define NUM_KEY_BLACKSANTA (2)
 #define MAX_MOTION_BLACKSANTA (16)
@@ -25,7 +34,6 @@
 #define BLACKSANTA_SCALE_SPEED (0.2f)
 #define BLACKSANTA_SCALE_MIN (0.5f)
 #define BLACKSANTA_SCALE_MAX (10.0f)
-#define BLACKSANTA_LIFE (1000)
 #define BLACKSANTA_BLEND_FRAME (10.0f)
 #define BLACKSANTA_SIZE (50.0f)
 
@@ -48,11 +56,9 @@ typedef struct
 	D3DXVECTOR3 rot;
 	D3DXVECTOR3 Destrot;
 	D3DXVECTOR3 scale;
-	int nLife;
 	BLACKSANTASTATE state;
 	D3DXMATRIX mtxWorld;
 	int nIdxShadow;
-	int nIdxLife;
 	Model aModel[MAX_MODEL_BLACKSANTA];
 	int nNumModel;
 	MOTION_INFO aMotionInfo[MAX_MOTION_BLACKSANTA];

@@ -37,6 +37,14 @@ typedef enum
 	TYPE_MAX
 }WHITE_TYPE;
 
+typedef enum
+{
+	PATA1 = 0,
+	PATA2,
+	PATA3,
+	PATA_MAX
+}SANTA_TIME;
+
 void InitGame(void);//ゲームの初期化処理
 void UninitGame(void);//ゲームの終了処理
 void UpdateGame(void);//ゲームの更新処理

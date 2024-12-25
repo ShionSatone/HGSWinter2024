@@ -154,6 +154,7 @@ void UpdateEffect(void)
 
 			g_aEffect[i].nLife--;
 			g_aEffect[i].scale *= ((float)g_aEffect[i].nLife) / ((float)g_nLifeDef[i]);
+			//g_aEffect[i].scale *= 1.0f;
 
 			if (g_aEffect[i].nLife <= 0)
 			{

@@ -592,7 +592,7 @@ void UpdatePlayer(void)
 		{
 			NullShadow(g_Player.nIdxShadow);
 			NullLife(g_Player.nIdxLife);
-			SetParticle(g_Player.pos, g_Player.scale);
+			SetParticle(g_Player.pos, g_Player.scale,PARTICLE_TYPE_NONE);
 			g_Player.state = PLAYERSTATE_APPEAR;
 		}
 		break;

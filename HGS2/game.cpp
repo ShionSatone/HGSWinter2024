@@ -27,6 +27,7 @@
 #include"blacksanta.h"
 #include "bed.h"
 #include "socks.h"
+#include "window.h"
 
 #include"shadow.h"
 #include"billboard.h"
@@ -44,6 +45,8 @@
 GAMESTATE g_gameState = GAMESTATE_NONE;
 int g_nCounterGameState = 0;
 int g_GameTime = 0;
+int g_SantaCount = 0;
+int g_SantaTime = 0;
 bool g_bSnow = false;
 bool g_bClear = false;
 //--------------------
@@ -77,6 +80,7 @@ void InitGame(void)
 	InitChimney();      //煙突の初期化処理
 	InitDoor();      //ドアの初期化処理
 	InitSocks();		// 靴下
+	InitWindow();		// 窓
 
 	//空間
 	SetMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
@@ -84,9 +88,6 @@ void InitGame(void)
 	SetSphere(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	//ステージ
 	LoadStage();
-
-	SetSanta(D3DXVECTOR3(-100.0f, 0.0f, 0.0f));
-	SetBlackSanta(D3DXVECTOR3(20.0f, 0.0f, 0.0f));
 
 	D3DXVECTOR3 posScore;//スコアの位置
 	g_gameState = GAMESTATE_NORMAL;
@@ -134,6 +135,7 @@ void UninitGame(void)
 	UninitChimney();      //煙突の終了処理
 	UninitDoor();      //ドアの終了処理
 	UninitSocks();		// 靴下
+	UninitWindow();		// 窓
 }
 
 //--------------
@@ -220,6 +222,65 @@ void UpdateGame(void)
 				g_bClear = false;
 #endif
 			}
+
+			Santa* pSanta;
+			pSanta = GetSanta();
+			BlackSanta* pBlackSanta;
+			pBlackSanta = GetBlackSanta();
+			if (!pSanta->bUse && !pSanta->bUse)
+			{
+				if (g_SantaCount == 0)
+				{
+					switch (rand() % PATA_MAX)
+					{
+					case PATA1:
+						g_SantaTime = 5;
+						break;
+					case PATA2:
+						g_SantaTime = 10;
+						break;
+					case PATA3:
+						g_SantaTime = 20;
+						break;
+					}
+				}
+				g_SantaCount++;
+
+				if (g_SantaCount >= g_SantaTime)
+				{
+					D3DXVECTOR3 pos;
+					switch (rand() % PATA_MAX)
+					{
+					case PATA1:
+						Door* pDoor;
+						pDoor = GetDoor();
+						pos = pDoor->pos;
+						break;
+					case PATA2:
+						Chimney* pChimney;
+						pChimney = GetChimney();
+						pos = pChimney->pos;
+						break;
+					case PATA3:
+						pos = D3DXVECTOR3(0.0f,50.0f,-20.0f);
+						break;
+					}
+
+					switch (rand() % PATA_MAX)
+					{
+					case 0:
+						SetSanta(pos);
+						break;
+					case 1:
+						SetBlackSanta(pos);
+						break;
+					}
+				}
+			}
+			else
+			{
+				g_SantaCount = 0;
+			}
 			break;
 		case GAMESTATE_END:
 			g_nCounterGameState++;
@@ -263,6 +324,7 @@ void UpdateGame(void)
 		UpdateChimney();      //煙突の更新処理
 		UpdateDoor();      //ドアの更新処理
 		UpdateSocks();		// 靴下
+		UpdateWindow();		// 窓
 	}
 }
 
@@ -296,6 +358,7 @@ void DrawGame(void)
 	DrawChimney();      //煙突の描画処理
 	DrawDoor();      //ドアの描画処理
 	DrawSocks();		// 靴下
+	DrawWindow();		// 窓
 }
 
 //----------------------
