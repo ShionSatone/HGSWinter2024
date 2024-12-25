@@ -1,12 +1,11 @@
 //---------------------------------------
 //
-//ベッド処理[present.h]
+//窓処理[window.h]
 //Author fuma sato
 //
 //---------------------------------------
-#if 0
-#ifndef _BED_H_
-#define _BED_H_
+#ifndef _WINDOW_H_
+#define _WINDOW_H_
 
 #include"main.h"
 
@@ -28,15 +27,14 @@ typedef struct
 	int nNumVtx;
 	DWORD sizeFVF;
 	BYTE* pVtxBuff;
-	int nIdxBedParent;
-}Bed;
+	int nIdxWindowParent;
+}Window;
 
-void InitBed(void);//ポリゴンの初期化処理
-void UninitBed(void);//ポリゴンの終了処理
-void UpdateBed(void);//ポリゴンの更新処理
-void DrawBed(void);//ポリゴンの描画処理
+void InitWindow(void);//ポリゴンの初期化処理
+void UninitWindow(void);//ポリゴンの終了処理
+void UpdateWindow(void);//ポリゴンの更新処理
+void DrawWindow(void);//ポリゴンの描画処理
 
-Bed* GetBed(void);
-void SetBedPos(D3DXVECTOR3 pos);
-#endif
+Window* GetWindow(void);
+void SetWindowPos(D3DXVECTOR3 pos);
 #endif _BED_H_
