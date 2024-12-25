@@ -10,7 +10,7 @@
 
 #include"main.h"
 
-#define TEXTURE_TUTO "data\\TEXTURE\\number000.png"
+#define TEXTURE_TUTO "data\\TEXTURE\\tutorial.png"
 
 //プロトタイプ宣言
 void InitTuto(void);//スコアの初期化処理
