@@ -34,7 +34,7 @@ void InitChair(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 
-	g_Chair.pos = D3DXVECTOR3(-40.0f, 0.0f, 0.0f);
+	g_Chair.pos = D3DXVECTOR3(-70.0f, 0.0f, -20.0f);
 	g_Chair.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
 	g_Chair.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 

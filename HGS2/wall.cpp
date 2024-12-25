@@ -36,11 +36,11 @@ void InitWall(void)
 	pDevice = GetDevice();
 
 	g_Wall[0].pos = D3DXVECTOR3(0.0f, 0.0f, -130.0f);
-	g_Wall[1].pos = D3DXVECTOR3(0.0f, 0.0f, 200.0f);
-	g_Wall[2].pos = D3DXVECTOR3(300.0f, 0.0f, 0.0f);
-	g_Wall[2].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_Wall[3].pos = D3DXVECTOR3(-300.0f, 0.0f, 0.0f);
-	g_Wall[3].rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_Wall[1].pos = D3DXVECTOR3(0.0f, 0.0f, 130.0f);
+	g_Wall[2].pos = D3DXVECTOR3(250.0f, 0.0f, 0.0f);
+	g_Wall[2].rot = D3DXVECTOR3(0.0f, D3DX_PI * -0.5f, 0.0f);
+	g_Wall[3].pos = D3DXVECTOR3(-250.0f, 0.0f, 0.0f);
+	g_Wall[3].rot = D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f);
 
 	for (int i = 0; i < NUM_FILE; i++)
 	{
@@ -81,7 +81,7 @@ void InitWall(void)
 			//Xファイル読み込み
 			D3DXLoadMeshFromX
 			(
-				"data\\MODEL\\wall1.x",
+				"data\\MODEL\\bedwall.x",
 				D3DXMESH_SYSTEMMEM,
 				pDevice,
 				NULL,
@@ -96,7 +96,7 @@ void InitWall(void)
 			//Xファイル読み込み
 			D3DXLoadMeshFromX
 			(
-				"data\\MODEL\\wall1.x",
+				"data\\MODEL\\doowwall.x",
 				D3DXMESH_SYSTEMMEM,
 				pDevice,
 				NULL,

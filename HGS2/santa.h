@@ -36,7 +36,7 @@
 #define SANTA_SCALE_MAX (10.0f)
 #define SANTA_BLEND_FRAME (10.0f)
 #define SANTA_SIZE (50.0f)
-#define PRESENT_SPACE (30.0f)
+#define PRESENT_SPACE (50.0f)
 #define SANTA_AWAY (1.1f)
 
 //プレイヤー状態の列挙型定義

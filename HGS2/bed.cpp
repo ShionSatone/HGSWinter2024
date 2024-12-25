@@ -27,7 +27,7 @@ void InitBed(void)
 	//デバイスの取得
 	pDevice = GetDevice();
 
-	g_Bed.pos = D3DXVECTOR3(250.0f, 0.0f, 0.0f);
+	g_Bed.pos = D3DXVECTOR3(190.0f, 0.0f, -40.0f);
 	g_Bed.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Bed.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 

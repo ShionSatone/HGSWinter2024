@@ -266,15 +266,17 @@ void UpdateGame(void)
 					case PATA1:
 						Door* pDoor;
 						pDoor = GetDoor();
-						pos = pDoor->pos;
+						pos = pDoor->pos + D3DXVECTOR3(0.0f, 0.0f, DOOR_SPACE);
 						break;
 					case PATA2:
 						Chimney* pChimney;
 						pChimney = GetChimney();
-						pos = pChimney->pos;
+						pos = pChimney->pos + D3DXVECTOR3(0.0f, 0.0f, CHIMNEY_SPACE);
 						break;
 					case PATA3:
-						pos = D3DXVECTOR3(0.0f,50.0f,-20.0f);
+						Window* pWindow;
+						pWindow = GetWindow();
+						pos = pWindow->pos + D3DXVECTOR3(0.0f, 0.0f, WINDOW_SPACE);
 						break;
 					}
 
