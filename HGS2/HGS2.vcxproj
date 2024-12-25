@@ -149,6 +149,7 @@
     <ClCompile Include="blacksanta.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="chimney.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="cylinder.cpp" />
     <ClCompile Include="effect.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="blacksanta.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="chimney.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="cylinder.h" />
     <ClInclude Include="effect.h" />

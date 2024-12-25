@@ -36,6 +36,7 @@
 #include"sphere.h"
 #include"meshwall.h"
 #include"snowball.h"
+#include "chimney.h"
 
 //グローバル変数
 GAMESTATE g_gameState = GAMESTATE_NONE;
@@ -71,6 +72,7 @@ void InitGame(void)
 	InitHitShere();
 	InitPresent();		// プレゼント
 	InitBed();			// ベッド
+	InitChimney();      //煙突の初期化処理
 
 	//空間
 	SetMeshField(D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
@@ -125,6 +127,7 @@ void UninitGame(void)
 	UninitModel();
 	UninitPresent();		// プレゼント
 	UninitBed();			// ベッド
+	UninitChimney();      //煙突の終了処理
 }
 
 //--------------
@@ -251,6 +254,7 @@ void UpdateGame(void)
 		UpdateUi();
 		UpdatePresent();
 		UpdateBed();			// ベッド
+		UpdateChimney();      //煙突の更新処理
 	}
 }
 
@@ -281,6 +285,7 @@ void DrawGame(void)
 	DrawUi();
 	DrawPresent();
 	DrawBed();			// ベッド
+	DrawChimney();      //煙突の描画処理
 }
 
 //----------------------

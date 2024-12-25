@@ -25,6 +25,9 @@ BYTE g_akeyState[NUM_KEY_MAX];//キー情報
 LPDIRECTINPUTDEVICE8 g_DevMouse = NULL;//マウスデバイスポインタ
 DIMOUSESTATE2 g_MouseState;//マウス情報
 XINPUT_STATE g_joykeyState[CONTROLLER_MAX] = { NULL };//パッド情報
+XINPUT_STATE g_JoyKeyState;//パッドの情報
+XINPUT_STATE g_JoyKeyStateTrigger;//パッドの情報
+XINPUT_STATE g_JoyKeyStateRelease;//パッドの情報
 LPDIRECTINPUTDEVICE8 g_DevdJoypad[CONTROLLER_MAX] = { NULL };//パッドデバイスポインタ
 DIJOYSTATE g_djoykeyState[CONTROLLER_MAX] = { NULL };//dパッド情報
 LPDIRECTINPUTEFFECT g_djoyEffect[CONTROLLER_MAX] = { NULL };
