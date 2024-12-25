@@ -18,6 +18,7 @@
 #include"particle.h"
 #include"life.h"
 #include"snowball.h"
+#include "bed.h"
 
 //****************************************
 // マクロ定義
@@ -537,6 +538,8 @@ void UpdatePlayer(void)
 
 	UpdateMotion();
 
+	Bed* pBed = GetBed();
+
 	switch (g_Player.state)
 	{
 	case PLAYERSTATE_APPEAR:
@@ -550,6 +553,15 @@ void UpdatePlayer(void)
 		SetPositionShadow(g_Player.nIdxShadow, g_Player.pos, g_Player.scale, 200.0f);
 		SetLife(g_Player.pos + g_Player.aModel[0].pos + g_Player.aModel[1].pos + g_Player.aModel[10].pos, (float)((float)g_Player.nLife / (float)PLAYER_LIFE), g_Player.nIdxLife);
 		break;
+	case PLAYERSTATE_SLEEP:		// 睡眠
+
+		// プレイヤーの位置更新
+		g_Player.pos = D3DXVECTOR3(pBed->pos.x, pBed->pos.y + 30.0f, pBed->pos.z - 20.0f);
+
+		// 向き更新
+		g_Player.rot = D3DXVECTOR3(D3DX_PI * 0.5f, 0.0f, 0.0f);
+		break;
+
 	case PLAYERSTATE_DIE:
 		g_Player.Destrot.x = D3DX_PI * 0.5f;
 		static int nCnt = 0;

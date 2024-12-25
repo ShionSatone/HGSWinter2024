@@ -335,23 +335,22 @@ void BedShere(void)
 	D3DXVECTOR3 scale = D3DXVECTOR3(100.0f, 0.0f, 0.0f);
 
 	float Space = sqrtf((pPlayer->pos.x - pBed->pos.x) * (pPlayer->pos.x - pBed->pos.x) + (pPlayer->pos.y - pBed->pos.y) * (pPlayer->pos.y - pBed->pos.y) + (pPlayer->pos.z - pBed->pos.z) * (pPlayer->pos.z - pBed->pos.z));
-	if (Space < PLAYER_SIZE * 0.5f + scale.x)
+	
+	if (GetKeyboradTrigger(DIK_K) == true)
 	{
-		if (GetKeyboradTrigger(DIK_K) == true)
+		if (Space < PLAYER_SIZE * 0.5f + scale.x)
 		{
-			// ƒvƒŒƒCƒ„[‚ÌˆÊ’uXV
-			pPlayer->pos = D3DXVECTOR3(pBed->pos.x, pBed->pos.y + 50.0f, pBed->pos.z);
+			if (pPlayer->state == PLAYERSTATE_SLEEP)
+			{ // Q‚Ä‚éê‡
 
-			// Œü‚«XV
-			pPlayer->rot = D3DXVECTOR3(D3DX_PI * 0.5f, 0.0f, 0.0f);
-			//pPlayer->state = PLAYERSTATE_SLEEP;		// Q‚éó‘Ô‚É‚·‚é
+				pPlayer->pos.y = 0.1f;
+				pPlayer->state = PLAYERSTATE_NORMAL;
+			}
+			else if (pPlayer->state != PLAYERSTATE_SLEEP)
+			{ // Q‚Ä‚È‚¢ê‡
+
+				pPlayer->state = PLAYERSTATE_SLEEP;		// Q‚éó‘Ô‚É‚·‚é
+			}
 		}
-	}
-	else
-	{
-		/*if (pPlayer->state == PLAYERSTATE_SLEEP)
-		{
-			pPlayer->state = PLAYERSTATE_NORMAL;
-		}*/
 	}
 }
