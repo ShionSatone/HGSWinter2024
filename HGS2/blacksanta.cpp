@@ -8,13 +8,10 @@
 #include"blacksanta.h"
 #include"game.h"
 #include"shadow.h"
-#include"camera.h"
 #include"input.h"
-#include"bullet.h"
 #include"file.h"
 #include"particle.h"
-#include"life.h"
-#include"snowball.h"
+#include"present.h"
 
 //ÉOÉçÅ[ÉoÉãïœêîêÈåæ
 BlackSanta g_BlackSanta;
@@ -417,40 +414,36 @@ void UpdateBlackSanta(void)
 {
 	if (g_BlackSanta.bUse)
 	{
-		Camera* pCamera = GetCamera();
-
 		//à⁄ìÆèàóù
 
-		//Player* pPlayer = GetPlayer();
-		//float Oldrot = atan2f(g_BlackSanta.move.x, g_BlackSanta.move.z);//ç°ÇÃï˚å¸
-		//float Xlong = pPlayer->pos.x - g_BlackSanta.pos.x;
-		//float Zlong = pPlayer->pos.z - g_BlackSanta.pos.z;
-		//float Destrot = atan2f(Xlong, Zlong);//ìGÇÃï˚å¸
+		Present* pPresent = GetPresent();
+		float Oldrot = atan2f(g_BlackSanta.move.x, g_BlackSanta.move.z);//ç°ÇÃï˚å¸
+		float Xlong = pPresent->pos.x - g_BlackSanta.pos.x;
+		float Zlong = pPresent->pos.z - g_BlackSanta.pos.z;
+		float Destrot = atan2f(Xlong, Zlong);//ìGÇÃï˚å¸
 
-		//float Diffrot = Destrot - Oldrot;//ç∑ÇÃäpìx
-		//if (Diffrot > D3DX_PI)
-		//{//èCê≥
-		//	Diffrot -= D3DX_PI * 2;
-		//}
-		//else if (Diffrot < -D3DX_PI)
-		//{//èCê≥
-		//	Diffrot += D3DX_PI * 2;
-		//}
+		float Diffrot = Destrot - Oldrot;//ç∑ÇÃäpìx
+		if (Diffrot > D3DX_PI)
+		{//èCê≥
+			Diffrot -= D3DX_PI * 2;
+		}
+		else if (Diffrot < -D3DX_PI)
+		{//èCê≥
+			Diffrot += D3DX_PI * 2;
+		}
 
-		//Oldrot += Diffrot * 1.0f;//äpìxÇï‚ê≥
+		Oldrot += Diffrot * 1.0f;//äpìxÇï‚ê≥
 
-		//if (Oldrot > D3DX_PI)
-		//{//èCê≥
-		//	Oldrot -= D3DX_PI * 2;
-		//}
-		//else if (Oldrot < -D3DX_PI)
-		//{//èCê≥
-		//	Oldrot += D3DX_PI * 2;
-		//}
+		if (Oldrot > D3DX_PI)
+		{//èCê≥
+			Oldrot -= D3DX_PI * 2;
+		}
+		else if (Oldrot < -D3DX_PI)
+		{//èCê≥
+			Oldrot += D3DX_PI * 2;
+		}
 
-		//g_BlackSanta.move.x += sinf(Oldrot) * BlackSanta_SPEED;
-		//g_BlackSanta.move.z += cosf(Oldrot) * BlackSanta_SPEED;
-		//g_BlackSanta.Destrot.y = Oldrot - D3DX_PI;
+		g_BlackSanta.Destrot.y = Oldrot - D3DX_PI;
 		if (g_BlackSanta.motionType != MOTIONTYPE_JUMP && g_BlackSanta.motionType != MOTIONTYPE_LANDING && g_BlackSanta.motionType != MOTIONTYPE_ACTION)
 		{
 			g_BlackSanta.motionType = MOTIONTYPE_MOVE;
@@ -470,8 +463,6 @@ void UpdateBlackSanta(void)
 		g_BlackSanta.move.z += (BLACKSANTA_SPEED_DEF - g_BlackSanta.move.z) * BLACKSANTA_INA;
 
 		g_BlackSanta.pStage = NULL;
-
-		CollisionSnowBall(g_BlackSanta.pos, BLACKSANTA_SIZE);
 
 		CollisionStage(&g_BlackSanta.pStage);
 
@@ -707,25 +698,28 @@ void DrawBlackSanta(void)
 //-----------------------------
 void SetBlackSanta(D3DXVECTOR3 pos)
 {
-	g_BlackSanta.pos = pos;
+	if (!g_BlackSanta.bUse)
+	{
+		g_BlackSanta.pos = pos;
 
-	g_BlackSanta.posOld = pos;
-	g_BlackSanta.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_BlackSanta.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
-	g_BlackSanta.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
-	g_BlackSanta.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_BlackSanta.state = BLACKSANTASTATE_NORMAL;
-	g_BlackSanta.nIdxShadow = SetShadow(g_BlackSanta.pos, g_BlackSanta.rot);
-	g_BlackSanta.pStage = NULL;
+		g_BlackSanta.posOld = pos;
+		g_BlackSanta.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		g_BlackSanta.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
+		g_BlackSanta.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
+		g_BlackSanta.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+		g_BlackSanta.state = BLACKSANTASTATE_NORMAL;
+		g_BlackSanta.nIdxShadow = SetShadow(g_BlackSanta.pos, g_BlackSanta.rot);
+		g_BlackSanta.pStage = NULL;
 
-	g_BlackSanta.bLoopMotion = false;
-	g_BlackSanta.motionType = MOTIONTYPE_NEUTRAL;
-	g_BlackSanta.nCounterMotion = 0;
-	g_BlackSanta.nKey = -1;
-	g_BlackSanta.nNumKey = 0;
-	g_BlackSanta.nNumMotion = NUM_MOTION_BLACKSANTA;
+		g_BlackSanta.bLoopMotion = false;
+		g_BlackSanta.motionType = MOTIONTYPE_NEUTRAL;
+		g_BlackSanta.nCounterMotion = 0;
+		g_BlackSanta.nKey = -1;
+		g_BlackSanta.nNumKey = 0;
+		g_BlackSanta.nNumMotion = NUM_MOTION_BLACKSANTA;
 
-	g_BlackSanta.bUse = true;
+		g_BlackSanta.bUse = true;
+	}
 }
 
 //-----------------------------
@@ -733,26 +727,29 @@ void SetBlackSanta(D3DXVECTOR3 pos)
 //-----------------------------
 void EndBlackSanta(void)
 {
-	g_BlackSanta.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	if (g_BlackSanta.bUse)
+	{
+		g_BlackSanta.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
-	g_BlackSanta.posOld = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_BlackSanta.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_BlackSanta.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
-	g_BlackSanta.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
-	g_BlackSanta.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
-	g_BlackSanta.state = BLACKSANTASTATE_NORMAL;
-	NullShadow(g_BlackSanta.nIdxShadow);
-	g_BlackSanta.nIdxShadow = -1;
-	g_BlackSanta.pStage = NULL;
+		g_BlackSanta.posOld = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		g_BlackSanta.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		g_BlackSanta.rot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
+		g_BlackSanta.Destrot = D3DXVECTOR3(0.0f, D3DX_PI, 0.0f);
+		g_BlackSanta.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+		g_BlackSanta.state = BLACKSANTASTATE_NORMAL;
+		NullShadow(g_BlackSanta.nIdxShadow);
+		g_BlackSanta.nIdxShadow = -1;
+		g_BlackSanta.pStage = NULL;
 
-	g_BlackSanta.bLoopMotion = false;
-	g_BlackSanta.motionType = MOTIONTYPE_NEUTRAL;
-	g_BlackSanta.nCounterMotion = 0;
-	g_BlackSanta.nKey = -1;
-	g_BlackSanta.nNumKey = 0;
-	g_BlackSanta.nNumMotion = NUM_MOTION_BLACKSANTA;
+		g_BlackSanta.bLoopMotion = false;
+		g_BlackSanta.motionType = MOTIONTYPE_NEUTRAL;
+		g_BlackSanta.nCounterMotion = 0;
+		g_BlackSanta.nKey = -1;
+		g_BlackSanta.nNumKey = 0;
+		g_BlackSanta.nNumMotion = NUM_MOTION_BLACKSANTA;
 
-	g_BlackSanta.bUse = false;
+		g_BlackSanta.bUse = false;
+	}
 }
 
 //------------------------------
