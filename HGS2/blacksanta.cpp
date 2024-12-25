@@ -602,7 +602,7 @@ void UpdateBlackSanta(void)
 			if (nCnt >= 20)
 			{
 				NullShadow(g_BlackSanta.nIdxShadow);
-				SetParticle(g_BlackSanta.pos, g_BlackSanta.scale);
+				SetParticle(g_BlackSanta.pos, g_BlackSanta.scale,PARTICLE_TYPE_NONE);
 				g_BlackSanta.state = BLACKSANTASTATE_APPEAR;
 			}
 			break;

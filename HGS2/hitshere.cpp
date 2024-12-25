@@ -324,7 +324,7 @@ void TriggerShere(int Indx)
 			D3DXVec3Normalize(&Hitvec, &Hitvec);
 			pPlayer->move += Hitvec * Space;
 			pPlayer->nLife -= DAMEGE;
-			SetParticle(g_aHitShere[Indx].pos + Hitvec * g_aHitShere[Indx].scale.x, g_aHitShere[Indx].scale * 0.02f);
+			SetParticle(g_aHitShere[Indx].pos + Hitvec * g_aHitShere[Indx].scale.x, g_aHitShere[Indx].scale * 0.02f, PARTICLE_TYPE_NONE);
 		}
 		break;
 	}

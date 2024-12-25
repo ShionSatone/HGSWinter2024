@@ -8,6 +8,7 @@
 #include"socks.h"
 #include"camera.h"
 #include"input.h"
+#include "particle.h"
 
 // ƒ}ƒNƒ’è‹`
 #define X_NAME "data\\MODEL\\saku.x"
