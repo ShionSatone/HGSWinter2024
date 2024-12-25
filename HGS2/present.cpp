@@ -28,6 +28,7 @@ void InitPresent(void)
 	g_Present.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Present.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_Present.scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	g_Present.bUse = false;
 
 	//Xファイル読み込み
 	D3DXLoadMeshFromX
@@ -128,21 +129,24 @@ void DrawPresent(void)
 	//現在のマテリアル取得
 	pDevice->GetMaterial(&matDef);
 
-	//マテリアルデータへのポインタを取得
-	pMat = (D3DXMATERIAL*)g_Present.pBuffMat->GetBufferPointer();
-
-	for (int nCntMat = 0; nCntMat < (int)g_Present.dwNumMat; nCntMat++)
+	if (g_Present.bUse == true)
 	{
-		//マテリアルの設定
-		pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
-		//テクスチャ
-		pDevice->SetTexture(0, g_Present.apTexture[nCntMat]);
+		//マテリアルデータへのポインタを取得
+		pMat = (D3DXMATERIAL*)g_Present.pBuffMat->GetBufferPointer();
 
-		//モデル描画
-		g_Present.pMesh->DrawSubset(nCntMat);
+		for (int nCntMat = 0; nCntMat < (int)g_Present.dwNumMat; nCntMat++)
+		{
+			//マテリアルの設定
+			pDevice->SetMaterial(&pMat[nCntMat].MatD3D);
+			//テクスチャ
+			pDevice->SetTexture(0, g_Present.apTexture[nCntMat]);
+
+			//モデル描画
+			g_Present.pMesh->DrawSubset(nCntMat);
+		}
+
+		pDevice->SetMaterial(&matDef);
 	}
-
-	pDevice->SetMaterial(&matDef);
 }
 
 //------------------------------
@@ -159,4 +163,14 @@ Present* GetPresent(void)
 void SetPresentPos(D3DXVECTOR3 pos)
 {
 	g_Present.pos = pos;		// 位置設定
+
+	g_Present.bUse = true;
+}
+
+//------------------------------
+// 消去
+//------------------------------
+void DeletePresent(void)
+{
+	g_Present.bUse = false;
 }

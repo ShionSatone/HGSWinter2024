@@ -336,7 +336,7 @@ void BedShere(void)
 
 	float Space = sqrtf((pPlayer->pos.x - pBed->pos.x) * (pPlayer->pos.x - pBed->pos.x) + (pPlayer->pos.y - pBed->pos.y) * (pPlayer->pos.y - pBed->pos.y) + (pPlayer->pos.z - pBed->pos.z) * (pPlayer->pos.z - pBed->pos.z));
 	
-	if (GetKeyboradTrigger(DIK_K) == true)
+	if (GetKeyboradTrigger(DIK_K) == true/* || GetJoykeyTrigger(JOYKEY_RT, CONTROLLER_1) == true*/)
 	{
 		if (Space < PLAYER_SIZE * 0.5f + scale.x)
 		{
@@ -351,6 +351,18 @@ void BedShere(void)
 
 				pPlayer->state = PLAYERSTATE_SLEEP;		// Q‚éó‘Ô‚É‚·‚é
 			}
+		}
+	}
+	else if (GetKeyboradTrigger(DIK_A) == true || GetKeyboradTrigger(DIK_D) == true ||
+		GetKeyboradTrigger(DIK_W) == true || GetKeyboradTrigger(DIK_S) == true)
+	{ // ˆÚ“®‚µ‚½‚ç
+
+		// ‹N‚«‚é‚æ`
+		if (pPlayer->state == PLAYERSTATE_SLEEP)
+		{ // Q‚Ä‚éê‡
+
+			pPlayer->pos.y = 0.1f;
+			pPlayer->state = PLAYERSTATE_NORMAL;
 		}
 	}
 }
