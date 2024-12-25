@@ -596,56 +596,56 @@ void UpdateTitle(void)
 					//サウンド
 					StopSound(SOUND_LABEL_BGM);
 					//切替
-					SetFade(MODE_GAME);
-				}
-				break;
-			case SELECT_VERSUS:
-				DemoCnt = 0;
-				fade = GetFade();
-				if (fade == FADE_NONE)
-				{
-					//サウンド
-					StopSound(SOUND_LABEL_BGM);
-					//切替
-					SetFade(MODE_VS);
-				}
-				break;
-			case SELECT_TUTO:
-				DemoCnt = 0;
-				fade = GetFade();
-				if (fade == FADE_NONE)
-				{
-					//サウンド
-					StopSound(SOUND_LABEL_BGM);
-					//切替
 					SetFade(MODE_TUTO);
-
 				}
 				break;
-			case SELECT_RANK:
-				DemoCnt = 0;
-				fade = GetFade();
-				if (fade == FADE_NONE)
-				{
-					//サウンド
-					StopSound(SOUND_LABEL_BGM);
-					//切替
-					SetFade(MODE_RANK);
+			//case SELECT_VERSUS:
+			//	DemoCnt = 0;
+			//	fade = GetFade();
+			//	if (fade == FADE_NONE)
+			//	{
+			//		//サウンド
+			//		StopSound(SOUND_LABEL_BGM);
+			//		//切替
+			//		SetFade(MODE_VS);
+			//	}
+			//	break;
+			//case SELECT_TUTO:
+			//	DemoCnt = 0;
+			//	fade = GetFade();
+			//	if (fade == FADE_NONE)
+			//	{
+			//		//サウンド
+			//		StopSound(SOUND_LABEL_BGM);
+			//		//切替
+			//		SetFade(MODE_TUTO);
 
-				}
-				break;
-			case SELECT_OPTION:
-				DemoCnt = 0;
-				fade = GetFade();
-				if (fade == FADE_NONE)
-				{
-					//サウンド
-					StopSound(SOUND_LABEL_BGM);
-					//切替
-					SetFade(MODE_OPTION);
+			//	}
+			//	break;
+			//case SELECT_RANK:
+			//	DemoCnt = 0;
+			//	fade = GetFade();
+			//	if (fade == FADE_NONE)
+			//	{
+			//		//サウンド
+			//		StopSound(SOUND_LABEL_BGM);
+			//		//切替
+			//		SetFade(MODE_RANK);
 
-				}
-				break;
+			//	}
+			//	break;
+			//case SELECT_OPTION:
+			//	DemoCnt = 0;
+			//	fade = GetFade();
+			//	if (fade == FADE_NONE)
+			//	{
+			//		//サウンド
+			//		StopSound(SOUND_LABEL_BGM);
+			//		//切替
+			//		SetFade(MODE_OPTION);
+
+			//	}
+			//	break;
 			case SELECT_EXIT:
 				DemoCnt = 0;
 				fade = GetFade();
