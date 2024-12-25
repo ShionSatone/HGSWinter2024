@@ -18,10 +18,9 @@ typedef struct
 	D3DXVECTOR3 posDef;
 	D3DXVECTOR3 rot;
 	D3DXVECTOR3 scale;
+	D3DXVECTOR3 vtxMax, vtxMin,Size;
 	D3DXMATRIX mtxWorld;
 	DWORD dwNumMat;//É}ÉeÉäÉAÉãêî
-	D3DXVECTOR3 vtxMin;
-	D3DXVECTOR3 vtxMax;
 	D3DXVECTOR3 vtxMinDef;
 	D3DXVECTOR3 vtxMaxDef;
 	int nNumVtx;

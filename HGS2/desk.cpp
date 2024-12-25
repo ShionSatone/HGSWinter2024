@@ -11,6 +11,7 @@
 #include"desk.h"
 #include"camera.h"
 #include"input.h"
+#include "player.h"
 
 //***************************************
 // マクロ定義
@@ -49,6 +50,48 @@ void InitDesk(void)
 		&g_Desk.dwNumMat,
 		&g_Desk.pMesh
 	);
+
+	//頂点数
+	g_Desk.nNumVtx = g_Desk.pMesh->GetNumVertices();
+	//頂点サイズ
+	g_Desk.sizeFVF = D3DXGetFVFVertexSize(g_Desk.pMesh->GetFVF());
+	//頂点バッファの取得
+	g_Desk.pMesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&g_Desk.pVtxBuff);
+
+	for (int nCntVtx = 0; nCntVtx < g_Desk.nNumVtx; nCntVtx++)
+	{
+		D3DXVECTOR3 vtx = *(D3DXVECTOR3*)g_Desk.pVtxBuff;
+
+		if (vtx.x > g_Desk.vtxMax.x)
+		{
+			g_Desk.vtxMax.x = vtx.x;
+		}
+		if (vtx.x < g_Desk.vtxMin.x)
+		{
+			g_Desk.vtxMin.x = vtx.x;
+		}
+		if (vtx.y > g_Desk.vtxMax.y)
+		{
+			g_Desk.vtxMax.y = vtx.y;
+		}
+		if (vtx.y < g_Desk.vtxMin.y)
+		{
+			g_Desk.vtxMin.y = vtx.y;
+		}
+		if (vtx.z > g_Desk.vtxMax.z)
+		{
+			g_Desk.vtxMax.z = vtx.z;
+		}
+		if (vtx.z < g_Desk.vtxMin.z)
+		{
+			g_Desk.vtxMin.z = vtx.z;
+		}
+
+		g_Desk.pVtxBuff += g_Desk.sizeFVF;
+	}
+	g_Desk.Size.x = g_Desk.vtxMax.x - g_Desk.vtxMin.x;
+	g_Desk.Size.y = g_Desk.vtxMax.y - g_Desk.vtxMin.y;
+	g_Desk.Size.z = g_Desk.vtxMax.z - g_Desk.vtxMin.z;
 
 	//マテリアルデータへのポインタを取得
 	pMat = (D3DXMATERIAL*)g_Desk.pBuffMat->GetBufferPointer();
@@ -100,7 +143,7 @@ void UninitDesk(void)
 //=======================================
 void UpdateDesk(void)
 {
-
+	CollisionObj(g_Desk.pos, g_Desk.Size);//プレイヤーとの当たり判定
 }
 
 //=======================================
