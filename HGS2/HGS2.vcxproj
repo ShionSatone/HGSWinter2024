@@ -166,6 +166,7 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="rank.cpp" />
     <ClCompile Include="result.cpp" />
+    <ClCompile Include="santa.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="shadow.cpp" />
     <ClCompile Include="snow.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="rank.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="result.h" />
+    <ClInclude Include="santa.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="shadow.h" />
     <ClInclude Include="snow.h" />
